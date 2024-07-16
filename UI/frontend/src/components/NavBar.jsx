@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 export default function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ width: '100%', backgroundColor: '#392467'}}>
+      <AppBar position="fixed" sx={{ width: '100%', backgroundColor: '#392467', padding:'10px'}}>
         <Toolbar variant="dense">
           <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1 }}>
             BookHub
