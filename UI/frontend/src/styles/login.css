@@ -1,4 +1,4 @@
-/* .login-container body {
+.login-container body {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,4 +104,4 @@
   
   .content.active .switch-right {
     transform: translateX(200%);
-  } */
+  }

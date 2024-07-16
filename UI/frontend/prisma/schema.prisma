@@ -14,9 +14,54 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
-model auth{
+model user{
   user_id Int  @id @default(autoincrement())
-  user_name String  @db.VarChar(50)
-  password  String  @db.VarChar(30)
-  role  Int
+  user_name String  @db.VarChar(255)
+  password  String  @db.VarChar(255)
+  user_email  String  @unique
+  role_id  String  @db.VarChar(255)
+  created_by  Int
+  created_at   DateTime @default(now())
+  flag  Boolean @default(false)
+}
+
+model book{
+  book_id Int @id @default(autoincrement())
+  book_name String  @db.VarChar(255)
+  description String  @db.VarChar(255)
+  genre String  @db.VarChar(255)
+  author  String  @db.VarChar(255)
+  type  String  @db.VarChar(255)
+  edition String  @db.VarChar(255)
+  created_at   DateTime @default(now())
+  created_by  Int
+  updated_at   DateTime   @updatedAt
+  is_deleted  Boolean   @default(false)
+
+}
+
+model borrow_info{
+  boorow_id Int @id @default(autoincrement())
+  book_id Int
+  user_id Int
+  borrow_date DateTime @default(now())
+  access_granted Boolean  @default(false)
+  access_cut_date DateTime  
+  flag  Boolean  @default(false)
+}
+
+model review{
+  review_id Int @id @default(autoincrement())
+  book_id Int
+  user_id Int
+  rating  Int
+  comment String  @db.VarChar(255)
+  created_at   DateTime @default(now())
+
+}
+
+model role{
+  role_id Int @id @default(autoincrement())
+  role  String
+  permissions String
 }
