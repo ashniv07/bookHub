@@ -2,13 +2,10 @@
 
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 import 'swiper/css';
-import 'swiper/css/autoplay'; 
-
+import 'swiper/css/autoplay';
 import { Box } from '@mui/material';
 import { styled } from '@mui/system';
-
 import { Autoplay } from 'swiper/modules';
 
 import book1 from '../assets/book1.jpg';
@@ -50,42 +47,42 @@ const SlideContent = styled(Box)({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  overflow: 'hidden', 
+  overflow: 'hidden',
 });
 
 const BookImage = styled('img')({
   width: '100%',
   height: 'auto',
-  maxWidth: '200px', 
-  maxHeight: '300px', 
+  maxWidth: '200px',
+  maxHeight: '300px',
   objectFit: 'cover',
   transition: 'transform 0.3s ease',
   '&:hover': {
-    transform: 'scale(1.1)', 
+    transform: 'scale(1.1)',
   },
 });
 
 export default function App() {
   return (
-    <>
-      <Swiper
-        slidesPerView={6}
-        spaceBetween={8}
-        autoplay={{
-          delay: 1500, 
-          disableOnInteraction: false, 
-        }}
-        modules={[Autoplay]}
-        className="mySwiper"
-      >
-        {books.map(book => (
-          <SwiperSlide key={book.id}>
-            <SlideContent>
-              <BookImage src={book.src} alt={`Book ${book.id}`} />
-            </SlideContent>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </>
+    <Swiper
+      slidesPerView={6}
+      spaceBetween={8}
+      autoplay={{
+        delay: 1500,
+        disableOnInteraction: false,
+      }}
+      modules={[Autoplay]}
+      className="mySwiper"
+    >
+      {books.map(book => (
+        <SwiperSlide key={book.id}>
+          <SlideContent>
+            <BookImage src={book.src} alt={`Book ${book.id}`} />
+          </SlideContent>
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 }
+
+
