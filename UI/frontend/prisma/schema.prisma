@@ -15,13 +15,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 model user{
-  userId Int  @id @default(autoincrement())
-  userName String  @db.VarChar(255)
-  password  String  @db.VarChar(255)
-  userEmail  String  @unique
-  roleId  String  @db.VarChar(255)
-  createdBy  Int
-  createdAt   DateTime @default(now())
+  user_id Int  @id @default(autoincrement())
+  user_name String?  @db.VarChar(255)
+  password  String?  @db.VarChar(255)
+  user_email  String?  @unique
+  role_id  String  @db.VarChar(255)
+  created_by  Int
+  created_at   DateTime @default(now())
   flag  Boolean @default(false)
 }
 

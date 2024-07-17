@@ -1,5 +1,6 @@
 package com.library.bookhub.Controller;
 
+import com.library.bookhub.Domain.Userdto;
 import com.library.bookhub.Model.User;
 import com.library.bookhub.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,12 @@ public class UserController {
 
     @GetMapping("/reg")
     public String showRegistrationForm() {
-        return "reg"; // Assuming "reg" is your HTML form name or template name
+        return "reg"; 
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user) {
+    public String registerUser(@RequestBody Userdto user) {
         userService.registerUser(user);
-        return "redirect:/success"; // Redirect to a success page or another endpoint
+        return "redirect:/success"; 
     }
 }

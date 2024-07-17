@@ -16,9 +16,8 @@ import lombok.Data;
 public class User {
 
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
-    @Column(nullable = true, columnDefinition = "VARCHAR(255) DEFAULT ''")
     private String userName;
     private String password;
     private String userEmail;
