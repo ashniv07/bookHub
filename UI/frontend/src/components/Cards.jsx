@@ -9,7 +9,6 @@ import study from '../assets/study.jpg'
 import thriller from '../assets/Thriller.jfif'
 
 const Cards = () => {
-
     return (
         <div className="container" style={{marginTop:'100px'}}>
             <div className="row">
