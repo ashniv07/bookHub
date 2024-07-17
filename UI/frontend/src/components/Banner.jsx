@@ -1,12 +1,14 @@
 import React from 'react';
 import { Box, Typography, TextField, Button } from '@mui/material';
 import { styled } from '@mui/system';
+import bannerimg from '../assets/banner-image.png';
+
 
 const colors = {
   primary: '#392467',
   secondary: '#5D3587',
   tertiary: '#A367B1',
-  light: '#f2d7ff'
+  light: '#F1F1F1'
 };
 
 const BannerContainer = styled(Box)({
@@ -15,10 +17,12 @@ const BannerContainer = styled(Box)({
   alignItems: 'center',
   width: 'calc(100% - 40px)', // Reduce the width to create space on the sides
   padding: '40px 0',
-  marginTop: '30px',
+  marginBottom: '30px',
+  marginTop:'100px',
   marginLeft: '20px', // Add margin to the left
   marginRight: '20px', // Add margin to the right
   borderRadius: '16px',  // Add borderRadius for rounded corners
+  boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.5)' 
 });
 
 const ContentContainer = styled(Box)({
@@ -65,23 +69,24 @@ const SearchInput = styled(TextField)({
   '& .MuiOutlinedInput-root': {
     borderRadius: '4px 0 0 4px',
     '& input': {
-      padding: '4px', // Adjust padding to make the input smaller
+      padding: '7px', // Adjust padding to make the input smaller
       fontSize: '14px', // Adjust font size to make the input box shorter
     },
   },
 });
 
 const SearchButton = styled(Button)({
-  backgroundColor: colors.tertiary,
+  backgroundColor: colors.primary,
   color: 'white',
   '&:hover': {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.tertiary,
   },
 });
 
 const Banner = () => {
   return (
     <BannerContainer>
+         
       <ContentContainer>
         <Box>
           <Heading variant="h2">
@@ -100,6 +105,7 @@ const Banner = () => {
           </SearchContainer>
         </Box>
       </ContentContainer>
+      <img src={bannerimg} alt="Banner" style={{ maxWidth: '25%', height: '20%' }}/>
     </BannerContainer>
   );
 }

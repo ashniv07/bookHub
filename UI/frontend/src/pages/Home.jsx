@@ -7,30 +7,22 @@ const Home = () => {
   return (
     <div>
       <NavBar />
-      <div style={{ marginTop: '100px', textAlign: 'center', padding: '20px' }}>
+      <Banner/>
+
+      <div style={{ marginTop: '10px', textAlign: 'center', padding: '20px' }}>
   <h1 style={{
     background: 'linear-gradient(45deg, #392467, #5D3587)',
     WebkitBackgroundClip: 'text',
     color: 'transparent',
-    fontSize: '3rem'
+    fontSize: '40px',
+  fontWeight: 'bold',
+  lineHeight: '1.2',
+  padding: '0 16px',
   }}>
-    WELCOME TO BOOKHUB
+    RECOMMENDED BOOKS
   </h1>
-  <p style={{
-    fontSize: '1.2rem',
-    lineHeight: '1.6',
-    color: '#A367B1'
-  }}>
-    Your go-to solution for accessing your e-book.<br />
-    Organize, search, and enjoy your collection seamlessly with BookHub. 
-    <span style={{ color: '#392467', fontWeight: 'bold' }}> Explore our catalog </span> 
-    and find your next great read today!
-  </p>
-</div>
-
-
+  </div>
       <Slides/>
-      <Banner/>
 
     </div>
   );

@@ -1,20 +1,10 @@
-// import React, { useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { useState } from 'react';
-// import "bootstrap/dist/css/bootstrap.min.css";
-
-// // import '../components/NavBar';
-// import axios from 'axios';
-// // import NavBar from '../components/NavBar';
-// import '../Styles/login.css';
-
-// 
+ 
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
-import '../Styles/login.css';
+import '../styles/login.css'
 
 
 function LoginRegister() {
@@ -44,7 +34,7 @@ function LoginRegister() {
   function register(event) {
     event.preventDefault();
     axios.post("http://localhost:8081/register", { username, email, password })
-      .then(res => navigate("/home"))
+      .then(res => navigate("/genre"))
       .catch(err => console.log(err));
   }
 
