@@ -15,21 +15,28 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-
+    public boolean isUsernameExists(String username) {
+        return userRepo.findByUserName(username) != null;
+    }
+       
     public void registerUser(Userdto user) {
+
+        if (isUsernameExists(user.getUserName())) {
+            throw new IllegalArgumentException("Username already exists");
+        }
+        else{
         User u = new User();
+        
         u.setUserName(user.getUserName());
         u.setUserEmail(user.getUserEmail());
-
         BCryptPasswordEncoder encodedPassword = new BCryptPasswordEncoder();
-       
         u.setPassword(encodedPassword.encode(user.getPassword()));
-        u.setRoleId("USER"); 
+        u.setRoleId(1); 
         u.setCreatedBy(1);  
         u.setCreatedAt(LocalDateTime.now()); 
         u.setFlag(true);     
-
         userRepo.save(u);
+        }
     }
 
 }

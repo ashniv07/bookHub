@@ -26,22 +26,32 @@ function LoginRegister() {
     };
   }, []);
 
-  const [user_name, setUsername] = useState('');
-  const [user_email, setEmail] = useState('');
+  const [userName, setUsername] = useState('');
+  const [userEmail, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [values, setValues] = useState({ user_email: '', password: '' });
+  const [error, setError] = useState(null);
+  const [values, setValues] = useState({ userEmail: '', password: '' });
   const navigate = useNavigate();
 
   function register(event) {
     event.preventDefault();
+<<<<<<< HEAD
     axios.post("http://localhost:8080/register", { user_name, user_email, password })
+=======
+    axios.post("http://localhost:8080/register", { userName, userEmail, password })
+>>>>>>> d98221c0e5ffdd90f5e43d37070f373e126b9279
       .then(res => navigate("/genre"))
-      .catch(err => console.log(err));
+      .catch(err => {
+        if (err.response && err.response.status === 400) {
+          alert("Registration failed. Please try again"); 
+        } 
+        });
   }
 
   function login(event) {
     event.preventDefault();
     axios.post("http://localhost:8080/login", values)
+<<<<<<< HEAD
       .then(res => {
         if (res.data.Status === "Success") {
           navigate("/genre");
@@ -50,6 +60,10 @@ function LoginRegister() {
         }
       })
       .catch(err => console.log(err));
+=======
+      .then(res => navigate("/genre"))
+      .catch(err => alert(err.response.data));       
+>>>>>>> d98221c0e5ffdd90f5e43d37070f373e126b9279
   }
 
   return (
@@ -68,7 +82,7 @@ function LoginRegister() {
                 type='text'
                 className='form-control form-control-lg bg-light fs-6'
                 placeholder='Name'
-                value={user_name}
+                value={userName}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
@@ -77,7 +91,7 @@ function LoginRegister() {
                 type='email'
                 className='form-control form-control-lg bg-light fs-6'
                 placeholder='Email'
-                value={user_email}
+                value={userEmail}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -106,7 +120,7 @@ function LoginRegister() {
                 type='email'
                 className='form-control form-control-lg bg-light fs-6'
                 placeholder='Email'
-                onChange={e => setValues({ ...values, user_email: e.target.value })}
+                onChange={e => setValues({ ...values, userEmail: e.target.value })}
               />
             </div>
             <div className='input-group mb-3'>
