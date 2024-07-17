@@ -34,14 +34,14 @@ function LoginRegister() {
 
   function register(event) {
     event.preventDefault();
-    axios.post("http://localhost:8081/register", { user_name, user_email, password })
+    axios.post("http://localhost:8080/register", { user_name, user_email, password })
       .then(res => navigate("/genre"))
       .catch(err => console.log(err));
   }
 
   function login(event) {
     event.preventDefault();
-    axios.post("http://localhost:8081/login", values)
+    axios.post("http://localhost:8080/login", values)
       .then(res => {
         if (res.data.Status === "Success") {
           navigate("/genre");
