@@ -26,15 +26,15 @@ function LoginRegister() {
     };
   }, []);
 
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
+  const [user_name, setUsername] = useState('');
+  const [user_email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [values, setValues] = useState({ email: '', password: '' });
   const navigate = useNavigate();
 
   function register(event) {
     event.preventDefault();
-    axios.post("http://localhost:8081/register", { username, email, password })
+    axios.post("http://localhost:8081/register", { user_name, user_email, password })
       .then(res => navigate("/genre"))
       .catch(err => console.log(err));
   }
@@ -44,7 +44,7 @@ function LoginRegister() {
     axios.post("http://localhost:8081/login", values)
       .then(res => {
         if (res.data.Status === "Success") {
-          navigate("/home");
+          navigate("/genre");
         } else {
           alert(res.data.Error);
         }
@@ -68,7 +68,7 @@ function LoginRegister() {
                 type='text'
                 className='form-control form-control-lg bg-light fs-6'
                 placeholder='Name'
-                value={username}
+                value={user_name}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
@@ -106,7 +106,7 @@ function LoginRegister() {
                 type='email'
                 className='form-control form-control-lg bg-light fs-6'
                 placeholder='Email'
-                onChange={e => setValues({ ...values, email: e.target.value })}
+                onChange={e => setValues({ ...values, user_email: e.target.value })}
               />
             </div>
             <div className='input-group mb-3'>
