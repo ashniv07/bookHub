@@ -19,12 +19,10 @@ public class logService {
 
     public ResponseEntity<String> CheckUser(loginDto user)
     {
-        User found = repo.findByUserName("da");
+        User found = repo.findByUserName(user.getUserName());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             if (passwordEncoder.matches(user.getPassword(), found.getPassword())) {
-
                 return ResponseEntity.ok("Success");
- 
             }
             else
             {

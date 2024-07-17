@@ -19,7 +19,7 @@ model user{
   user_name String?  @db.VarChar(255)
   password  String?  @db.VarChar(255)
   user_email  String?  @unique
-  role_id  String  @db.VarChar(255)
+  role_id  Int  
   created_by  Int
   created_at   DateTime @default(now())
   flag  Boolean @default(false)
