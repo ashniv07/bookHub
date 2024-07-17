@@ -4,11 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
-<<<<<<< HEAD
 import '../styles/login.css'
-=======
-import '../styles/login.css';
->>>>>>> 726343cd9a62d4d4da15862c1a838763c4db4ef1
 
 
 function LoginRegister() {
@@ -32,19 +28,19 @@ function LoginRegister() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [values, setValues] = useState({ email: '', password: '' });
+  const [values, setValues] = useState({ user_email: '', password: '' });
   const navigate = useNavigate();
 
   function register(event) {
     event.preventDefault();
-    axios.post("http://localhost:8081/register", { username, email, password })
+    axios.post("http://localhost:8080/register", {user_name,password,user_email})
       .then(res => navigate("/genre"))
       .catch(err => console.log(err));
   }
 
   function login(event) {
     event.preventDefault();
-    axios.post("http://localhost:8081/login", values)
+    axios.post("http://localhost:8080/login", values)
       .then(res => {
         if (res.data.Status === "Success") {
           navigate("/home");
@@ -109,7 +105,7 @@ function LoginRegister() {
                 type='email'
                 className='form-control form-control-lg bg-light fs-6'
                 placeholder='Email'
-                onChange={e => setValues({ ...values, email: e.target.value })}
+                onChange={e => setValues({ ...values, user_email: e.target.value })}
               />
             </div>
             <div className='input-group mb-3'>

@@ -4,6 +4,8 @@ import com.library.bookhub.Domain.Userdto;
 import com.library.bookhub.Model.User;
 import com.library.bookhub.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +21,10 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestBody Userdto user) {
+    public ResponseEntity<String> registerUser(@RequestBody Userdto user) {
         userService.registerUser(user);
-        return "redirect:/success"; 
-    }
+        return ResponseEntity.ok("success");
+        }
+
+    
 }
