@@ -35,11 +35,7 @@ function LoginRegister() {
 
   function register(event) {
     event.preventDefault();
-<<<<<<< HEAD
-    axios.post("http://localhost:8080/register", { user_name, user_email, password })
-=======
     axios.post("http://localhost:8080/register", { userName, userEmail, password })
->>>>>>> d98221c0e5ffdd90f5e43d37070f373e126b9279
       .then(res => navigate("/genre"))
       .catch(err => {
         if (err.response && err.response.status === 400) {
@@ -51,19 +47,8 @@ function LoginRegister() {
   function login(event) {
     event.preventDefault();
     axios.post("http://localhost:8080/login", values)
-<<<<<<< HEAD
-      .then(res => {
-        if (res.data.Status === "Success") {
-          navigate("/genre");
-        } else {
-          alert(res.data.Error);
-        }
-      })
-      .catch(err => console.log(err));
-=======
-      .then(res => navigate("/genre"))
-      .catch(err => alert(err.response.data));       
->>>>>>> d98221c0e5ffdd90f5e43d37070f373e126b9279
+    .then(res => navigate("/genre"))
+    .catch(err => alert(err.response.data));         
   }
 
   return (
