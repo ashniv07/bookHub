@@ -4,7 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
+<<<<<<< HEAD
 import '../styles/login.css'
+=======
+import '../styles/login.css';
+>>>>>>> 726343cd9a62d4d4da15862c1a838763c4db4ef1
 
 
 function LoginRegister() {
