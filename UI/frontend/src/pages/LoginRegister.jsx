@@ -5,10 +5,7 @@ import { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
 import '../styles/login.css'
-<<<<<<< HEAD
-=======
 
->>>>>>> 85f73aef4c1911c486fe1bae7c52143420ef0e17
 
 
 function LoginRegister() {
@@ -37,11 +34,7 @@ function LoginRegister() {
 
   function register(event) {
     event.preventDefault();
-<<<<<<< HEAD
-    axios.post("http://localhost:8080/register", {user_name,password,user_email})
-=======
-    axios.post("http://localhost:8081/register", { user_name, user_email, password })
->>>>>>> 85f73aef4c1911c486fe1bae7c52143420ef0e17
+    axios.post("http://localhost:8080/register", { user_name, user_email, password })
       .then(res => navigate("/genre"))
       .catch(err => console.log(err));
   }
