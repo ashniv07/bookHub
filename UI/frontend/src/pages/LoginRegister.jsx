@@ -47,14 +47,8 @@ function LoginRegister() {
   function login(event) {
     event.preventDefault();
     axios.post("http://localhost:8080/login", values)
-      .then(res => {
-        if (res.data.Status === "Success") {
-          navigate("/genre");
-        } else {
-          alert(res.data.Error);
-        }
-      })
-      .catch(err => console.log(err));
+      .then(res => navigate("/genre"))
+      .catch(err => alert(err.response.data));       
   }
 
   return (
