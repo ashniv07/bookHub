@@ -29,7 +29,7 @@ function LoginRegister() {
   const [user_name, setUsername] = useState('');
   const [user_email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [values, setValues] = useState({ email: '', password: '' });
+  const [values, setValues] = useState({ user_email: '', password: '' });
   const navigate = useNavigate();
 
   function register(event) {
@@ -77,7 +77,7 @@ function LoginRegister() {
                 type='email'
                 className='form-control form-control-lg bg-light fs-6'
                 placeholder='Email'
-                value={email}
+                value={user_email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
