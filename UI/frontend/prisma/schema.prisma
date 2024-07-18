@@ -37,7 +37,8 @@ model book{
   created_by  Int
   updated_at   DateTime   @updatedAt
   is_deleted  Boolean   @default(false)
-
+  url String  @unique 
+  image String @db.VarChar(255)
 }
 
 model borrow_info{
