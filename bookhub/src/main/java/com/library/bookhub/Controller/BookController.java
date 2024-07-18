@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import com.library.bookhub.Model.Book;
 import com.library.bookhub.Service.BookService;
 
 @Controller
+@CrossOrigin(origins = "http://localhost:5173")
 public class BookController {
 
 
@@ -38,12 +40,12 @@ public class BookController {
 
      }
 
-     @GetMapping("/books-not-del")
-     public List<Object[]> getBooksNotDel(@RequestParam("year") Boolean year)
+    //  @GetMapping("/books-not-del")
+    //  public List<Object[]> getBooksNotDel(@RequestParam("year") Boolean year)
 
-     {
-        return bookService.FindAllBooks()
-     }
+    //  {
+    //     return bookService.FindAllBooks()
+    //  }
 
     }
     

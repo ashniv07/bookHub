@@ -43,9 +43,9 @@ public class BookService {
 
     }
 
-    public List<Object[]> getallDeletedBooks(Boolean isdelete)
-    {
-        return rep.AllBooksNotDeleted(isdelete);
-    }
+    // public List<Object[]> getallDeletedBooks(Boolean isdelete)
+    // {
+    //     return rep.AllBooksNotDeleted(isdelete);
+    // }
     
 }

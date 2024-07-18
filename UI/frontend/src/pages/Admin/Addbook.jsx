@@ -6,7 +6,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const Addbook = () => {
     const bookCategories = [
-        "Fiction",
         "Fantasy",
         "Romance",
         "Mystery and Thriller",
@@ -14,48 +13,59 @@ const Addbook = () => {
         "Historical",
         "Horror",
         "Non-fiction",
-        "Romatasy",
-        "Bibliography",
-        "Autobiography",
         "Self-Help",
-        "Kids"
-      ];
-    
-      const [selectedBookCategory, setSelectedBookCategory] = useState(bookCategories[0]);
-    
-      const handleChangeSelectedValue = (event) => {
+    ];
+
+    const [selectedBookCategory, setSelectedBookCategory] = useState(bookCategories[0]);
+
+    const handleChangeSelectedValue = (event) => {
         setSelectedBookCategory(event.target.value);
-      };
-    
-      const handleBookSubmitted = (event) => {
+    };
+
+    const handleBookSubmitted = (event) => {
         event.preventDefault();
         const form = event.target;
-        const  bookName= form.bookName.value;
+        console.log(form.bookName);
+        const bookName=form.bookName.value;
         const author = form.author.value;
-        const image = form.image.value;
+        const genre = form.genre.value;
+        const type = form.type.value;
+        const edition = form.edition.value;
         const description = form.description.value;
+        const image = form.image.value;
         const url = form.url.value;
-        const genre=form.genre.value;
-        const edition=form.edition.value;
-        const type=form.type.value;
-        
-        const bookObj={
-            bookName,author,image,description,url,genre,edition,type
-        }
+      
+        const bookObj = {
+           bookName,
+            author,
+            genre,
+            type,
+            edition,
+            description,
+            image,
+            url
+        };
         console.log(bookObj);
-       
-        fetch(" ",
-        {method:"POST",
-        headers:{
-            "Content-Type": "application/json",
-        },
-        body:JSON.stringify(bookObj)
-        }).then(res=>res.json()).then(data=>{
-            // console.log(data);
-            alert("Book uploaded successfully");
-            form.reset();
+
+        fetch("http://localhost:8080/savebooks", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(bookObj),
         })
-      };
+            .then((res) => res.json())
+            .then((data) => {
+                // console.log(data);
+                alert("Book uploaded successfully");
+                form.reset();
+            })
+            .catch((error) => {
+                console.error("Error uploading book:", error);
+            });
+    };
+
+
     
     return (
       <div className='px-4 my-12'>
@@ -63,7 +73,7 @@ const Addbook = () => {
         <Form onSubmit={handleBookSubmitted} className="flex flex-col gap-4 lg:w-[1180px] mx-auto">
         <Form.Group className='flex flex-wrap gap-8'>
           <Form.Label htmlFor="bookName" className="mb-2 block">Book title</Form.Label>
-          <Form.Control id="bookName" name='bookName' type="text" placeholder="Book Name" required className="rounded-md" />
+          <Form.Control id="bookName" name='bookName' type="text" placeholder="Book Name"  required className="rounded-md" />
         </Form.Group>
 
         <Form.Group className='flex flex-wrap gap-8'>
@@ -73,7 +83,7 @@ const Addbook = () => {
         
         <Form.Group className='flex flex-wrap gap-8'>
           <Form.Label htmlFor="inputState" className="mb-2 block">Genre</Form.Label>
-          <Form.Select id='inputState' name='category' className='w-full rounded-md' value={selectedBookCategory} onChange={handleChangeSelectedValue}>
+          <Form.Select id='inputState' name='genre' className='w-full rounded-md' value={selectedBookCategory} onChange={handleChangeSelectedValue}>
             {bookCategories.map(option => <option key={option} value={option}>{option}</option>)}
           </Form.Select>
         </Form.Group>
@@ -86,7 +96,7 @@ const Addbook = () => {
       <Form.Check
         type="radio"
         id={`default-${type}`}
-        name="bookType"
+        name="type"
         value={type}
         label={type.charAt(0).toUpperCase() + type.slice(1)} 
       />
@@ -95,8 +105,8 @@ const Addbook = () => {
     </Form.Group>
 
     <Form.Group className='flex flex-wrap gap-8'>
-          <Form.Label htmlFor="author" className="mb-2 block">Edition</Form.Label>
-          <Form.Control id="author" name='author' type="text" placeholder="Author Name" required className="rounded-md" />
+          <Form.Label htmlFor="edition" className="mb-2 block">Edition</Form.Label>
+          <Form.Control id="edition" name='edition' type="text" placeholder="edition" required className="rounded-md" />
         </Form.Group>
         
         <Form.Group>
