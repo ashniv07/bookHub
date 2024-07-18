@@ -30,15 +30,17 @@ const Addbook = () => {
       const handleBookSubmitted = (event) => {
         event.preventDefault();
         const form = event.target;
-        const bookTitle = form.bookTitle.value;
-        const authorName = form.authorName.value;
-        const imageURL = form.imageURL.value;
-        const category = form.category.value;
-        const bookDescription = form.bookDescription.value;
-        const bookPDFURL = form.bookPDFURL.value;
+        const  bookName= form.bookName.value;
+        const author = form.author.value;
+        const image = form.image.value;
+        const description = form.description.value;
+        const url = form.url.value;
+        const genre=form.genre.value;
+        const edition=form.edition.value;
+        const type=form.type.value;
         
         const bookObj={
-            bookTitle,authorName,imageURL,category,bookDescription,bookPDFURL
+            bookName,author,image,description,url,genre,edition,type
         }
         console.log(bookObj);
        
@@ -60,13 +62,13 @@ const Addbook = () => {
         <h2 className='mb-8 text-3xl font-bold'>Add book</h2>
         <Form onSubmit={handleBookSubmitted} className="flex flex-col gap-4 lg:w-[1180px] mx-auto">
         <Form.Group className='flex flex-wrap gap-8'>
-          <Form.Label htmlFor="bookTitle" className="mb-2 block">Book title</Form.Label>
-          <Form.Control id="bookTitle" name='bookTitle' type="text" placeholder="Book Name" required className="rounded-md" />
+          <Form.Label htmlFor="bookName" className="mb-2 block">Book title</Form.Label>
+          <Form.Control id="bookName" name='bookName' type="text" placeholder="Book Name" required className="rounded-md" />
         </Form.Group>
 
         <Form.Group className='flex flex-wrap gap-8'>
-          <Form.Label htmlFor="authorName" className="mb-2 block">Author</Form.Label>
-          <Form.Control id="authorName" name='authorName' type="text" placeholder="Author Name" required className="rounded-md" />
+          <Form.Label htmlFor="author" className="mb-2 block">Author</Form.Label>
+          <Form.Control id="author" name='author' type="text" placeholder="Author Name" required className="rounded-md" />
         </Form.Group>
         
         <Form.Group className='flex flex-wrap gap-8'>
@@ -93,23 +95,23 @@ const Addbook = () => {
     </Form.Group>
 
     <Form.Group className='flex flex-wrap gap-8'>
-          <Form.Label htmlFor="authorName" className="mb-2 block">Edition</Form.Label>
-          <Form.Control id="authorName" name='authorName' type="text" placeholder="Author Name" required className="rounded-md" />
+          <Form.Label htmlFor="author" className="mb-2 block">Edition</Form.Label>
+          <Form.Control id="author" name='author' type="text" placeholder="Author Name" required className="rounded-md" />
         </Form.Group>
         
         <Form.Group>
-          <Form.Label htmlFor="bookDescription" className="mb-2 block">Book Description</Form.Label>
-          <Form.Control id="bookDescription" placeholder="Book Description" required as="textarea" rows={5} className='w-full' />
+          <Form.Label htmlFor="description" className="mb-2 block">Book Description</Form.Label>
+          <Form.Control id="description" placeholder="Book Description" required as="textarea" rows={5} className='w-full' />
         </Form.Group>
         
         <Form.Group className='flex flex-wrap gap-8'>
-          <Form.Label htmlFor="imageURL" className="mb-2 block">Book image URL</Form.Label>
-          <Form.Control id="imageURL" name='imageURL' type="text" placeholder="Book Image" required className="rounded-md" />
+          <Form.Label htmlFor="image" className="mb-2 block">Book image URL</Form.Label>
+          <Form.Control id="image" name='image' type="text" placeholder="Book Image" required className="rounded-md" />
         </Form.Group>
 
         <Form.Group>
-          <Form.Label htmlFor="bookPDFURL" className="mb-2 block">PDF URL</Form.Label>
-          <Form.Control id="bookPDFURL" name='bookPDFURL' type="text" placeholder="Book PDF" required className="rounded-md" />
+          <Form.Label htmlFor="url" className="mb-2 block">PDF URL</Form.Label>
+          <Form.Control id="url" name='url' type="text" placeholder="Book PDF" required className="rounded-md" />
         </Form.Group>
         <Button type="submit" className='bg-blue-700 w-full px-5 py-2 hover:bg-blue-500 rounded mt-2'>Add</Button>
     
