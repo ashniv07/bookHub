@@ -3,10 +3,13 @@ package com.library.bookhub.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.library.bookhub.Domain.BookDto;
+import com.library.bookhub.Domain.ResultDto;
 import com.library.bookhub.Model.Book;
 import com.library.bookhub.Repository.BookRepo;
 
@@ -43,9 +46,8 @@ public class BookService {
 
     }
 
-    public List<Object[]> getallDeletedBooks(Boolean isdelete)
-    {
-        return rep.AllBooksNotDeleted(isdelete);
+    public List<ResultDto> getAllBooksNotDeleted() {
+        return rep.findAllBooksNotDeleted();
     }
     
 }

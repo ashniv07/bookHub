@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.library.bookhub.Domain.BookDto;
+import com.library.bookhub.Domain.ResultDto;
 import com.library.bookhub.Model.Book;
 import com.library.bookhub.Service.BookService;
 
@@ -39,11 +40,10 @@ public class BookController {
      }
 
      @GetMapping("/books-not-del")
-     public List<Object[]> getBooksNotDel(@RequestParam("year") Boolean year)
-
-     {
-        return bookService.FindAllBooks()
-     }
+public ResponseEntity<List<ResultDto>> getBooksNotDel() {
+    List<ResultDto> books = bookService.getAllBooksNotDeleted();
+    return ResponseEntity.ok(books);
+}
 
     }
     
