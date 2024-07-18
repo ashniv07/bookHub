@@ -5,6 +5,7 @@ import LoginRegister from './pages/LoginRegister';
 import Genre from './pages/Genre';
 import Profile from './pages/Profile';
 import Addbook from './pages/Admin/Addbook';
+import Managebook from './pages/Admin/Managebook';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/genre" element={<Genre/>} />
                 <Route path="/profile" element={<Profile/>} />
                 <Route path="/addbook" element={<Addbook/>} />
+                <Route path="/manage" element={<Managebook/>} />
                 
                 </Routes>
         </Router>

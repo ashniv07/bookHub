@@ -15,7 +15,9 @@ export default function NavBar() {
           <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1 }}>
             BookHub
           </Typography>
-          <Button color="inherit">Login</Button>
+          <a href="/logandreg" class="text-white">
+          <Button color="inherit">Login</Button></a>
+
           <Button color="inherit">Signup</Button>
         </Toolbar>
       </AppBar>
