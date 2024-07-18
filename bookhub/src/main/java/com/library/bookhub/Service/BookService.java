@@ -46,8 +46,15 @@ public class BookService {
 
     }
 
+<<<<<<< HEAD
     public List<ResultDto> getAllBooksNotDeleted() {
         return rep.findAllBooksNotDeleted();
     }
+=======
+    // public List<Object[]> getallDeletedBooks(Boolean isdelete)
+    // {
+    //     return rep.AllBooksNotDeleted(isdelete);
+    // }
+>>>>>>> 8addbaac4345ae880423b386fd4783499aa9176b
     
 }
