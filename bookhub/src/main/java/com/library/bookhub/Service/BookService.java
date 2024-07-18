@@ -2,6 +2,7 @@ package com.library.bookhub.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.spi.DirStateFactory.Result;
 
@@ -13,17 +14,22 @@ import com.library.bookhub.Domain.ResultDto;
 import com.library.bookhub.Model.Book;
 import com.library.bookhub.Repository.BookRepo;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class BookService {
 
     @Autowired
     private BookRepo rep; 
-    
+
+    //Listing all books
     public List<Book> FindAllBooks()
     {
         return rep.findAll();
     }
 
+
+    //Saving new entries to the database
     public void saveBook(BookDto book)
     {
         Book b = new Book();
@@ -41,20 +47,60 @@ public class BookService {
         b.setModifiedAt(null);
         b.setModifiedBy(-1);
         rep.save(b);
-
-
-
     }
 
-<<<<<<< HEAD
+
+    //Display all the books in front end
     public List<ResultDto> getAllBooksNotDeleted() {
         return rep.findAllBooksNotDeleted();
     }
-=======
-    // public List<Object[]> getallDeletedBooks(Boolean isdelete)
-    // {
-    //     return rep.AllBooksNotDeleted(isdelete);
-    // }
->>>>>>> 8addbaac4345ae880423b386fd4783499aa9176b
+
+
+    //Update certain fields
+    public void updateBookField(int id, Map<String, Object> updates) {
+        Book book = rep.findById(id);
     
-}
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "bookName":
+                    book.setBookName((String) value);
+                    break;
+                case "description":
+                    book.setDescription((String) value);
+                    break;
+                case "genre":
+                    book.setGenre((String) value);
+                    break;
+                case "author":
+                    book.setAuthor((String) value);
+                    break;
+                case "type":
+                    book.setType((String) value);
+                    break;
+                case "edition":
+                    book.setEdition((String) value);
+                    break;
+                case "url":
+                    book.setUrl((String) value);
+                    break;
+                case "image":
+                    book.setImage((String) value);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid field: " + key);
+            }
+        });
+    
+        book.setModifiedAt(LocalDateTime.now());
+        book.setModifiedBy(0);
+        rep.save(book);
+    }
+
+    //Soft delete on the books
+    @Transactional
+    public void softDeleteBookById(int id) {
+        Book book = rep.findById(id);
+        book.setIsDeleted(true);
+        rep.save(book);
+    
+}}

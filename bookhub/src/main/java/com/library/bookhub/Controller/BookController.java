@@ -1,12 +1,16 @@
 package com.library.bookhub.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,12 +28,14 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    //Mapping for finding books
     @GetMapping("/findbooks")
     public ResponseEntity<List<Book>> getAllBooks() {
         List<Book> book = bookService.FindAllBooks();
         return ResponseEntity.ok(book);
     }
 
+    //Mapping for saving
     @PostMapping("/savebooks")
      public ResponseEntity<String> registerUser(@RequestBody BookDto book){
      try {
@@ -41,20 +47,35 @@ public class BookController {
 
      }
 
-<<<<<<< HEAD
+     //Mapping for getting all non deleted books
      @GetMapping("/books-not-del")
 public ResponseEntity<List<ResultDto>> getBooksNotDel() {
     List<ResultDto> books = bookService.getAllBooksNotDeleted();
     return ResponseEntity.ok(books);
 }
-=======
-    //  @GetMapping("/books-not-del")
-    //  public List<Object[]> getBooksNotDel(@RequestParam("year") Boolean year)
 
-    //  {
-    //     return bookService.FindAllBooks()
-    //  }
->>>>>>> 8addbaac4345ae880423b386fd4783499aa9176b
+//Mapping for update
+@PatchMapping("/updatebook/{id}")
+    public ResponseEntity<String> updateBookField(@PathVariable int id, @RequestBody Map<String, Object> updates) {
+        try {
+            bookService.updateBookField(id, updates);
+            return ResponseEntity.ok("Book updated successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    //Mapping for delete
+
+    @DeleteMapping("soft-delete/{id}")
+    public ResponseEntity<String> softDeleteBook(@PathVariable int id) {
+        try {
+            bookService.softDeleteBookById(id);
+            return ResponseEntity.ok("Book soft deleted successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Failed to soft delete book: " + e.getMessage());
+        }
+    }
 
     }
     
