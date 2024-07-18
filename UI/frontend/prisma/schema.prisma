@@ -35,7 +35,8 @@ model book{
   edition String  @db.VarChar(255)
   created_at   DateTime @default(now())
   created_by  Int
-  updated_at   DateTime   @updatedAt
+  modified_by Int
+  modified_at   DateTime?   @updatedAt
   is_deleted  Boolean   @default(false)
   url String  @unique 
   image String @db.VarChar(255)
