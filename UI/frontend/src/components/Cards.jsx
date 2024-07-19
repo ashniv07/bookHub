@@ -1,99 +1,45 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import fantasy from '../assets/fantasy.jpg';
 import horror from '../assets/horror.jpg';
 import scifi from '../assets/sci-fi.jpg';
-import romance from '../assets/romance.jpg'
-import comic from '../assets/comic.jpg'
-import selfhelp from '../assets/selfhelp.jpg'
-import study from '../assets/study.jpg'
-import thriller from '../assets/Thriller.jfif'
+import romance from '../assets/romance.jpg';
+import comic from '../assets/comic.jpg';
+import selfhelp from '../assets/selfhelp.jpg';
+import study from '../assets/study.jpg';
+import thriller from '../assets/Thriller.jfif';
+
+const genreImages = {
+    Fantasy: fantasy,
+    Horror: horror,
+    "Science Fiction": scifi,
+    Comics: comic,
+    Romance: romance,
+    Thriller: thriller,
+    "Study Materials": study,
+    "Self-help": selfhelp,
+};
 
 const Cards = () => {
+    const navigate = useNavigate();
+    const genres = ['Fantasy', 'Horror', 'Science Fiction', 'Comics', 'Romance', 'Thriller', 'Study Materials', 'Self-help'];
+
+    const handleCardClick = (genre) => {
+        navigate(`/genre/${genre}`);
+    };
+
     return (
-        <div className="container" style={{marginTop:'100px'}}>
+        <div className="container" style={{ marginTop: '100px' }}>
             <div className="row">
-                <div className="col-md-3">
-                    <div className="card" style={{ width: "18rem"}}>
-                        <img className="card-img-top" src={fantasy} alt="Card image cap" style={{height:"17rem"}} />
-                        <div className="card-body">
-                            <p className="card-text">
-                                Fantasy
-                            </p>
+                {genres.map((genre) => (
+                    <div className="col-md-3" key={genre}>
+                        <div className="card" onClick={() => handleCardClick(genre)} style={{ width: "18rem" }}>
+                            <img className="card-img-top" src={genreImages[genre]} alt={`Card image for ${genre}`} style={{ height: "17rem" }} />
+                            <div className="card-body">
+                                <p className="card-text">{genre}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="col-md-3">
-                    <div className="card" style={{ width: "18rem"}}>
-                        <img className="card-img-top" src={horror} alt="Card image cap" style={{height:"17rem"}}/>
-                        <div className="card-body">
-                            <p className="card-text">
-                                Horror
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-3">
-                    <div className="card" style={{ width: "18rem" }}>
-                        <img className="card-img-top" src={scifi} alt="Card image cap" style={{height:"17rem"}}/>
-                        <div className="card-body">
-                            <p className="card-text">
-                               Science Fiction
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-3">
-                    <div className="card" style={{ width: "18rem" }}>
-                        <img className="card-img-top" src={comic} alt="Card image cap" style={{height:"17rem"}}/>
-                        <div className="card-body">
-                            <p className="card-text">
-                                Comics
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="row" style={{marginTop:"20px"}}>
-                <div className="col-md-3">
-                    <div className="card" style={{ width: "18rem" }}>
-                        <img className="card-img-top" src={romance} alt="Card image cap" style={{height:"17rem"}}/>
-                        <div className="card-body">
-                            <p className="card-text">
-                                Romance
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-3">
-                    <div className="card" style={{ width: "18rem" }}>
-                        <img className="card-img-top" src={thriller} alt="Card image cap" style={{height:"17rem"}}/>
-                        <div className="card-body">
-                            <p className="card-text">
-                                Thriller
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-3">
-                    <div className="card" style={{ width: "18rem" }}>
-                        <img className="card-img-top" src={study} alt="Card image cap" style={{height:"17rem"}}/>
-                        <div className="card-body">
-                            <p className="card-text">
-                                Study Materials
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-3">
-                    <div className="card" style={{ width: "18rem" }}>
-                        <img className="card-img-top" src={selfhelp} alt="Card image cap" style={{height:"17rem"}} />
-                        <div className="card-body">
-                            <p className="card-text">
-                                Self-help
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     );
