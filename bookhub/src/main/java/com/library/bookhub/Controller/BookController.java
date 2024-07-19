@@ -77,5 +77,13 @@ public ResponseEntity<List<ResultDto>> getBooksNotDel() {
         }
     }
 
+    //Mapping for per genre
+    @GetMapping("/genre/{genre}")
+    public ResponseEntity<List<ResultDto>> getBooksByGenre(@PathVariable String genre) {
+        List<ResultDto> books = bookService.getBooksByGenre(genre);
+        return ResponseEntity.ok(books);
+    }
+
+
     }
     

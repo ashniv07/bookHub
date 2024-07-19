@@ -103,4 +103,13 @@ public class BookService {
         book.setIsDeleted(true);
         rep.save(book);
     
-}}
+}
+
+    //book by genre
+    public List<ResultDto> getBooksByGenre(String genre) {
+        return rep.findBooksByGenre(genre);
+    }
+    
+
+
+}

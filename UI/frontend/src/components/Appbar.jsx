@@ -7,19 +7,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 export default function Appbar() {
-  const [username, setUsername] = React.useState('');
   const navigate = useNavigate();
-
-  React.useEffect(() => {
-    const storedUsername = localStorage.getItem('username');
-    if (storedUsername) {
-      setUsername(storedUsername);
-    }
-  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('username');
-    navigate('/login');
+    navigate('/logandreg');
   };
 
   return (
@@ -29,16 +21,17 @@ export default function Appbar() {
           <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1 }}>
             BookHub
           </Typography>
-          {username && (
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography variant="body1" color="inherit" sx={{ marginRight: 2 }}>
-                Hi, {username}
-              </Typography>
-              <Button color="inherit" onClick={handleLogout}>
-                Logout
-              </Button>
-            </Box>
-          )}
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Button color="inherit" onClick={() => navigate('/favorites')}>
+              Favorites
+            </Button>
+            <Button color="inherit" onClick={() => navigate('/dashboard')}>
+              Dashboard
+            </Button>
+            <Button color="inherit" onClick={handleLogout}>
+              Logout
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>

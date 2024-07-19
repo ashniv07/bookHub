@@ -10,14 +10,14 @@ const Managebook = () => {
   }, []);
 
 //   const handleDelete = (id) => {
-//     fetch(`${id}`, {
+//     fetch(`http://localhost:8080/soft-delete${id}`, {
 //       method: 'DELETE',
 //     })
 //     .then(res => res.json())
 //     .then(data => {
 //       alert("Book is deleted successfully");
-//       setAllBooks(allBooks.filter(book => book._id !== id));
-//     });
+//       setAllBooks(allBooks.filter(book => book.bookId !== id));
+//     }); 
 //   };
   return (
        <div className="container my-12">
@@ -48,7 +48,7 @@ const Managebook = () => {
           <td>{book.type}</td>
           <td>{book.edition}</td>
           <td>{book.description}</td>
-          <td>{book.image}</td>
+          <td ><img src={book.image} class="w-50 h-25"/></td>
           <td>{book.url}</td>
     
           <td>

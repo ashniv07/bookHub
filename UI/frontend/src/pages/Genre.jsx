@@ -1,11 +1,11 @@
 import React from 'react'
 import Cards from '../components/Cards'
-import NavBar from '../components/NavBar'
+import Appbar from '../components/Appbar'
 
 const Genre = () => {
   return (
     <div>
-      <NavBar/>
+      <Appbar/>
       <Cards/>  
     </div>
   )

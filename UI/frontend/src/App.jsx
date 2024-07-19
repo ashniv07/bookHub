@@ -6,6 +6,8 @@ import Genre from './pages/Genre';
 import Profile from './pages/Profile';
 import Addbook from './pages/Admin/Addbook';
 import Managebook from './pages/Admin/Managebook';
+import Favorites from './pages/Favorites';
+import Dashboard from './pages/Dashboard';
 
 function App() {
 
@@ -20,6 +22,10 @@ function App() {
                 <Route path="/profile" element={<Profile/>} />
                 <Route path="/addbook" element={<Addbook/>} />
                 <Route path="/manage" element={<Managebook/>} />
+                <Route path="/favorites" element={<Favorites/>} />
+                <Route path="/dashboard" element={<Dashboard/>} />
+
+
                 
                 </Routes>
         </Router>
