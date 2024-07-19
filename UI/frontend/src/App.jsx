@@ -8,6 +8,7 @@ import Addbook from './pages/Admin/Addbook';
 import Managebook from './pages/Admin/Managebook';
 import Favorites from './pages/Favorites';
 import Dashboard from './pages/Dashboard';
+import Genrebooks from './pages/Genrebooks';
 
 function App() {
 
@@ -15,19 +16,18 @@ function App() {
   return (
     
     <Router>
+       
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/logandreg" element={<LoginRegister/>} />
-                <Route path="/genre" element={<Genre/>} />
-                <Route path="/profile" element={<Profile/>} />
-                <Route path="/addbook" element={<Addbook/>} />
-                <Route path="/manage" element={<Managebook/>} />
-                <Route path="/favorites" element={<Favorites/>} />
-                <Route path="/dashboard" element={<Dashboard/>} />
-
-
-                
-                </Routes>
+                <Route path="/logandreg" element={<LoginRegister />} />
+                <Route path="/genre" element={<Genre />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/addbook" element={<Addbook />} />
+                <Route path="/manage" element={<Managebook />} />
+                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/genre/:genre" element={<Genrebooks />} />
+            </Routes>
         </Router>
   )
 }
