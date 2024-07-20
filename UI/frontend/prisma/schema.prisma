@@ -25,30 +25,31 @@ model user{
   flag  Boolean @default(false)
 }
 
-model book{
-  book_id Int @id @default(autoincrement())
-  book_name String  @db.VarChar(255)
-  description String  @db.VarChar(255)
-  genre String  @db.VarChar(255)
-  author  String  @db.VarChar(255)
-  type  String  @db.VarChar(255)
-  edition String  @db.VarChar(255)
-  created_at   DateTime @default(now())
-  created_by  Int
-  modified_by Int
-  modified_at   DateTime?   @updatedAt
-  is_deleted  Boolean   @default(false)
-  url String  @unique 
-  image String @db.VarChar(255)
+model book {
+  book_id       Int      @id @default(autoincrement())
+  book_name     String   @db.VarChar(255)
+  description   String   @db.Text // Change here
+  genre         String   @db.VarChar(255)
+  author        String   @db.VarChar(255)
+  type          String   @db.VarChar(255)
+  edition       String   @db.VarChar(255)
+  created_at    DateTime @default(now())
+  created_by    Int
+  modified_by   Int
+  modified_at   DateTime? @updatedAt
+  is_deleted    Boolean  @default(false)
+  url           String   @unique
+  image         String   @db.VarChar(255)
 }
 
+
 model borrow_info{
-  boorow_id Int @id @default(autoincrement())
+  borrow_id Int @id @default(autoincrement()) @unique
   book_id Int
   user_id Int
   borrow_date DateTime @default(now())
   access_granted Boolean  @default(false)
-  access_cut_date DateTime  
+  access_cut_date DateTime?  
   flag  Boolean  @default(false)
 }
 

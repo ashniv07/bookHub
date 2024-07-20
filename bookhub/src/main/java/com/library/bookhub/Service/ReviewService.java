@@ -1,5 +1,6 @@
 package com.library.bookhub.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +15,18 @@ import com.library.bookhub.Repository.ReviewRepo;
 public class ReviewService {
     @Autowired
     private ReviewRepo reviewRepository;
-    private BookRepo bookRepository;
 
-    public void addReviewForEachBook(int userId, int rating, String comment) {
-        List<Book> books = bookRepository.findAll();
-        for (Book book : books) {
+    public void addReviewForEachBook(int bookId, int userId, int rating, String comment) {
             Review review = new Review();
-            review.setBookId(book.getBookId());
+            review.setBookId(bookId);
             review.setUserId(userId);
             review.setRating(rating);
             review.setComment(comment);
+            review.setCreatedAt(LocalDateTime.now());
             reviewRepository.save(review);
         }
-    
-}}
+
+        public List<Review> getReviewsByBookId(int bookId) {
+            return reviewRepository.findByBookId(bookId);
+        }
+}
