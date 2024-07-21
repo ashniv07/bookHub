@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -110,8 +108,10 @@ public class BookService {
         return rep.findBooksByGenre(genre);
     }
 
-    
-    
+    //find book by id
+    public Book findBookById(int id) {
+        return rep.findById(id);
+    }
 
 
 }

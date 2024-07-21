@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.library.bookhub.Domain.BookDto;
 import com.library.bookhub.Domain.ResultDto;
@@ -84,6 +83,17 @@ public ResponseEntity<List<ResultDto>> getBooksNotDel() {
         return ResponseEntity.ok(books);
     }
 
+    //Mapping for get book by id
+    @GetMapping("/book/{id}")
+    public ResponseEntity<Book> getBookById(@PathVariable int id) {
+        try {
+            Book book = bookService.findBookById(id);
+            return ResponseEntity.ok(book);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     }
+    //
     
