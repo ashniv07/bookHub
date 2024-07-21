@@ -1,12 +1,8 @@
- 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
-import '../styles/login.css'
-
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import '../styles/login.css';
 
 function LoginRegister() {
   useEffect(() => {
@@ -41,15 +37,33 @@ function LoginRegister() {
         if (err.response && err.response.status === 400) {
           alert("Registration failed. Please try again"); 
         } 
-        });
+      });
   }
 
-  function login(event) {
+  const login = (event) => {
     event.preventDefault();
     axios.post("http://localhost:8080/login", values)
-    .then(res => navigate("/genre"))
-    .catch(err => alert(err.response.data));         
-  }
+      .then(response => {
+        const responseData = response.data;
+
+        if (responseData.roleId !== undefined) {
+          if (responseData.roleId === 0) {
+            navigate("/addbook");
+          } else {
+            navigate("/genre");
+          }
+        } else {
+          setError("Unexpected response data");
+        }
+      })
+      .catch(err => {
+        if (err.response && err.response.data) {
+          setError(err.response.data);
+        } else {
+          setError("An unexpected error occurred");
+        }
+      });
+  };
 
   return (
     <div className='login-container'>
@@ -130,6 +144,7 @@ function LoginRegister() {
             <div className='input-group mb-3 justify-content-center'>
               <button className='btn-login'>Login</button>
             </div>
+            {error && <div className='error-message'>{error}</div>}
           </form>
         </div>
 
@@ -138,7 +153,7 @@ function LoginRegister() {
             <div className='switch-panel switch-left'>
               <h1>Hello, again</h1>
               <p>Welcome, We are happy to have you </p>
-             <p>Already have an accout?</p>
+              <p>Already have an accout?</p>
               <button className='hidden btn border-white text-white w-50 fs-6' id='login'>Login</button>
             </div>
             <div className='switch-panel switch-right'>

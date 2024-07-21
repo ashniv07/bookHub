@@ -7,6 +7,7 @@ public class loginDto {
 
     private String userEmail;
     private String password;
+    private int roleId;
 
 
     

@@ -1,5 +1,8 @@
 package com.library.bookhub.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,23 +19,23 @@ public class logService {
     @Autowired
     private LoginRepo repo;
 
-    public ResponseEntity<String> CheckUser(loginDto user)
-    {
+    public ResponseEntity<?> CheckUser(loginDto user) {
         User found = repo.findByUserEmail(user.getUserEmail());
-        if(found == null)
-        {
+        if (found == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found!!");
         }
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            if (passwordEncoder.matches(user.getPassword(), found.getPassword())) {
-                return ResponseEntity.ok("Success");
-            }
-            else
-            {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong password");
-            }
+        if (passwordEncoder.matches(user.getPassword(), found.getPassword())) {
+            // Create a map to hold the response data
+            Map<String, Object> response = new HashMap<>();
+            response.put("roleId", found.getRoleId());
+            response.put("message", "Login successful");
+
+            // Return the response with status OK
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong password");
         }
     }
-
-    
-
+}
