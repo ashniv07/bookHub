@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import "bootstrap/dist/css/bootstrap.min.css";
+import Sidebar from '../../components/Sidebar';
 
 const Addbook = () => {
     const bookCategories = [
@@ -68,7 +69,9 @@ const Addbook = () => {
 
     
     return (
-      <div className='px-4 my-12'>
+      <div className='addbook' style={{display:"flex"}}>
+  <Sidebar/>
+      <div className='px-4 my-12' style={{width:"90%"}}>
         <h2 className='mb-8 text-3xl font-bold'>Add book</h2>
         <Form onSubmit={handleBookSubmitted} className="flex flex-col gap-4 lg:w-[1180px] mx-auto">
         <Form.Group className='flex flex-wrap gap-8'>
@@ -127,6 +130,8 @@ const Addbook = () => {
     
 
       </Form>
+      </div>
+          
       </div>
     );
   };

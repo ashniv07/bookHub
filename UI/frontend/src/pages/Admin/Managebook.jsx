@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Sidebar from '../../components/Sidebar';
 
 const Managebook = () => {
     const [allBooks, setAllBooks] = useState([]);
@@ -67,7 +68,9 @@ const Managebook = () => {
   
 
     return (
-        <div className="container my-12">
+        <div className="manage"style={{display:"flex"}}>
+            <Sidebar/>
+        <div className="container my-12 " style={{width:"80%"}}>
             <h2 className="mb-4 text-3xl font-bold">Manage Your Books</h2>
 
             <table className="table table-striped table-bordered">
@@ -203,6 +206,7 @@ const Managebook = () => {
                     ))}
                 </tbody>
             </table>
+        </div>
         </div>
     );
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Appbar from '../components/Appbar';
+import BorrowButton from '../components/BorrowButton';
 
 const BookDetails = () => {
     const { id } = useParams();
@@ -50,7 +51,7 @@ const BookDetails = () => {
             <p><strong>Type:</strong> {book.type}</p>
             <p><strong>Edition:</strong> {book.edition}</p>
             <div className="mt-3">
-                <button className="btn btn-primary me-2">Borrow</button>
+               <BorrowButton/>
                 <button className="btn btn-secondary">To Be Read</button>
             </div>
         </div>

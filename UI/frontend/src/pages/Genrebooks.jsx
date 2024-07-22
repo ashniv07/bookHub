@@ -10,6 +10,7 @@ const GenreBooks = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+
         const fetchBooks = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/genre/${genre}`);
@@ -26,6 +27,7 @@ const GenreBooks = () => {
     }, [genre]);
 
     const handleCardClick = (id) => {
+        console.log('Clicked book ID:', id); 
         navigate(`/book/${id}`);
     }; 
 
