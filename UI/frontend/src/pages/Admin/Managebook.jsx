@@ -7,7 +7,7 @@ const Managebook = () => {
     const [updatedBook, setUpdatedBook] = useState({});
 
     useEffect(() => {
-        fetch("http://localhost:8080/findbooks")
+        fetch("http://localhost:8080/books-not-del")
             .then(res => res.json())
             .then(data => setAllBooks(data))
             .catch(error => console.error('Error fetching books:', error.message));
