@@ -19,11 +19,7 @@ public class LogController {
     @PostMapping("/login")
     public ResponseEntity<?> handleLogin(@RequestBody loginDto user) {        
         ResponseEntity<?> response = logService.CheckUser(user);
-
-        if (response.getBody() instanceof Map) {
-            return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
-        } else {
-            return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
-        }
+        return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
     }
+    
 }
