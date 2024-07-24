@@ -39,7 +39,7 @@ const Profile = () => {
             textAlign: 'center',
             backgroundColor: 'grey',
             boxShadow: '5px 5px 5px 5px rgba(0,0,0,0.5)',
-            position: 'relative',
+            position: 'relative'
           }}
         >
           <div
