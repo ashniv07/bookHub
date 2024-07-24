@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Appbar from '../components/Appbar';
 import BorrowButton from '../components/BorrowButton';
+import { Container, Grid, Card, CardMedia, CardContent, Typography, Button, CircularProgress, Box } from '@mui/material';
 
 const BookDetails = () => {
     const { id } = useParams();
@@ -30,36 +32,59 @@ const BookDetails = () => {
         }
     }, [id]);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return (
+        <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+            <CircularProgress />
+        </Box>
+    );
     if (!book) return <p>Book not found</p>;
 
     return (
         <div>
-            <Appbar/>
-        <div className="container" style={{ marginTop: '100px' }}>
-    <div className="row">
-        <div className="col-md-4">
-            <img src={book.image} alt={book.bookName} className="img-fluid mb-3" />
+            <Appbar />
+            <Container sx={{ mt: 10 }}>
+                <Card sx={{ display: 'flex', boxShadow: 3 }}>
+                    <Grid container>
+                        <Grid item xs={12} md={4}>
+                            <CardMedia
+                                component="img"
+                                image={book.image}
+                                alt={book.bookName}
+                                sx={{ height: '100%', width: 'auto' }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={8}>
+                            <CardContent>
+                                <Typography component="div" variant="h4">
+                                    {book.bookName}
+                                </Typography>
+                                <Typography variant="subtitle1" color="text.secondary" component="div">
+                                    by {book.author}
+                                </Typography>
+                                <Typography variant="body1" sx={{ mt: 2 }}>
+                                    <strong>Description:</strong> {book.description}
+                                </Typography>
+                                <Typography variant="body1" sx={{ mt: 1 }}>
+                                    <strong>Genre:</strong> {book.genre}
+                                </Typography>
+                                <Typography variant="body1" sx={{ mt: 1 }}>
+                                    <strong>Type:</strong> {book.type}
+                                </Typography>
+                                <Typography variant="body1" sx={{ mt: 1 }}>
+                                    <strong>Edition:</strong> {book.edition}
+                                </Typography>
+                                <Box sx={{ mt: 3 }}>
+                                    <BorrowButton />
+                                    <Button variant="contained" color="secondary" sx={{ ml: 2 }}>
+                                        To Be Read
+                                    </Button>
+                                </Box>
+                            </CardContent>
+                        </Grid>
+                    </Grid>
+                </Card>
+            </Container>
         </div>
-        <div className="col-md-8">
-            <div className="d-flex align-items-center mb-3">
-                <h1 className="me-3">{book.bookName}</h1>
-                <span className="text-muted">{book.author}</span>
-            </div>
-            <p><strong>Description:</strong> {book.description}</p>
-            <p><strong>Genre:</strong> {book.genre}</p>
-            <p><strong>Type:</strong> {book.type}</p>
-            <p><strong>Edition:</strong> {book.edition}</p>
-            <div className="mt-3">
-               <BorrowButton/>
-                <button className="btn btn-secondary">To Be Read</button>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-
-    
     );
 };
 
