@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.library.bookhub.Domain.PendingReqDto;
+import com.library.bookhub.Domain.UserBooksDto;
 import com.library.bookhub.Model.BorrowInfo;
-import com.library.bookhub.Repository.BookRepo;
 import com.library.bookhub.Repository.BorrowInfoRepo;
-import com.library.bookhub.Repository.UserRepo;
 
 
 
@@ -46,8 +45,11 @@ public class BorrowInfoService {
 
     public List<PendingReqDto> getPendingBorrowRequests() {
         return borrowInfoRepo.findPendingBorrowRequests();
+    }
 
-   
+   //To get all details of single user with all their books
+   public List<UserBooksDto> getAllBooksForUser(int userId) {
+    return borrowInfoRepo.findBooksByUserId(userId);
 
 }
 
