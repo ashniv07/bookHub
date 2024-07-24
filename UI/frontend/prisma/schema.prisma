@@ -33,7 +33,7 @@ model book {
   author        String   @db.VarChar(255)
   type          String   @db.VarChar(255)
   edition       String   @db.VarChar(255)
-  created_at    DateTime @default(now())
+  created_at    DateTime @default(now())          
   created_by    Int
   modified_by   Int
   modified_at   DateTime? @updatedAt
