@@ -8,10 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import com.library.bookhub.Model.BorrowInfo;
 import com.library.bookhub.Service.BorrowInfoService;
 import com.library.bookhub.Domain.BorrowRequestDto;
 import com.library.bookhub.Domain.PendingReqDto;
+import com.library.bookhub.Domain.UserBooksDto;
 
 @Controller
 @RequestMapping("/borrow")
@@ -58,5 +58,11 @@ public class BorrowController {
     public ResponseEntity<List<PendingReqDto>> getPendingBorrowRequests() {
         List<PendingReqDto> pendingRequests = borrowInfoService.getPendingBorrowRequests();
         return new ResponseEntity<>(pendingRequests, HttpStatus.OK);
+    }
+
+    @GetMapping("/userbook/{userId}")
+    public ResponseEntity<List<UserBooksDto>> getBooksByUserId(@PathVariable int userId) {
+        List<UserBooksDto> books = borrowInfoService.getAllBooksForUser(userId);
+        return ResponseEntity.ok(books);
     }
 }
