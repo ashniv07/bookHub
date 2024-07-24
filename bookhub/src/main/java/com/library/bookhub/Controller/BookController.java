@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.library.bookhub.Domain.BookDto;
@@ -52,6 +54,13 @@ public ResponseEntity<List<ResultDto>> getBooksNotDel() {
     List<ResultDto> books = bookService.getAllBooksNotDeleted();
     return ResponseEntity.ok(books);
 }
+
+@GetMapping("/books-deleted")
+public ResponseEntity<List<ResultDto>> getBooksDel() {
+    List<ResultDto> books = bookService.getAllDeleted();
+    return ResponseEntity.ok(books);
+}
+
 
 //Mapping for update
 @PatchMapping("/updatebook/{id}")
@@ -94,7 +103,18 @@ public ResponseEntity<List<ResultDto>> getBooksNotDel() {
         }
     }
 
+    //Restore the deleted book
+    @PutMapping("/restore/{id}")
+    public ResponseEntity<String> restoreBook(@PathVariable int id) {
+        boolean isRestored = bookService.restoreBook(id);
+        if (isRestored) {
+            return ResponseEntity.ok("success");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found");
+          }
+
     }
-    //
+    }
+    
     
  

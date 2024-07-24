@@ -3,7 +3,9 @@ package com.library.bookhub.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -112,6 +114,27 @@ public class BookService {
     public Book findBookById(int id) {
         return rep.findById(id);
     }
+
+    //get all deleted books
+
+    public List<ResultDto> getAllDeleted()
+    {
+        return rep.findAllBooksDeleted();
+    }
+
+    //restore deleted book  -basically change flag
+    @Transactional
+    public boolean restoreBook(int id) {
+        Book book = rep.findById(id);
+        if (book != null) {
+            book.setIsDeleted(false); 
+            rep.save(book);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
 }

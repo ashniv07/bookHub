@@ -11,6 +11,7 @@ import Favorites from './pages/Favorites';
 import Dashboard from './pages/Dashboard';
 import Genrebooks from './pages/Genrebooks';
 import BookDetails from './pages/BookDetails';
+import Deletedbooks from './pages/Admin/deletedbooks';
 import Homepage from './pages/Homepage';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/requests" element={<Requests />} />
                 <Route path="/genre/:genre" element={<Genrebooks />} />    
                 <Route path="/book/:id" element={<BookDetails/>} />
+                <Route path="/deletedBooks" element={<Deletedbooks/>} />
             </Routes>
         </Router>
   )
