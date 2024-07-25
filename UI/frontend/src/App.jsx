@@ -12,7 +12,7 @@ import Dashboard from './pages/Dashboard';
 import Genrebooks from './pages/Genrebooks';
 import BookDetails from './pages/BookDetails';
 import Deletedbooks from './pages/Admin/deletedbooks';
-import Homepage from './pages/Homepage';
+
 
 function App() {
 
@@ -23,8 +23,6 @@ function App() {
        
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/home" element={<Homepage />} />
-
                 <Route path="/logandreg" element={<LoginRegister />} />
                 <Route path="/genre" element={<Genre />} />
                 <Route path="/profile" element={<Profile />} />
