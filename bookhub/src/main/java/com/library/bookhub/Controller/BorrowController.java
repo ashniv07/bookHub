@@ -1,6 +1,8 @@
 package com.library.bookhub.Controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +37,7 @@ public class BorrowController {
             if (jwtTokenUtil.isTokenExpired(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
             }
-            if(jwtTokenUtil.getRoleFromToken(token) == 0){
+            if(jwtTokenUtil.getRoleFromToken(token) == 1){
                 borrowInfoService.requestBookBorrow(borrowRequestDto.getBookId(), borrowRequestDto.getUserId());
                 return ResponseEntity.ok("Borrow request submitted successfully.");
         } 
@@ -62,15 +64,35 @@ public class BorrowController {
     // }
 
     // Endpoint for admins to approve a borrow request
-    @PatchMapping("/admin/approve/{borrowId}")
-    public ResponseEntity<String> approveBorrowRequest(@PathVariable int borrowId) {
+    @PatchMapping("/approve/{borrowId}")
+    public ResponseEntity<?> approveBorrowRequest(@RequestHeader(value = "Authorization", required = false) String token,@PathVariable int borrowId ) {
         try {
-            borrowInfoService.approveBorrowRequest(borrowId);
-            return ResponseEntity.ok("Borrow request approved.");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Failed to approve borrow request: " + e.getMessage());
+            if (token == null || !token.startsWith("Bearer ")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is missing or invalid");
+            }
+            token = token.substring(7);
+            if (jwtTokenUtil.isTokenExpired(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
+            }
+            if(jwtTokenUtil.getRoleFromToken(token) == 0){
+                borrowInfoService.approveBorrowRequest(borrowId);
+        String bookUrl = borrowInfoService.getBookUrlByBorrowId(borrowId);
+        Map<String, String> response = new HashMap<>();
+        response.put("url", bookUrl);
+        return ResponseEntity.ok(response);
+        } 
+        else
+        {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to update book");
+        }
+
+    }
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Failed to soft delete book: " + e.getMessage());
         }
     }
+
+
 
      @GetMapping("/pending-requests")
      public ResponseEntity<?> getPendingBorrowRequests(@RequestHeader(value = "Authorization", required = false) String token ) {
@@ -104,4 +126,6 @@ public class BorrowController {
         List<UserBooksDto> books = borrowInfoService.getAllBooksForUser(userId);
         return ResponseEntity.ok(books);
     }
+
+    
 }

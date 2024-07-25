@@ -6,14 +6,18 @@ import lombok.Data;
 
 @Data
 public class PendingReqDto {
+    private int borrowId;
     private String bookname;
     private String userName;
     private LocalDateTime borrowDate;
-    public PendingReqDto(String bookname, String userName, LocalDateTime borrowDate) {
+    public PendingReqDto(int borrowId, String bookname, String userName, LocalDateTime borrowDate) {
+        this.borrowId = borrowId;
         this.bookname = bookname;
         this.userName = userName;
         this.borrowDate = borrowDate;
     }
+   
+
 
 
     
