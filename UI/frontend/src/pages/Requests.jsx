@@ -1,13 +1,13 @@
 import { Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../setupAxios';
 import Sidebar from '../components/Sidebar';
 
 const Requests = () => {
   const [pendingRequests, setPendingRequests] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/borrow/pending-requests')
+    axios.get('/borrow/pending-requests')
       .then((response) => setPendingRequests(response.data))
       .catch((error) => console.error('Error fetching pending requests:', error));
   }, []);
