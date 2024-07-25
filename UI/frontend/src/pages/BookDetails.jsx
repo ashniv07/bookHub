@@ -134,6 +134,7 @@ const BookDetails = () => {
     const { id } = useParams();
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [hasAccess, setHasAccess] = useState(false); // State to track access
 
     useEffect(() => {
         const fetchBook = async () => {
@@ -156,6 +157,21 @@ const BookDetails = () => {
         }
     }, [id]);
 
+    useEffect(() => {
+        const checkAccess = async () => {
+            try {
+                const response = await axios.get(`/borrow/check-access/${id}`);
+                setHasAccess(response.data.hasAccess);
+            } catch (error) {
+                console.error("Error checking access:", error);
+            }
+        };
+
+        if (id) {
+            checkAccess();
+        }
+    }, [id]);
+
     if (loading) return (
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
             <CircularProgress />
@@ -173,7 +189,7 @@ const BookDetails = () => {
                         borderRadius: '15px',
                         overflow: 'hidden',
                         boxShadow: 3,
-                        height: '650px',
+                        height: '650px', // Adjust height as needed
                         position: 'relative',
                         border: '1px solid #ccc',
                         backgroundColor: 'transparent',
@@ -181,8 +197,8 @@ const BookDetails = () => {
                 >
                     <Box
                         sx={{
-                            flex: '0 0 30%',
-                            background: 'linear-gradient(to right, rgb(173, 83, 137), rgb(60, 16, 83))',
+                            flex: '1',
+                            backgroundColor: 'white',
                             position: 'relative',
                             display: 'flex',
                             justifyContent: 'center',
@@ -197,11 +213,10 @@ const BookDetails = () => {
                                 position: 'absolute',
                                 width: '70%',
                                 height: 'auto',
-                                left: '90%',
-                                transform: 'translateX(-50%)',
+                                left: '15%',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
                                 objectFit: 'cover',
-                                borderRadius: '10px',
-                                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
                             }}
                         />
                     </Box>
@@ -209,8 +224,7 @@ const BookDetails = () => {
                         sx={{
                             flex: '1',
                             backgroundColor: 'white',
-                            p: 4,
-                            pl:20,
+                            p: 2,
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'center',
@@ -234,11 +248,14 @@ const BookDetails = () => {
                         <Typography variant="body1" sx={{ mt: 1 }}>
                             <strong>Edition:</strong> {book.edition}
                         </Typography>
-                        <Box sx={{ mt: 3, display: 'flex', gap: 2 }}>
-                            <BorrowButton />
-                            <Button variant="contained" color="secondary">
-                                To Be Read
-                            </Button>
+                        <Box sx={{ mt: 3 }}>
+                            {hasAccess ? (
+                                <Button variant="contained" color="primary">
+                                    Read
+                                </Button>
+                            ) : (
+                                <BorrowButton bookId={book.bookId}/>
+                            )}
                         </Box>
                     </Box>
                 </Box>
@@ -248,3 +265,4 @@ const BookDetails = () => {
 };
 
 export default BookDetails;
+

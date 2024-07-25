@@ -15,7 +15,7 @@ public interface BorrowInfoRepo extends JpaRepository<BorrowInfo, Integer> {
     @Query("SELECT b FROM BorrowInfo b WHERE b.accessGranted = false AND b.flag = true")
     List<BorrowInfo> findPendingBorrowRequestsAll();
 
-    @Query("SELECT new com.library.bookhub.Domain.PendingReqDto(b.bookName, u.userName,bi.borrowDate) " +
+    @Query("SELECT new com.library.bookhub.Domain.PendingReqDto(bi.borrowId,b.bookName, u.userName,bi.borrowDate) " +
            "FROM BorrowInfo bi " +
            "JOIN Book b ON bi.bookId = b.bookId " +
            "JOIN User u ON bi.userId = u.userId " +
@@ -28,4 +28,6 @@ public interface BorrowInfoRepo extends JpaRepository<BorrowInfo, Integer> {
        "JOIN User u ON bi.userId = u.userId " +
        "WHERE bi.userId = :userId AND bi.flag = true")
     List<UserBooksDto> findBooksByUserId(int userId);
+
+   
 }
