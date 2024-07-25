@@ -50,7 +50,7 @@ public class BookService {
     }
 
 
-    //Display all the books in front end
+    //Display all non deleted books in front end
     public List<ResultDto> getAllBooksNotDeleted() {
         return rep.findAllBooksNotDeleted();
     }

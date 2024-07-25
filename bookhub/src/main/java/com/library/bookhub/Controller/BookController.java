@@ -78,7 +78,7 @@ public class BookController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
             }
             if(jwtTokenUtil.getRoleFromToken(token) == 0){
-                List<ResultDto> books = bookService.getAllDeleted();
+                List<ResultDto> books = bookService.getAllBooksNotDeleted();
                 return ResponseEntity.ok(books);
     } 
     else
@@ -181,7 +181,7 @@ else
             if (jwtTokenUtil.isTokenExpired(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
             }
-            if(jwtTokenUtil.getRoleFromToken(token) == 0){
+            if(jwtTokenUtil.getRoleFromToken(token) == 1){
                 List<ResultDto> books = bookService.getBooksByGenre(genre);
                 return ResponseEntity.ok(books);
         } 

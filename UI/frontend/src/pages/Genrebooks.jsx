@@ -1,9 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from '../setupAxios';
 import NavBar from '../components/NavBar';
 import '../styles/genre.css'
-
+import axios from '../setupAxios';
 const GenreBooks = () => {
     const { genre } = useParams();
     const [books, setBooks] = useState([]);

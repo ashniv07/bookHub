@@ -11,13 +11,8 @@ import Favorites from './pages/Favorites';
 import Dashboard from './pages/Dashboard';
 import Genrebooks from './pages/Genrebooks';
 import BookDetails from './pages/BookDetails';
-<<<<<<< HEAD
 import Deletedbooks from './pages/deletedbooks';
 import Homepage from './pages/Homepage';
-=======
-import Deletedbooks from './pages/Admin/deletedbooks';
-
->>>>>>> 58a22956e19770f3fa4dd1210fa467317c97d510
 
 function App() {
 

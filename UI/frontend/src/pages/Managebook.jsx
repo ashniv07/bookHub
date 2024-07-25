@@ -21,7 +21,7 @@ const Managebook = () => {
     const handleSave = (id) => {
         const { bookId,createdAt,createdBy,modifiedAt,modifiedBy,isDeleted, ...fieldsToUpdate } = updatedBook;
 
-        axios.patch(`updatebook/${id}`, fieldsToUpdate)
+        axios.patch(`/updatebook/${id}`, fieldsToUpdate)
             .then(() => {
                 setAllBooks(prevBooks => prevBooks.map(book => (book.bookId === id ? updatedBook : book)));
                 setEditBookId(null);
