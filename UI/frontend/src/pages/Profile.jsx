@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../setupAxios';
 import NavBar from '../components/NavBar';
 import Box from '@mui/material/Box';
 import profile1 from '../assets/profile1.jpeg';
@@ -10,7 +10,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/userinfo', {
+        const response = await axios.get('/userinfo', {
           params: { userName: 'ashley' } // Replace 'ashley' with the actual username you want to fetch
         });
         setUserName(response.data.userName);

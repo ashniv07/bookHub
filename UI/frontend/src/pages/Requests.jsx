@@ -1,6 +1,7 @@
 import { Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Sidebar from '../components/Sidebar';
 
 const Requests = () => {
   const [pendingRequests, setPendingRequests] = useState([]);
@@ -12,6 +13,8 @@ const Requests = () => {
   }, []);
 
   return (
+    <div className='request' style={{display:"flex"}}>
+      <Sidebar/>
     <Container>
       <h1 className='mt-4 text-center'>PENDING REQUESTS</h1>
       {pendingRequests.length === 0 ? (
@@ -39,6 +42,7 @@ const Requests = () => {
         </table>
       )}
     </Container>
+    </div>
   );
 }
 

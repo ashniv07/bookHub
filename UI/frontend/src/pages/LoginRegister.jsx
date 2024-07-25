@@ -39,23 +39,39 @@ function LoginRegister() {
         } 
       });
   }
+  // const token = response.data;
+  // localStorage.setItem("token", token);
+
+  // // Navigate based on role
+  // const role = JSON.parse(atob(token.split(".")[1])).role;
+  // if (role === "Admin") {
+  //   navigate("/Admindb");
+  // } else if (role === "customer") {
+  //   navigate("/Customerdb");
+  // } else if (role === "agency") {
+  //   navigate("/agencydb");
+  // }
 
   const login = (event) => {
     event.preventDefault();
     axios.post("http://localhost:8080/login", values)
-      .then(response => {
-        const responseData = response.data;
-
-        if (responseData.roleId !== undefined) {
-          if (responseData.roleId === 0) {
-            navigate("/addbook");
-          } else {
-            navigate("/genre");
+    .then(response => {
+      const token = response.data;
+      console.log(token);
+      localStorage.setItem("token", token);
+      const role = JSON.parse(atob(token.split(".")[1])).roleId;
+          console.log(role);
+  
+          try {
+              if (role === 0) {
+                  navigate("/addbook");
+              } else {
+                  navigate("/genre");
+              }
+          } catch {
+              setError("Unexpected response data");
           }
-        } else {
-          setError("Unexpected response data");
-        }
-      })
+      } )
       .catch(err => {
         if (err.response && err.response.data) {
           setError(err.response.data);

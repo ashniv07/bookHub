@@ -4,14 +4,14 @@ import Home from './pages/Home'
 import LoginRegister from './pages/LoginRegister';
 import Genre from './pages/Genre';
 import Profile from './pages/Profile';
-import Addbook from './pages/Admin/Addbook';
-import Managebook from './pages/Admin/Managebook';
-import Requests from './pages/Admin/Requests';
+import Addbook from './pages/Addbook';
+import Managebook from './pages/Managebook';
+import Requests from './pages/Requests';
 import Favorites from './pages/Favorites';
 import Dashboard from './pages/Dashboard';
 import Genrebooks from './pages/Genrebooks';
 import BookDetails from './pages/BookDetails';
-import Deletedbooks from './pages/Admin/deletedbooks';
+import Deletedbooks from './pages/deletedbooks';
 import Homepage from './pages/Homepage';
 
 function App() {

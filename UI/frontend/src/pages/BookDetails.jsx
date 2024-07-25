@@ -90,7 +90,7 @@
 
 // export default BookDetails;
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../setupAxios';
 import { useParams } from 'react-router-dom';
 import Appbar from '../components/Appbar';
 import BorrowButton from '../components/BorrowButton';
@@ -105,7 +105,7 @@ const BookDetails = () => {
         const fetchBook = async () => {
             try {
                 console.log(`Fetching book with ID: ${id}`);
-                const response = await axios.get(`http://localhost:8080/book/${id}`);
+                const response = await axios.get(`/book/${id}`);
                 setBook(response.data);
             } catch (error) {
                 console.error("Error fetching book data:", error);

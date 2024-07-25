@@ -43,8 +43,8 @@ public class JwtTokenUtil {
         return getClaimsFromToken(token).get("userId", Integer.class);
     }
  
-    public String getRoleFromToken(String token) {
-        return getClaimsFromToken(token).get("role", String.class);
+    public int getRoleFromToken(String token) {
+        return getClaimsFromToken(token).get("roleId", Integer.class);
     }
  
     public boolean validateToken(String token) {

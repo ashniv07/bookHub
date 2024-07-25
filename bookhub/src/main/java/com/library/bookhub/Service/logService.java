@@ -19,23 +19,18 @@ public class logService {
     @Autowired
     private LoginRepo repo;
 
-    public ResponseEntity<?> CheckUser(loginDto user) {
+    public int CheckUser(loginDto user) {
         User found = repo.findByUserEmail(user.getUserEmail());
         if (found == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found!!");
+            return -1;
         }
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (passwordEncoder.matches(user.getPassword(), found.getPassword())) {
-            // Create a map to hold the response data
-            Map<String, Object> response = new HashMap<>();
-            response.put("roleId", found.getRoleId());
-            response.put("message", "Login successful");
-
-            // Return the response with status OK
-            return ResponseEntity.ok(response);
+            int role = found.getRoleId();
+            return role;
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong password");
+            return -2;
         }
     }
 }

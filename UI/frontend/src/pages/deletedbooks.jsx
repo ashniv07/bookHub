@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../setupAxios';
 import { Container } from 'react-bootstrap';
 
 const BooksTable = () => {
@@ -11,7 +11,7 @@ const BooksTable = () => {
 
   const fetchBooks = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/books-deleted');
+      const response = await axios.get('/books-deleted');
       setBooks(response.data);
     } catch (error) {
       console.error('Error fetching books:', error);
@@ -21,7 +21,7 @@ const BooksTable = () => {
   const restoreBook = async (id) => {
     console.log('Restoring book with ID:', id); 
     try {
-      await axios.put(`http://localhost:8080/restore/${id}`);
+      await axios.put(`/restore/${id}`);
       fetchBooks();
     } catch (error) {
       console.error('Error restoring book:', error);

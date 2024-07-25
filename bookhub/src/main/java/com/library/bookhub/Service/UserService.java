@@ -19,8 +19,8 @@ public class UserService {
         return userRepo.findByUserName(username) != null;
     }
 
-    public User getCurrentUser(String userName) {
-        return userRepo.findByUserName(userName);
+    public User getCurrentUser(int i) {
+        return userRepo.findByUserId(i);
     }
 
     public void registerUser(Userdto user) {
@@ -36,5 +36,9 @@ public class UserService {
         u.setCreatedAt(LocalDateTime.now());
         u.setFlag(true);
         userRepo.save(u);
+    }
+
+    public User findByUserEmail(String userEmail) {
+        return userRepo.findByUserEmail(userEmail);
     }
 }

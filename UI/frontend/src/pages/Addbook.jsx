@@ -3,7 +3,8 @@ import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import "bootstrap/dist/css/bootstrap.min.css";
-import Sidebar from '../../components/Sidebar';
+import Sidebar from '../components/Sidebar';
+import axios from '../setupAxios';
 
 const Addbook = () => {
     const bookCategories = [
@@ -26,7 +27,6 @@ const Addbook = () => {
     const handleBookSubmitted = (event) => {
         event.preventDefault();
         const form = event.target;
-        console.log(form.bookName);
         const bookName=form.bookName.value;
         const author = form.author.value;
         const genre = form.genre.value;
@@ -46,18 +46,9 @@ const Addbook = () => {
             image,
             url
         };
-        console.log(bookObj);
 
-        fetch("http://localhost:8080/savebooks", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(bookObj),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                // console.log(data);
+        axios.post("/savebooks", bookObj)
+            .then((res) => {
                 alert("Book uploaded successfully");
                 form.reset();
             })
@@ -66,8 +57,6 @@ const Addbook = () => {
             });
     };
 
-
-    
     return (
       <div className='addbook' style={{display:"flex"}}>
   <Sidebar/>
@@ -137,7 +126,3 @@ const Addbook = () => {
   };
   
   export default Addbook;
-  
-
-    
- 

@@ -24,7 +24,7 @@ instance.interceptors.response.use(
         if (error.response && error.response.status === 401) {
             // Handle unauthorized errors (e.g., token expired)
             localStorage.removeItem('token');
-            window.location.href = '/login'; // Redirect to login page
+            window.location.href = '/logandreg  '; // Redirect to login page
         }
         return Promise.reject(error);
     }

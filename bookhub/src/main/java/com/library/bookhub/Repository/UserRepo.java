@@ -9,5 +9,9 @@ import com.library.bookhub.Model.User;
 public interface UserRepo extends JpaRepository<User,Integer> {
     User findByUserName(String userName);
 
+    User findByUserEmail(String userEmail);
+
+    User findByUserId(int i);
+
     
 }

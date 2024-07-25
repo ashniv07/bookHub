@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../../components/Sidebar';
+import Sidebar from '../components/Sidebar';
+import axios from '../setupAxios';
 
 const Managebook = () => {
     const [allBooks, setAllBooks] = useState([]);
@@ -7,10 +8,9 @@ const Managebook = () => {
     const [updatedBook, setUpdatedBook] = useState({});
 
     useEffect(() => {
-        fetch("http://localhost:8080/books-not-del")
-            .then(res => res.json())
-            .then(data => setAllBooks(data))
-            .catch(error => console.error('Error fetching books:', error.message));
+        axios.get("/books-not-del")
+            .then(res => setAllBooks(res.data))
+            .catch(error => console.error('Error fetching books:', error.message)); 
     }, []);
 
     const handleEdit = (book) => {
@@ -21,19 +21,8 @@ const Managebook = () => {
     const handleSave = (id) => {
         const { bookId,createdAt,createdBy,modifiedAt,modifiedBy,isDeleted, ...fieldsToUpdate } = updatedBook;
 
-        fetch(`http://localhost:8080/updatebook/${id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(fieldsToUpdate)
-        })
-            .then(async (res) => {
-                if (!res.ok) {
-                    const errorText = await res.text();
-                    throw new Error(errorText);
-                }
-                // Update the book in the state with the new data
+        axios.patch(`updatebook/${id}`, fieldsToUpdate)
+            .then(() => {
                 setAllBooks(prevBooks => prevBooks.map(book => (book.bookId === id ? updatedBook : book)));
                 setEditBookId(null);
             })
@@ -48,21 +37,14 @@ const Managebook = () => {
     };
 
     const handleDelete = (id) => {
-      fetch(`http://localhost:8080/soft-delete/${id}`, {
-          method: 'DELETE',
-      })
-      .then(async (res) => {
-          if (res.ok) {
-              // Remove the book from the state
-              setAllBooks(prevBooks => prevBooks.filter(book => book.bookId !== id));
-          } else {
-              const errorText = await res.text();
-              throw new Error(errorText);
-          }
+      axios.delete(`/soft-delete/${id}`)
+      .then(() => {
+          
+          setAllBooks(prevBooks => prevBooks.filter(book => book.bookId !== id));
       })
       .catch(error => {
           console.error('Error deleting book:', error.message);
-          // Optionally display a user-friendly message or alert
+          
       });
   };
   

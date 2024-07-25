@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../setupAxios';
 import NavBar from '../components/NavBar';
 
 const GenreBooks = () => {
@@ -14,7 +14,7 @@ const GenreBooks = () => {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/genre/${genre}`);
+                const response = await axios.get(`/genre/${genre}`);
                 setBooks(response.data);
             } catch (error) {
                 console.error('Error fetching books:', error);
