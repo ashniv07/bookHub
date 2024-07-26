@@ -1,5 +1,4 @@
 
-
 // import React, { useEffect, useState } from 'react';
 // import axios from '../setupAxios';
 // import { useParams } from 'react-router-dom';
@@ -8,9 +7,11 @@
 // import { Container, Box, Typography, Button, CircularProgress, CardMedia } from '@mui/material';
 
 // const BookDetails = () => {
-//     const { id } = useParams();
+//     const { id } = useParams();  // Book ID from URL
 //     const [book, setBook] = useState(null);
 //     const [loading, setLoading] = useState(true);
+//     const [hasAccess, setHasAccess] = useState(false); // State to track access
+//     const [userId, setUserId] = useState(1); // Set this to the actual user ID from your authentication context or other source
 
 //     useEffect(() => {
 //         const fetchBook = async () => {
@@ -33,12 +34,37 @@
 //         }
 //     }, [id]);
 
+//     useEffect(() => {
+//         const checkAccess = async () => {
+//             try {
+//                 const response = await axios.get(`/borrow/check-access/${userId}/${id}`);
+//                 setHasAccess(response.data.hasAccess);
+//             } catch (error) {
+//                 console.error("Error checking access:", error);
+//             }
+//         };
+
+//         if (id && userId) {
+//             checkAccess();
+//         }
+//     }, [id, userId]);
+
+//     const handleClick = () => {
+//         if (book && book.url) {
+//             window.location.href = book.url;
+//         } else {
+//             console.error("Book URL not available");
+//         }
+//     };
+
 //     if (loading) return (
 //         <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
 //             <CircularProgress />
 //         </Box>
 //     );
+
 //     if (!book) return <p>Book not found</p>;
+
 
 //     return (
 //         <div>
@@ -110,10 +136,13 @@
 //                             <strong>Edition:</strong> {book.edition}
 //                         </Typography>
 //                         <Box sx={{ mt: 3 }}>
-//                             <BorrowButton />
-//                             <Button variant="contained" color="secondary" sx={{ ml: 2 }}>
-//                                 To Be Read
-//                             </Button>
+//                             {hasAccess ? (
+//                                 <Button variant="contained" color="primary" onClick={handleClick}>
+//                                     Read
+//                                 </Button>
+//                             ) : (
+//                                 <BorrowButton bookId={book.bookId}/>
+//                             )}
 //                         </Box>
 //                     </Box>
 //                 </Box>
@@ -122,21 +151,23 @@
 //     );
 // };
 
-// export default BookDetails;
+
+// export default BookDetails
+
+
 import React, { useEffect, useState } from 'react';
 import axios from '../setupAxios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Appbar from '../components/Appbar';
 import BorrowButton from '../components/BorrowButton';
 import { Container, Box, Typography, Button, CircularProgress, CardMedia } from '@mui/material';
-
 const BookDetails = () => {
-    const { id } = useParams();  // Book ID from URL
+    const { id } = useParams();
+    const navigate = useNavigate();
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [hasAccess, setHasAccess] = useState(false); // State to track access
-    const [userId, setUserId] = useState(1); // Set this to the actual user ID from your authentication context or other source
-
+    const [hasAccess, setHasAccess] = useState(false); 
+    const [userId, setUserId] = useState(1); 
     useEffect(() => {
         const fetchBook = async () => {
             try {
@@ -149,7 +180,6 @@ const BookDetails = () => {
                 setLoading(false);
             }
         };
-
         if (id) {
             fetchBook();
         } else {
@@ -157,7 +187,6 @@ const BookDetails = () => {
             setLoading(false);
         }
     }, [id]);
-
     useEffect(() => {
         const checkAccess = async () => {
             try {
@@ -167,20 +196,23 @@ const BookDetails = () => {
                 console.error("Error checking access:", error);
             }
         };
-
         if (id && userId) {
             checkAccess();
         }
     }, [id, userId]);
-
+    const handleClick = () => {
+        if (book && book.url) {
+            navigate(`/read/${book.bookId}`);
+        } else {
+            console.error("Book URL not available");
+        }
+    };
     if (loading) return (
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
             <CircularProgress />
         </Box>
     );
-
     if (!book) return <p>Book not found</p>;
-
     return (
         <div>
             <Appbar />
@@ -252,11 +284,11 @@ const BookDetails = () => {
                         </Typography>
                         <Box sx={{ mt: 3 }}>
                             {hasAccess ? (
-                                <Button variant="contained" color="primary">
+                                <Button variant="contained" color="primary" onClick={handleClick}>
                                     Read
                                 </Button>
                             ) : (
-                                <BorrowButton bookId={book.bookId}/>
+                                <BorrowButton bookId={book.bookId} />
                             )}
                         </Box>
                     </Box>
@@ -265,7 +297,4 @@ const BookDetails = () => {
         </div>
     );
 };
-
-export default BookDetails;
-
-
+export default BookDetails
