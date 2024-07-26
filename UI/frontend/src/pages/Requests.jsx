@@ -14,9 +14,9 @@ const Requests = () => {
       .catch((error) => console.error('Error fetching pending requests:', error));
   }, [updateStatus]); // Dependency array updated to re-fetch on status change
 
-  const handleAccept = async (borrowId) => {
+  const handleAccept = async (borrowId, userId, bookId) => {
     try {
-      const response = await axios.patch(`/borrow/approve/${borrowId}`);
+      const response = await axios.patch(`/borrow/approve/${borrowId}`, { userId, bookId });
       // Handle the response if needed
       setUpdateStatus(response.data.url); // Update the status with the book URL
       alert(`Book URL: ${response.data.url}`); // Optionally, show the URL or update UI
@@ -39,7 +39,7 @@ const Requests = () => {
                 <th>User</th>
                 <th>Book</th>
                 <th>Date of Request</th>
-                <th>Accept</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -51,10 +51,10 @@ const Requests = () => {
                   <td>
                     <Button
                       variant="contained"
-                      color="success"
-                      onClick={() => handleAccept(request.borrowId)}
+                      color={request.accessGranted ? "primary" : "success"}
+                      onClick={() => handleAccept(request.borrowId, request.userId, request.bookId)}
                     >
-                      Accept
+                      {request.accessGranted ? "Read" : "Accept"}
                     </Button>
                   </td>
                 </tr>

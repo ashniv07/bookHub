@@ -7,11 +7,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.library.bookhub.Service.BorrowInfoService;
 import com.library.bookhub.util.JwtTokenUtil;
+
+import io.jsonwebtoken.lang.Collections;
+
 import com.library.bookhub.Domain.BorrowRequestDto;
 import com.library.bookhub.Domain.PendingReqDto;
 import com.library.bookhub.Domain.UserBooksDto;
@@ -127,5 +131,21 @@ public class BorrowController {
         return ResponseEntity.ok(books);
     }
 
-    
+    //for access
+    @GetMapping("/check-access/{userId}/{bookId}")
+    public ResponseEntity<Map<String, Boolean>> checkAccess(@PathVariable int userId, @PathVariable int bookId) {
+        try {
+            boolean hasAccess = borrowInfoService.userHasAccess(userId, bookId);
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("hasAccess", hasAccess);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("hasAccess", false);
+            return ResponseEntity.status(500).body(response);
+        }
+    }
 }
+
+    
+

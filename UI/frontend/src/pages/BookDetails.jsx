@@ -131,10 +131,11 @@ import BorrowButton from '../components/BorrowButton';
 import { Container, Box, Typography, Button, CircularProgress, CardMedia } from '@mui/material';
 
 const BookDetails = () => {
-    const { id } = useParams();
+    const { id } = useParams();  // Book ID from URL
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
     const [hasAccess, setHasAccess] = useState(false); // State to track access
+    const [userId, setUserId] = useState(1); // Set this to the actual user ID from your authentication context or other source
 
     useEffect(() => {
         const fetchBook = async () => {
@@ -160,23 +161,24 @@ const BookDetails = () => {
     useEffect(() => {
         const checkAccess = async () => {
             try {
-                const response = await axios.get(`/borrow/check-access/${id}`);
+                const response = await axios.get(`/borrow/check-access/${userId}/${id}`);
                 setHasAccess(response.data.hasAccess);
             } catch (error) {
                 console.error("Error checking access:", error);
             }
         };
 
-        if (id) {
+        if (id && userId) {
             checkAccess();
         }
-    }, [id]);
+    }, [id, userId]);
 
     if (loading) return (
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
             <CircularProgress />
         </Box>
     );
+
     if (!book) return <p>Book not found</p>;
 
     return (
@@ -265,4 +267,5 @@ const BookDetails = () => {
 };
 
 export default BookDetails;
+
 

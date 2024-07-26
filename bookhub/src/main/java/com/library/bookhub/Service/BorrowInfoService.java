@@ -2,6 +2,8 @@ package com.library.bookhub.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +11,10 @@ import com.library.bookhub.Domain.PendingReqDto;
 import com.library.bookhub.Domain.UserBooksDto;
 import com.library.bookhub.Model.Book;
 import com.library.bookhub.Model.BorrowInfo;
+import com.library.bookhub.Model.User;
 import com.library.bookhub.Repository.BookRepo;
 import com.library.bookhub.Repository.BorrowInfoRepo;
+import com.library.bookhub.Repository.UserRepo;
 
 
 
@@ -21,7 +25,8 @@ public class BorrowInfoService {
     private BorrowInfoRepo borrowInfoRepo;
     @Autowired
     private BookRepo bookRepo;
-    // private UserRepo userRepo;
+    @Autowired
+    private UserRepo userRepo;
 
 
     public void requestBookBorrow(int bookId, int userId) {
@@ -70,5 +75,13 @@ public String getBookUrlByBorrowId(int borrowId) {
 }
 
 //To check if book has access
+    public boolean userHasAccess(int userId, int bookId) {
+        Optional<BorrowInfo> optionalBorrowInfo = borrowInfoRepo.findByUserIdAndBookId(userId, bookId);
+        BorrowInfo borrowInfo = optionalBorrowInfo.orElseThrow(() -> new RuntimeException("Borrow info not found"));
 
+        return borrowInfo.isAccessGranted();
+    }
 }
+
+
+
