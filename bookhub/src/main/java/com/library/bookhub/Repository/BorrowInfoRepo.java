@@ -28,7 +28,7 @@ public interface BorrowInfoRepo extends JpaRepository<BorrowInfo, Integer> {
        "FROM BorrowInfo bi " +
        "JOIN Book b ON bi.bookId = b.bookId " +
        "JOIN User u ON bi.userId = u.userId " +
-       "WHERE bi.userId = :userId AND bi.flag = true")
+       "WHERE bi.userId = :userId AND bi.accessGranted = true")
     List<UserBooksDto> findBooksByUserId(int userId);
 
     Optional<BorrowInfo> findByUserIdAndBookId(int userId, int bookId);

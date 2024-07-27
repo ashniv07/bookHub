@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.library.bookhub.Domain.PendingReqDto;
@@ -49,7 +50,7 @@ public void approveBorrowRequest(int borrowId) {
     BorrowInfo borrowInfo = borrowInfoRepo.findById(borrowId).orElseThrow(() -> new RuntimeException("Borrow request not found"));
     
     borrowInfo.setAccessGranted(true);
-    borrowInfo.setAccessCutDate(LocalDateTime.now().plusDays(7)); 
+    borrowInfo.setAccessCutDate(LocalDateTime.now().plusMinutes(1)); 
     borrowInfo.setFlag(false); 
     borrowInfoRepo.save(borrowInfo);
 }
@@ -81,7 +82,20 @@ public String getBookUrlByBorrowId(int borrowId) {
 
         return borrowInfo.isAccessGranted();
     }
+
+
+
+
+@Scheduled(fixedRate = 60000) // Run every minute
+    public void checkAndUpdateAccess() {
+        List<BorrowInfo> borrowInfos = borrowInfoRepo.findAll();
+        LocalDateTime now = LocalDateTime.now();
+
+        for (BorrowInfo borrowInfo : borrowInfos) {
+            if (borrowInfo.isAccessGranted() && borrowInfo.getAccessCutDate().isBefore(now)) {
+                borrowInfo.setAccessGranted(false);
+                borrowInfoRepo.save(borrowInfo);
+            }
+        }
+    }
 }
-
-
-

@@ -126,9 +126,28 @@ public class BorrowController {
     
 
     @GetMapping("/userbook/{userId}")
-    public ResponseEntity<List<UserBooksDto>> getBooksByUserId(@PathVariable int userId) {
-        List<UserBooksDto> books = borrowInfoService.getAllBooksForUser(userId);
-        return ResponseEntity.ok(books);
+    public ResponseEntity<?> getBooksByUserId(@RequestHeader(value = "Authorization", required = false) String token,@PathVariable int userId ) {
+        try {
+            if (token == null || !token.startsWith("Bearer ")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is missing or invalid");
+            }
+            token = token.substring(7);
+            if (jwtTokenUtil.isTokenExpired(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
+            }
+            if(jwtTokenUtil.getRoleFromToken(token) == 1){
+                List<UserBooksDto> books = borrowInfoService.getAllBooksForUser(userId);
+                return ResponseEntity.ok(books);
+        } 
+        else
+        {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to update book");
+        }
+
+    }
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Failed to soft delete book: " + e.getMessage());
+        }
     }
 
     //for access

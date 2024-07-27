@@ -10,7 +10,7 @@ export default function Appbar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('username');
+    localStorage.removeItem('token');
     navigate('/logandreg');
   };
 
