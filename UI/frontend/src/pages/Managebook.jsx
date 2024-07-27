@@ -52,7 +52,7 @@ const Managebook = () => {
     return (
         <div className="manage"style={{display:"flex"}}>
             <Sidebar/>
-        <div className="container my-12 " style={{width:"80%"}}>
+        <div className="container my-12 " style={{ width: "calc(100% - 200px)", marginLeft:'200px' }}>
             <h2 className="mb-4 text-3xl font-bold">Manage Your Books</h2>
 
             <table className="table table-striped table-bordered">
