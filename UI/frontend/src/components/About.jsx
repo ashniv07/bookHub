@@ -1,4 +1,5 @@
 import React from 'react';
+import AboutUsCards from './AboutUsCards';
 
 const aboutUsContainerStyle = {
   minHeight: '70vh',
@@ -7,8 +8,6 @@ const aboutUsContainerStyle = {
   alignItems: 'center',
   justifyContent: 'center',
   padding: '2rem',
-//   background: '#f9f9f9',
-//   color: '#333',
 };
 
 const headingStyle = {
@@ -24,22 +23,24 @@ const paragraphStyle = {
   textAlign: 'center',
 };
 
-const aboutUsImageStyle = {
-  width: '100%',
-  maxWidth: '200px',
-  height: 'auto',
-  marginBottom: '1.5rem',
-};
+// const aboutUsImageStyle = {
+//   width: '100%',
+//   maxWidth: '200px',
+//   height: 'auto',
+//   marginBottom: '1.5rem',
+// };
 
 const About = () => {
   return (
     <div style={aboutUsContainerStyle}>
-      <h1 style={headingStyle}>About Us</h1>
+      {/* <h1 style={headingStyle}>About Us</h1>
       <img
         src="https://via.placeholder.com/400"
         alt="About Us"
         style={aboutUsImageStyle}
-      />
+      /> */}
+      <h1 style={headingStyle}>About Us</h1>
+      <AboutUsCards />
       <p style={paragraphStyle}>
         Welcome to our e-library! We are dedicated to providing a wide range of
         books for you to borrow and read online. Our mission is to make
@@ -48,6 +49,7 @@ const About = () => {
         we have something for every reader. Join us on our journey to promote
         literacy and foster a love for reading in our community.
       </p>
+      
     </div>
   );
 };
