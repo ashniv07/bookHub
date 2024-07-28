@@ -21,4 +21,5 @@ public interface BookRepo extends JpaRepository<Book,Integer>{
     @Query("SELECT new com.library.bookhub.Domain.ResultDto(b.bookId, b.bookName, b.description, b.genre, b.author, b.type, b.edition, b.url, b.image) FROM Book b WHERE b.isDeleted = true")
     List<ResultDto> findAllBooksDeleted();
     
+    Book findTopByOrderByCreatedAtDesc();
 }

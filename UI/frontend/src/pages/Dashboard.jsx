@@ -13,13 +13,13 @@ const UserDashboard = () => {
             if (token) {
                 const userId = JSON.parse(atob(token.split(".")[1])).userId;
                 try {
+                    // Fetch borrowed books
                     const borrowedBooksResponse = await axios.get(`/borrow/userbook/${userId}`);
                     setBorrowedBooks(borrowedBooksResponse.data);
 
-                    // Set the first borrowed book as the featured book
-                    if (borrowedBooksResponse.data.length > 0) {
-                        setFeaturedBook(borrowedBooksResponse.data[0]);
-                    }
+                    // Fetch latest book
+                    const latestBookResponse = await axios.get('/book/latest');
+                    setFeaturedBook(latestBookResponse.data);
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
