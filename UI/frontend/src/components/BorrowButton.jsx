@@ -34,6 +34,7 @@ const BorrowButton = ({ bookId }) => {
                 bookId,
                 userId,
             });
+            alert("Your borrow request has been sent! Happy Reading :)");
             console.log('Borrow request successful:', response.data);
         } catch (error) {
             console.error('Error sending borrow request:', error);

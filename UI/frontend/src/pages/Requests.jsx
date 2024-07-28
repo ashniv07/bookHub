@@ -18,9 +18,8 @@ const Requests = () => {
   const handleAccept = async (borrowId, userId, bookId) => {
     try {
       const response = await axios.patch(`/borrow/approve/${borrowId}`, { userId, bookId });
-      // Handle the response if needed
-      setUpdateStatus(response.data.url); // Update the status with the book URL
-      alert(`Book URL: ${response.data.url}`); // Optionally, show the URL or update UI
+      setUpdateStatus(response.data.url); 
+    
     } catch (error) {
       console.error('Error approving borrow request:', error);
     }
