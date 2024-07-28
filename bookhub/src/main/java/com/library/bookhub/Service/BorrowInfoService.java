@@ -36,7 +36,7 @@ public class BorrowInfoService {
         borrowInfo.setUserId(userId);
         borrowInfo.setBorrowDate(LocalDateTime.now());
         borrowInfo.setAccessGranted(false); 
-        borrowInfo.setFlag(true); 
+        borrowInfo.setFlag(false); 
         borrowInfoRepo.save(borrowInfo);
     }
 
@@ -50,8 +50,8 @@ public void approveBorrowRequest(int borrowId) {
     BorrowInfo borrowInfo = borrowInfoRepo.findById(borrowId).orElseThrow(() -> new RuntimeException("Borrow request not found"));
     
     borrowInfo.setAccessGranted(true);
-    borrowInfo.setAccessCutDate(LocalDateTime.now().plusDays(7)); 
-    borrowInfo.setFlag(false); 
+    borrowInfo.setAccessCutDate(LocalDateTime.now().plusMinutes(1)); 
+    borrowInfo.setFlag(true); 
     borrowInfoRepo.save(borrowInfo);
 }
 
@@ -80,7 +80,7 @@ public String getBookUrlByBorrowId(int borrowId) {
         Optional<BorrowInfo> optionalBorrowInfo = borrowInfoRepo.findByUserIdAndBookId(userId, bookId);
         BorrowInfo borrowInfo = optionalBorrowInfo.orElseThrow(() -> new RuntimeException("Borrow info not found"));
 
-        return borrowInfo.isAccessGranted();
+        return borrowInfo.isAccessGranted() && borrowInfo.isFlag();
     }
 
 
@@ -92,8 +92,9 @@ public String getBookUrlByBorrowId(int borrowId) {
         LocalDateTime now = LocalDateTime.now();
 
         for (BorrowInfo borrowInfo : borrowInfos) {
-            if (borrowInfo.isAccessGranted() && borrowInfo.getAccessCutDate().isBefore(now)) {
+            if (borrowInfo.isAccessGranted() && borrowInfo.getAccessCutDate().isBefore(now) ) {
                 borrowInfo.setAccessGranted(false);
+                borrowInfo.setFlag(false);
                 borrowInfoRepo.save(borrowInfo);
             }
         }

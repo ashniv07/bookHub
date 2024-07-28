@@ -21,7 +21,7 @@ public interface BorrowInfoRepo extends JpaRepository<BorrowInfo, Integer> {
            "FROM BorrowInfo bi " +
            "JOIN Book b ON bi.bookId = b.bookId " +
            "JOIN User u ON bi.userId = u.userId " +
-           "WHERE bi.flag = true")
+           "WHERE bi.flag = false")
     List<PendingReqDto> findPendingBorrowRequests();
 
     @Query("SELECT new com.library.bookhub.Domain.UserBooksDto(b.bookName, b.author, b.image, u.userName) " +

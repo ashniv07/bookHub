@@ -151,20 +151,20 @@ public class BorrowController {
     }
 
     //for access
-    @GetMapping("/check-access/{userId}/{bookId}")
-    public ResponseEntity<Map<String, Boolean>> checkAccess(@PathVariable int userId, @PathVariable int bookId) {
-        try {
-            boolean hasAccess = borrowInfoService.userHasAccess(userId, bookId);
-            Map<String, Boolean> response = new HashMap<>();
-            response.put("hasAccess", hasAccess);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            Map<String, Boolean> response = new HashMap<>();
-            response.put("hasAccess", false);
-            return ResponseEntity.status(500).body(response);
+        @GetMapping("/check-access/{userId}/{bookId}")
+        public ResponseEntity<Map<String, Boolean>> checkAccess(@PathVariable int userId, @PathVariable int bookId) {
+            try {
+                boolean hasAccess = borrowInfoService.userHasAccess(userId, bookId);
+                Map<String, Boolean> response = new HashMap<>();
+                response.put("hasAccess", hasAccess);
+                return ResponseEntity.ok(response);
+            } catch (Exception e) {
+                Map<String, Boolean> response = new HashMap<>();
+                response.put("hasAccess", false);
+                return ResponseEntity.status(500).body(response);
+            }
         }
     }
-}
 
     
 
