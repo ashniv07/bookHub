@@ -1,12 +1,12 @@
 import React from 'react'
 
-import BookCaro from '../components/BookCaro'
-import Appbar from '../components/Appbar'
+import Bantop from '../components/Bantop'
 const Homepage = () => {
   return (
     <div>
-        <Appbar/>
-        <BookCaro/>
+
+      <Bantop/>
+
     </div>
   )
 }
