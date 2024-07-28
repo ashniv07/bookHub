@@ -68,7 +68,7 @@ const Bantop = () => {
     <div style={containerStyle}>
       <div style={textContainerStyle}>
         <h1 style={headingStyle}>Borrow. Read. Repeat.</h1>
-        <h2 style={taglineStyle}>Your Gateway to Infinite Stories Online.</h2>
+        <h2 style={taglineStyle}>Your Gateway to Infinite Stories <b>Online.</b></h2>
         <p style={{ marginLeft: '3rem' }}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Molestias eos, nobis nesciunt dolorum excepturi consectetur eveniet sed quaerat esse.
