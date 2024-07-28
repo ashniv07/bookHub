@@ -92,14 +92,14 @@ const DashSideBar = () => {
     };
 
     return (
-        <div className="text-white vh-100 d-flex flex-column p-3" style={{ width: '250px', backgroundColor: '#392467', height: '100vh', position: 'fixed', overflowY: 'auto' }}>
+        <div className="text-white vh-100 d-flex flex-column p-3" style={{ width: '300px', backgroundColor: '#1f1e2c', height: '100vh', position: 'fixed', overflowY: 'auto' }}>
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px', marginTop: '100px' }}>
         <img src={profileImage} alt="Profile" style={{ width: '80px', height: '80px', borderRadius: '50%', marginBottom: '10px' }} />
         <h2 style={{ margin: '0' }}>{userName}</h2>
     </div>
 
     {/* To-Do List Section */}
-    <div style={{ backgroundColor: '#fff', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', padding: '20px', marginTop: '20px', height: 'calc(100vh - 220px)', overflowY: 'auto' }}>
+    <div style={{ backgroundColor: '#f8f3ed', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', padding: '20px', marginTop: '20px', height: 'calc(100vh - 220px)', overflowY: 'auto' }}>
         <h4 style={{ marginBottom: '20px',color:'black',marginLeft:'8px',fontWeight:'bold' }}>To-Be-Read List</h4>
         <ul style={{ listStyleType: 'none', padding: '0' }}>
             {toDoList.map((todo) => (

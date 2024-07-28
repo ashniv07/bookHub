@@ -32,7 +32,8 @@ const UserDashboard = () => {
 
     const containerStyle = {
         display: 'flex',
-        minHeight: '100vh'
+        minHeight: '100vh',
+        backgroundColor:'#f8f3ed'
     };
 
     const mainContentStyle = {
@@ -40,7 +41,7 @@ const UserDashboard = () => {
         padding: '20px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '70px',
+        gap: '120px',
         alignItems: 'center',
         maxWidth: '1200px',
         margin: '0 auto'
@@ -53,14 +54,14 @@ const UserDashboard = () => {
         width: '90%',
         marginLeft: '230px',
         maxWidth: '1200px',
-        boxShadow: '0 4px 8px purple',
+        boxShadow: '0 4px 8px #1f1e2c',
         textAlign: 'left',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-start', // Align text to the top
         height: '300px',
         width: '700px',
-        position: 'relative'
+        position: 'relative',
     };
 
     const featuredBookImgStyle = {
@@ -118,7 +119,7 @@ const UserDashboard = () => {
     };
 
     const borrowedBooksContainerStyle = {
-        backgroundColor: '#fff',
+        backgroundColor: '#f8f3ed',
         padding: '10px',
         borderRadius: '8px',
         width: '100%',
@@ -139,7 +140,7 @@ const UserDashboard = () => {
     const bookCardStyle = {
         backgroundColor: '#fff',
         borderRadius: '8px',
-        boxShadow: '0 4px 8px black',
+        boxShadow: '0 4px 8px #1f1e2c',
         textAlign: 'center',
         width: '200px',  // Increased width
         height: '310px', // Increased height
@@ -195,7 +196,7 @@ const UserDashboard = () => {
                 </div>
 
                 <div style={borrowedBooksContainerStyle}>
-                    <h2>My Library</h2>
+                    <h2 style={{color:'#1f1e2c'}}>My Library</h2>
                     <ul style={bookListStyle}>
                         {borrowedBooks.length > 0 ? (
                             borrowedBooks.map((book, index) => (

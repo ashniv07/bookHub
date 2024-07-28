@@ -460,8 +460,8 @@ const BookDetails = () => {
           {/* Container to position the sections */}
           <Box
             sx={{
-              flex: '0 0 25%',
-              background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)',
+              flex: '0 0 30%',
+              background: 'linear-gradient(91.7deg, #fdfcfb 0%, #e2d1c3 100%)',
               position: 'relative'
             }}
           >
@@ -494,20 +494,20 @@ const BookDetails = () => {
               overflow: 'auto',
             }}
           >
-            <Typography variant="h3" fontWeight="bold" gutterBottom sx={{ color: 'rgb(50, 25, 79)' }}>
+            <Typography variant="h3" fontWeight="bold" gutterBottom sx={{ color: '#1f1e2c',fontSize:'50px' }}>
               {book.bookName}
             </Typography>
-            <Typography variant="h6" fontStyle="italic" color="text.secondary">
+            <Typography variant="h6" fontStyle="italic" color="text.secondary" sx={{ fontSize:'20px',marginLeft:'10px' }}>
               by {book.author}
             </Typography>
-            <Box sx={{ ...starRatingStyle, mt: 1 }}>
+            <Box sx={{ ...starRatingStyle, mt: 1,marginLeft:'10px' }}>
               {renderStars(Math.round(averageRating))}
             </Box>
 
-            <Typography variant="body1" sx={{ mt: 1 }}>
-              <span style={{ textDecoration: 'underline' }}>{book.genre}</span>
+            <Typography variant="body1" sx={{ mt: 1 ,marginLeft:'10px',marginBottom:'20px'}}>
+              <span style={{ textDecoration: 'underline' }}>#{book.genre}</span>
             </Typography>
-            <Typography variant="body1" sx={{ mt: 1}} style={{fontSize:'15px'}}>
+            <Typography variant="body1" sx={{ mt: 1}} style={{fontSize:'20px',marginLeft:'10px'}}>
         
               {showFullDescription ? book.description : `${book.description.slice(0, 250)}...`}
               {book.description.length > 250 && (
@@ -518,9 +518,9 @@ const BookDetails = () => {
             </Typography>
           
            <div style={{display:'flex'}}>
-            <Box sx={{ mt: 3 }}>
+            <Box sx={{ mt: 3,marginLeft:'10px' }}>
               {hasAccess ? (
-                <Button variant="contained" color="primary" onClick={handleClick}>
+                <Button variant="contained" color="primary" onClick={handleClick} >
                   Read
                 </Button>
               ) : (
