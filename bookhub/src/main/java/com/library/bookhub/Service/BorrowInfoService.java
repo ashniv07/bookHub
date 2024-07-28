@@ -86,7 +86,7 @@ public String getBookUrlByBorrowId(int borrowId) {
 
 
 
-@Scheduled(fixedRate = 60000) // Run every minute
+    @Scheduled(cron = "0 */2 * * * *")
     public void checkAndUpdateAccess() {
         List<BorrowInfo> borrowInfos = borrowInfoRepo.findAll();
         LocalDateTime now = LocalDateTime.now();

@@ -29,4 +29,10 @@ public class ReviewService {
         public List<Review> getReviewsByBookId(int bookId) {
             return reviewRepository.findByBookId(bookId);
         }
+        public double getAverageRating(int bookId) {
+            List<Review> reviews = reviewRepository.findByBookId(bookId);
+            if (reviews.isEmpty()) return 0;
+            double sum = reviews.stream().mapToInt(Review::getRating).sum();
+            return sum / reviews.size();
+        }
 }
