@@ -1,64 +1,144 @@
-import React from 'react';
-import { CgProfile } from "react-icons/cg";
-import { IoPeople } from "react-icons/io5";
-import { GiBookshelf } from "react-icons/gi";
-import { MdDelete } from "react-icons/md";
-import { FaBookOpenReader } from "react-icons/fa6";
-import { FaSignOutAlt } from "react-icons/fa";
+import React, { useEffect, useState } from 'react';
+import axios from '../setupAxios'; // Ensure axios is correctly configured
 
-// Function to decode JWT and get the username
+const profileImage = 'https://via.placeholder.com/80';
+
 const decodeToken = (token) => {
     try {
-        // Split the token into parts and decode the payload
         const payload = token.split('.')[1];
         if (!payload) throw new Error('No payload found in token');
-
-        // Decode and parse the payload
         const decoded = JSON.parse(atob(payload));
-        console.log('Decoded token:', decoded); // Log the decoded token for debugging
-
-        // Return the username or 'Guest' if not present
         return decoded.userName || 'Guest';
     } catch (error) {
         console.error('Failed to decode token:', error);
-        return 'Guest'; // Default to 'Guest' if any error occurs
+        return 'Guest';
     }
 };
 
-const profileImage = 'https://via.placeholder.com/80'; 
-
 const DashSideBar = () => {
-    // Get the token from localStorage
+    const [toDoList, setToDoList] = useState([]);
+    const [newToDo, setNewToDo] = useState('');
     const token = localStorage.getItem('token');
-    // Decode the token to get the username
     const userName = token ? decodeToken(token) : 'Guest';
+
+    useEffect(() => {
+        const fetchToDos = async () => {
+            const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : null;
+            if (userId) {
+                try {
+                    const response = await axios.get(`/todo/user/${userId}`, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    setToDoList(response.data);
+                } catch (error) {
+                    console.error('Error fetching to-do list:', error);
+                }
+            }
+        };
+
+        fetchToDos();
+    }, [token]);
+
+    const handleAddToDo = async () => {
+        const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : null;
+        if (userId && newToDo.trim()) {
+            try {
+                await axios.post('/todo/addtodo', { userId, bookName: newToDo }, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setNewToDo('');
+                const response = await axios.get(`/todo/user/${userId}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setToDoList(response.data);
+            } catch (error) {
+                console.error('Error adding to-do:', error);
+            }
+        }
+    };
+
+    const handleCompleteToDo = async (todoId) => {
+        try {
+            await axios.patch(`/todo/done/${todoId}`, {}, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : null;
+            if (userId) {
+                const response = await axios.get(`/todo/user/${userId}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setToDoList(response.data);
+            }
+        } catch (error) {
+            console.error('Error completing to-do:', error);
+        }
+    };
+
+    const handleDeleteToDo = async (todoId) => {
+        try {
+            await axios.delete(`/todo/${todoId}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : null;
+            if (userId) {
+                const response = await axios.get(`/todo/user/${userId}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setToDoList(response.data);
+            }
+        } catch (error) {
+            console.error('Error deleting to-do:', error);
+        }
+    };
 
     return (
         <div className="text-white vh-100 d-flex flex-column p-3" style={{ width: '250px', backgroundColor: '#392467', height: '100vh', position: 'fixed', overflowY: 'auto' }}>
-            {/* Profile Section */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '10px', marginBottom: '40px', borderBottom: '1px solid #fff', marginTop: '80px' }}>
-                <img src={profileImage} alt="Profile" style={{ width: '80px', height: '80px', borderRadius: '50%', marginBottom: '10px' }} />
-                <h2 style={{ color: '#fff', fontSize: '18px', fontWeight: 'bold' }}>{userName}</h2>
-            </div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px', marginTop: '100px' }}>
+        <img src={profileImage} alt="Profile" style={{ width: '80px', height: '80px', borderRadius: '50%', marginBottom: '10px' }} />
+        <h2 style={{ margin: '0' }}>{userName}</h2>
+    </div>
 
-            <ul className="nav flex-column">
-                <li className="nav-item mb-3">
-                    <a href="/profile" className="nav-link text-white" style={{ transition: 'background-color 0.3s', backgroundColor: 'transparent',fontSize:'25px',marginLeft:'35px' }}
-                        onMouseEnter={(e) => e.currentTarget.classList.add('bg-secondary')}
-                        onMouseLeave={(e) => e.currentTarget.classList.remove('bg-secondary')}>
-                        <CgProfile className="me-2" /> Profile
-                    </a>
+    {/* To-Do List Section */}
+    <div style={{ backgroundColor: '#fff', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', padding: '20px', marginTop: '20px', height: 'calc(100vh - 220px)', overflowY: 'auto' }}>
+        <h4 style={{ marginBottom: '20px',color:'black',marginLeft:'8px',fontWeight:'bold' }}>To-Be-Read List</h4>
+        <ul style={{ listStyleType: 'none', padding: '0' }}>
+            {toDoList.map((todo) => (
+                <li key={todo.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', backgroundColor: '#f9f9f9', padding: '10px', borderRadius: '5px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                    <input
+                        type="checkbox"
+                        checked={todo.completed}
+                        onChange={() => handleCompleteToDo(todo.id)}
+                        style={{ marginRight: '10px' }}
+                    />
+                    <span style={{ flex: 1, textDecoration: todo.completed ? 'line-through' : 'none',color:'black',fontWeight:'bold' }}>
+                        {todo.bookName}
+                    </span>
+                    <input
+                        type="button"
+                        value="Delete"
+                        onClick={() => handleDeleteToDo(todo.id)}
+                        style={{ marginLeft: '10px', backgroundColor: '#e57373', border: 'none', color: '#fff', borderRadius: '5px', padding: '5px 10px', cursor: 'pointer' }}
+                    />
                 </li>
-                <li className="nav-item mb-3">
-                    <a href="/genre" className="nav-link text-white" style={{ transition: 'background-color 0.3s', backgroundColor: 'transparent',fontSize:'25px',marginLeft:'35px' }}
-                        onMouseEnter={(e) => e.currentTarget.classList.add('bg-secondary')}
-                        onMouseLeave={(e) => e.currentTarget.classList.remove('bg-secondary')}>
-                        <GiBookshelf className="me-2" /> Genre
-                    </a>
-                </li>
-            
-            </ul>
+            ))}
+        </ul>
+        <div style={{ marginTop: '30px', borderTop: '1px solid #000', paddingTop: '10px', paddingBottom: '10px', paddingRight: '10px', display: 'flex', alignItems: 'center' }}>
+            <input
+                type="text"
+                value={newToDo}
+                onChange={(e) => setNewToDo(e.target.value)}
+                placeholder="Add To List"
+                style={{ flex: 1, padding: '2px', borderRadius: '5px', border: '1px solid #ddd', marginRight: '5px',width:'20px' }}
+            />
+            <button
+                onClick={handleAddToDo}
+                style={{ padding: '5px 10px', backgroundColor: '#ffeb3b', border: 'none', borderRadius: '5px', color: '#000', fontWeight: 'bold' }}
+            >
+                Add
+            </button>
         </div>
+    </div>
+</div>
     );
 };
 

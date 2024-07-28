@@ -24,37 +24,34 @@ import com.library.bookhub.util.JwtTokenUtil;
 @Controller
 @RequestMapping("/todo")
 @CrossOrigin(origins = "http://localhost:5173")
-
 public class ToDoController {
     @Autowired
     private ToDoService toDoService;
- @Autowired
+    @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getTodos(@RequestHeader(value = "Authorization", required = false) String token ,@PathVariable int userId) {
-            try {
-                if (token == null || !token.startsWith("Bearer ")) {
-                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is missing or invalid");
-                }
-                token = token.substring(7);
-                if (jwtTokenUtil.isTokenExpired(token)) {
-                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
-                }
-                if(jwtTokenUtil.getRoleFromToken(token) == 1){
-                    return ResponseEntity.ok(toDoService.getTodosForUser(userId)) ;
-            } 
-            else
-            {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to update book");
+    public ResponseEntity<?> getTodos(@RequestHeader(value = "Authorization", required = false) String token, @PathVariable int userId) {
+        try {
+            if (token == null || !token.startsWith("Bearer ")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is missing or invalid");
             }
-        }
-            catch (IllegalArgumentException e) {
-                return ResponseEntity.badRequest().body("Failed to get todo: " + e.getMessage());
+            token = token.substring(7);
+            if (jwtTokenUtil.isTokenExpired(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
             }
+            if (jwtTokenUtil.getRoleFromToken(token) == 1) {
+                return ResponseEntity.ok(toDoService.getTodosForUser(userId));
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to view todos");
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Failed to get todos: " + e.getMessage());
         }
-  
+    }
+
     @PostMapping("/addtodo")
-    public ResponseEntity<?> addTodo(@RequestHeader(value = "Authorization", required = false) String token ,@RequestBody ToDo todo) {
+    public ResponseEntity<?> addTodo(@RequestHeader(value = "Authorization", required = false) String token, @RequestBody ToDo todo) {
         try {
             if (token == null || !token.startsWith("Bearer ")) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is missing or invalid");
@@ -63,21 +60,19 @@ public class ToDoController {
             if (jwtTokenUtil.isTokenExpired(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
             }
-            if(jwtTokenUtil.getRoleFromToken(token) == 1){
-                return ResponseEntity.ok("success");
-        } 
-        else
-        {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to update book");
+            if (jwtTokenUtil.getRoleFromToken(token) == 1) {
+                ToDo createdTodo = toDoService.addTodo(todo);
+                return ResponseEntity.ok(createdTodo);
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to add todo");
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Failed to add todo: " + e.getMessage());
         }
     }
-        catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Failed to get todo: " + e.getMessage());
-        }
-    }
-   
+
     @PatchMapping("/done/{todoId}")
-    public ResponseEntity<?> markAsDone(@RequestHeader(value = "Authorization", required = false) String token ,@PathVariable int todoId) {
+    public ResponseEntity<?> markAsDone(@RequestHeader(value = "Authorization", required = false) String token, @PathVariable int todoId) {
         try {
             if (token == null || !token.startsWith("Bearer ")) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is missing or invalid");
@@ -86,22 +81,19 @@ public class ToDoController {
             if (jwtTokenUtil.isTokenExpired(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
             }
-            if(jwtTokenUtil.getRoleFromToken(token) == 1){
+            if (jwtTokenUtil.getRoleFromToken(token) == 1) {
                 toDoService.markAsDone(todoId);
-                return ResponseEntity.ok("marked as complete");
-        } 
-        else
-        {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to update book");
-        }
-    }
-        catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Failed to get todo: " + e.getMessage());
+                return ResponseEntity.ok("Marked as complete");
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to update todo");
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Failed to mark todo as done: " + e.getMessage());
         }
     }
 
     @DeleteMapping("/{todoId}")
-    public ResponseEntity<?> deleteTodo(@RequestHeader(value = "Authorization", required = false) String token ,@PathVariable int todoId) {
+    public ResponseEntity<?> deleteTodo(@RequestHeader(value = "Authorization", required = false) String token, @PathVariable int todoId) {
         try {
             if (token == null || !token.startsWith("Bearer ")) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is missing or invalid");
@@ -110,17 +102,14 @@ public class ToDoController {
             if (jwtTokenUtil.isTokenExpired(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
             }
-            if(jwtTokenUtil.getRoleFromToken(token) == 1){
-                return ResponseEntity.ok("deleted");
-        } 
-        else
-        {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to update book");
+            if (jwtTokenUtil.getRoleFromToken(token) == 1) {
+                toDoService.deleteTodo(todoId);
+                return ResponseEntity.ok("Deleted");
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to delete todo");
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Failed to delete todo: " + e.getMessage());
         }
     }
-        catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Failed to get todo: " + e.getMessage());
-        }
-    }
-    
 }
