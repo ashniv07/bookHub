@@ -339,6 +339,7 @@ import Navbar from '../components/NavBar';
 import BorrowButton from '../components/BorrowButton';
 import { Container, Box, Typography, Button, CircularProgress, CardMedia } from '@mui/material';
 import Appbar from '../components/Appbar';
+import ToBeRead from '../components/ToBeRead';
 
 // Inline CSS for Star Rating
 const starRatingStyle = {
@@ -367,6 +368,7 @@ const BookDetails = () => {
     const [hasAccess, setHasAccess] = useState(false); 
     const [userId, setUserId] = useState(1); 
     const [averageRating, setAverageRating] = useState(0); 
+    const [showFullDescription, setShowFullDescription] = useState(false);
 
     useEffect(() => {
         const fetchBook = async () => {
@@ -438,6 +440,10 @@ const BookDetails = () => {
         ));
     };
 
+    const handleReadMore = () => {
+        setShowFullDescription(!showFullDescription);
+      };
+
     if (loading) return (
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
             <CircularProgress />
@@ -448,77 +454,85 @@ const BookDetails = () => {
 
     return (
         <div>
-            <Appbar />
-            <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
-                {/* Container to position the sections */}
-                <Box
-                    sx={{
-                        flex: '0 0 25%',
-                        background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)',
-                        position: 'relative'
-                    }}
-                >
-                    <CardMedia
-                        component="img"
-                        image={book.image}
-                        alt={book.bookName}
-                        sx={{
-                            position: 'absolute',
-                            top: '55%',
-                            right: '-20%', // Positioning the image so it overlaps into the white section
-                            width: '70%', // Ensure the image spans into both sections
-                            height: 'auto',
-                            transform: 'translateY(-50%)',
-                            objectFit: 'cover',
-                        }}
-                    />
-                </Box>
-
-                {/* Content Section (70%) */}
-                <Box
-                    sx={{
-                        flex: '1',
-                        backgroundColor: 'white',
-                        p: 22,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        overflow: 'auto',
-                    }}
-                >
-                    <Typography variant="h3" fontWeight="bold" gutterBottom>
-                        {book.bookName}
-                    </Typography>
-                    <Typography variant="h6" fontStyle="italic" color="text.secondary">
-                        by {book.author}
-                    </Typography>
-                    <Box sx={{ ...starRatingStyle, mt: 1 }}>
-                        {renderStars(Math.round(averageRating))}
-                    </Box>
-                    <Typography variant="body1" sx={{ mt: 2 }}>
-                        <strong>Description:</strong> {book.description}
-                    </Typography>
-                    <Typography variant="body1" sx={{ mt: 1 }}>
-                        <strong>Genre:</strong> {book.genre}
-                    </Typography>
-                    <Typography variant="body1" sx={{ mt: 1 }}>
-                        <strong>Type:</strong> {book.type}
-                    </Typography>
-                    <Typography variant="body1" sx={{ mt: 1 }}>
-                        <strong>Edition:</strong> {book.edition}
-                    </Typography>
-                    <Box sx={{ mt: 3 }}>
-                        {hasAccess ? (
-                            <Button variant="contained" color="primary" onClick={handleClick}>
-                                Read
-                            </Button>
-                        ) : (
-                            <BorrowButton bookId={book.bookId} />
-                        )}
-                    </Box>
-                </Box>
+        <Appbar />
+        <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
+          {/* Container to position the sections */}
+          <Box
+            sx={{
+              flex: '0 0 25%',
+              background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)',
+              position: 'relative'
+            }}
+          >
+            <CardMedia
+              component="img"
+              image={book.image}
+              alt={book.bookName}
+              sx={{
+                position: 'absolute',
+                top: '55%',
+                right: '-20%', // Positioning the image so it overlaps into the white section
+                width: '70%', // Ensure the image spans into both sections
+                height: 'auto',
+                transform: 'translateY(-50%)',
+                objectFit: 'cover',
+                borderRadius:'10px',
+                boxShadow: '0px 4px 10px rgba(0, 0.2, 0, 1)'
+              }}
+            />
+          </Box>
+           <Box
+            sx={{
+              flex: '1',
+              backgroundColor: 'white',
+              p: 22,
+              pt: 30, 
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              overflow: 'auto',
+            }}
+          >
+            <Typography variant="h3" fontWeight="bold" gutterBottom sx={{ color: 'rgb(50, 25, 79)' }}>
+              {book.bookName}
+            </Typography>
+            <Typography variant="h6" fontStyle="italic" color="text.secondary">
+              by {book.author}
+            </Typography>
+            <Box sx={{ ...starRatingStyle, mt: 1 }}>
+              {renderStars(Math.round(averageRating))}
             </Box>
-        </div>
+
+            <Typography variant="body1" sx={{ mt: 1 }}>
+              <span style={{ textDecoration: 'underline' }}>{book.genre}</span>
+            </Typography>
+            <Typography variant="body1" sx={{ mt: 1}} style={{fontSize:'15px'}}>
+        
+              {showFullDescription ? book.description : `${book.description.slice(0, 250)}...`}
+              {book.description.length > 250 && (
+                <Button variant="text" color="primary" onClick={handleReadMore}>
+                  {showFullDescription ? 'Show Less' : 'Read More'}
+                </Button>
+              )}
+            </Typography>
+          
+           <div style={{display:'flex'}}>
+            <Box sx={{ mt: 3 }}>
+              {hasAccess ? (
+                <Button variant="contained" color="primary" onClick={handleClick}>
+                  Read
+                </Button>
+              ) : (
+                <BorrowButton bookId={book.bookId} />
+              )}
+            </Box>
+            <div style={{marginTop:'25px', marginLeft:'20px'}}>   <ToBeRead/></div>
+     
+            </div>
+          </Box>
+        </Box>
+      </div>
+  
     );
 };
 

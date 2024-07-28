@@ -40,9 +40,15 @@ const BorrowButton = ({ bookId }) => {
         }
     };
 
+    const buttonStyle = {
+        background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)',
+        color: 'white',
+        border: 'none',
+      };
+
     return (
         <div>
-            <button className="btn btn-primary me-2" onClick={handleBorrowClick}>Borrow</button>
+            <button className="btn btn-primary me-2" onClick={handleBorrowClick} style={buttonStyle}>Borrow</button>
         </div>
     );
 };

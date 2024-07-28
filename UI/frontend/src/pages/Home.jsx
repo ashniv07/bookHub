@@ -5,6 +5,7 @@ import Slides from '../components/Slides'
 import Bantop from '../components/Bantop'
 import About from '../components/About'
 import SuggestBook from '../components/SuggestBook'
+import Footer from '../components/Footer'
 
 const Home = () => {
   return (
@@ -29,7 +30,7 @@ const Home = () => {
   </div>
       <Slides/>
       <SuggestBook/>
-
+<Footer/>
 
     </div>
   );
