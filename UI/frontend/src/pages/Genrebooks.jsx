@@ -74,7 +74,6 @@ const GenreBooks = () => {
                 <div className="card-body">
                   <h5 className="card-title">{book.bookName}</h5>
                   <p className="card-text">{book.author}</p>
-                  <p className="card-text">{book.description}</p>
                   </div>
         </div>
       </div>
@@ -87,6 +86,8 @@ const GenreBooks = () => {
   };
   
   export default GenreBooks;
+
+
 
   
  

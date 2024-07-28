@@ -1,0 +1,46 @@
+/* Ensure container is centered and has appropriate margins */
+.container {
+    max-width: 1000px; /* Adjust as needed */
+    margin: auto;
+  }
+  
+  
+  /* Swiper slide styling */
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Image styling */
+  .swiper-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px; /* Rounded corners, adjust if needed */
+    animation: popFromBottom 0.5s ease-out; /* Apply pop effect */
+  }
+  
+  /* Keyframes for pop from bottom animation */
+  @keyframes popFromBottom {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Swiper pagination dots styling */
+  .swiper-pagination-bullet {
+    background: #000; /* Change to suit your design */
+  }
+  
+  /* Swiper navigation arrows styling */
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #000; /* Change to suit your design */
+  }
+  

@@ -2,11 +2,14 @@ import React from 'react'
 import NavBar from '../components/NavBar'
 import Slides from '../components/Slides'
 import Banner from '../components/Banner'
+import Bantop from '../components/Bantop'
 
 const Home = () => {
   return (
     <div>
       <NavBar />
+      
+      <Bantop/>
       <Banner/>
 
       <div style={{ marginTop: '10px', textAlign: 'center', padding: '20px' }}>
