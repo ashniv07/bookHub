@@ -340,6 +340,7 @@ import BorrowButton from '../components/BorrowButton';
 import { Container, Box, Typography, Button, CircularProgress, CardMedia } from '@mui/material';
 import Appbar from '../components/Appbar';
 import ToBeRead from '../components/ToBeRead';
+import AddReview from '../components/AddReview';
 
 // Inline CSS for Star Rating
 const starRatingStyle = {
@@ -527,7 +528,13 @@ const BookDetails = () => {
               )}
             </Box>
             <div style={{marginTop:'25px', marginLeft:'20px'}}>   <ToBeRead/></div>
-     
+              <div style={{
+                marginTop:'65px',
+                marginLeft:'-190px',
+                
+              }}>
+                <AddReview bookId={book.bookId} />
+              </div>
             </div>
           </Box>
         </Box>
