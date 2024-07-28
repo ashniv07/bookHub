@@ -121,7 +121,6 @@ const UserDashboard = () => {
         backgroundColor: '#fff',
         padding: '10px',
         borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         width: '100%',
         maxWidth: '1200px',
         overflowY: 'auto',
@@ -140,10 +139,10 @@ const UserDashboard = () => {
     const bookCardStyle = {
         backgroundColor: '#fff',
         borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        boxShadow: '0 4px 8px black',
         textAlign: 'center',
-        width: '270px',  // Increased width
-        height: '370px', // Increased height
+        width: '200px',  // Increased width
+        height: '310px', // Increased height
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
@@ -153,18 +152,18 @@ const UserDashboard = () => {
 
     const bookImgStyle = {
         width: '100%',
-        height: '70%', // Adjusted to fit within the card
+        height: '70%', 
         objectFit: 'cover'
     };
 
     const bookCardTitleStyle = {
-        fontSize: '20px', // Adjusted font size
+        fontSize: '16px', // Adjusted font size
         fontWeight: 'bold',
-        margin: '20px 0'
+        margin: '10px 0'
     };
 
     const bookCardAuthorStyle = {
-        fontSize: '18px', // Adjusted font size
+        fontSize: '14px', // Adjusted font size
         color: '#555'
     };
 

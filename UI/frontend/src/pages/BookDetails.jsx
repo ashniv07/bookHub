@@ -338,6 +338,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/NavBar';
 import BorrowButton from '../components/BorrowButton';
 import { Container, Box, Typography, Button, CircularProgress, CardMedia } from '@mui/material';
+import Appbar from '../components/Appbar';
 
 // Inline CSS for Star Rating
 const starRatingStyle = {
@@ -447,7 +448,7 @@ const BookDetails = () => {
 
     return (
         <div>
-            <Navbar />
+            <Appbar />
             <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
                 {/* Container to position the sections */}
                 <Box
