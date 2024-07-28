@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from '../setupAxios';
 import Appbar from '../components/Appbar';
 import { RiEye2Line } from "react-icons/ri";
+import DashSideBar from '../components/DashSideBar'; // Import the sidebar component
 
 const UserDashboard = () => {
     const [borrowedBooks, setBorrowedBooks] = useState([]);
@@ -30,6 +31,12 @@ const UserDashboard = () => {
     }, []);
 
     const containerStyle = {
+        display: 'flex',
+        minHeight: '100vh'
+    };
+
+    const mainContentStyle = {
+        marginLeft: '300px', // Adjust according to the width of your sidebar
         padding: '20px',
         display: 'flex',
         flexDirection: 'column',
@@ -40,23 +47,25 @@ const UserDashboard = () => {
     };
 
     const featuredBookContainerStyle = {
-        backgroundColor: '#ffeb3b',
+        backgroundColor: 'transparent',
         padding: '20px',
         borderRadius: '8px',
-        width: '70%',
+        width: '90%',
+        marginLeft: '230px',
         maxWidth: '1200px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        boxShadow: '0 4px 8px purple',
         textAlign: 'left',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-start', // Align text to the top
-        height: '400px',
+        height: '300px',
+        width: '700px',
         position: 'relative'
     };
 
     const featuredBookImgStyle = {
-        width: '300px',
-        height: '400px',
+        width: '200px',
+        height: '300px',
         borderRadius: '8px',
         objectFit: 'cover',
         marginTop: '20px',
@@ -71,36 +80,52 @@ const UserDashboard = () => {
         justifyContent: 'flex-start' // Ensure content starts from the top
     };
 
-    const bookTitleStyle = {
-        fontSize: '60px',
+    const headingstyle = {
+        fontSize: '50px',
         fontWeight: 'bold',
-        marginLeft: '20px',
-        marginTop: '35px'
+        color: 'Black', 
+        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', // Add text shadow for depth
+        marginLeft: '30px',
+        marginTop: '10px',
+        display: 'flex',
+        alignItems: 'center'
+    };
+
+    const bookTitleStyle = {
+        fontSize: '25px', // Increase size to make it prominent
+        fontWeight: 'bold',
+        marginLeft: '30px',
+        marginTop: '20px',
+        color: '#d32f2f', // Use a contrasting color
+        textShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)', // Add text shadow for depth
+        display: 'flex',
+        alignItems: 'center'
     };
 
     const continueReadingTextStyle = {
         position: 'absolute',
-        bottom: '100px',
-        left: '60px',
-        color: 'black',
-        fontSize: '20px',
+        bottom: '40px',
+        left: '50px',
+        color: 'black', // Contrasting color for emphasis
+        fontSize: '20px', // Increase font size
         fontWeight: 'bold',
         display: 'flex',
-        alignItems: 'center' // Align items horizontally in the container
-    };
+        alignItems: 'center', // Align items horizontally in the container
+    }
 
     const continueReadingIconStyle = {
-        marginRight: '10px' 
+        marginRight: '10px'
     };
 
     const borrowedBooksContainerStyle = {
         backgroundColor: '#fff',
-        padding: '40px',
+        padding: '10px',
         borderRadius: '8px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         width: '100%',
         maxWidth: '1200px',
-        overflowY: 'auto'
+        overflowY: 'auto',
+        marginLeft:'300px',
     };
 
     const bookListStyle = {
@@ -123,7 +148,7 @@ const UserDashboard = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        marginLeft:'20px'
+        marginLeft: '20px'
     };
 
     const bookImgStyle = {
@@ -145,43 +170,47 @@ const UserDashboard = () => {
 
     return (
         <div style={containerStyle}>
-            <Appbar/>
-
-            {/* Featured Book Container */}
-            <div style={featuredBookContainerStyle}>
-                <div style={bookDetailsContainerStyle}>
-                    {featuredBook ? (
-                        <>
-                            <h1 style={bookTitleStyle}>{featuredBook.bookName}</h1>
-                            <div style={continueReadingTextStyle}>
-                                <RiEye2Line style={continueReadingIconStyle} />
-                                Continue Reading
-                            </div>
-                        </>
-                    ) : (
-                        <p>Loading featured book...</p>
+            <DashSideBar />
+            {/* Add the sidebar */}
+            <div style={mainContentStyle}>
+                <Appbar/>
+                {/* Featured Book Container */}
+                <div style={featuredBookContainerStyle}>
+                    <div style={bookDetailsContainerStyle}>
+                        {featuredBook ? (
+                            <>
+                                <h1 style={headingstyle}>Our Newest ARRIVAL!!</h1>
+                                <h1 style={bookTitleStyle}>{featuredBook.bookName}</h1>
+                                {/* <div style={continueReadingTextStyle}>
+                                    <RiEye2Line style={continueReadingIconStyle} />
+                                    Continue Reading
+                                </div> */}
+                            </>
+                        ) : (
+                            <p>Loading featured book...</p>
+                        )}
+                    </div>
+                    {featuredBook && (
+                        <img src={featuredBook.image} alt={featuredBook.bookName} style={featuredBookImgStyle} />
                     )}
                 </div>
-                {featuredBook && (
-                    <img src={featuredBook.image} alt={featuredBook.bookName} style={featuredBookImgStyle} />
-                )}
-            </div>
 
-            <div style={borrowedBooksContainerStyle}>
-                <h2>My Library</h2>
-                <ul style={bookListStyle}>
-                    {borrowedBooks.length > 0 ? (
-                        borrowedBooks.map((book, index) => (
-                            <li key={index} style={bookCardStyle}>
-                                <img src={book.image} alt={book.bookName} style={bookImgStyle} />
-                                <div style={bookCardTitleStyle}>{book.bookName}</div>
-                                <div style={bookCardAuthorStyle}>by {book.author}</div>
-                            </li>
-                        ))
-                    ) : (
-                        <p>No borrowed books found.</p>
-                    )}
-                </ul>
+                <div style={borrowedBooksContainerStyle}>
+                    <h2>My Library</h2>
+                    <ul style={bookListStyle}>
+                        {borrowedBooks.length > 0 ? (
+                            borrowedBooks.map((book, index) => (
+                                <li key={index} style={bookCardStyle}>
+                                    <img src={book.image} alt={book.bookName} style={bookImgStyle} />
+                                    <div style={bookCardTitleStyle}>{book.bookName}</div>
+                                    <div style={bookCardAuthorStyle}>by {book.author}</div>
+                                </li>
+                            ))
+                        ) : (
+                            <p>No borrowed books found.</p>
+                        )}
+                    </ul>
+                </div>
             </div>
         </div>
     );
