@@ -58,7 +58,7 @@ model review{
   book_id Int
   user_id Int
   rating  Int
-  comment String  @db.VarChar(255)
+  comment String  @db.Text
   created_at   DateTime @default(now())
 
 }
@@ -67,4 +67,11 @@ model role{
   role_id Int @id @default(autoincrement())
   role  String
   permissions String
+}
+
+model toDo{
+  id Int @id @default(autoincrement())
+  user_id Int
+  book_name String
+  completed Boolean
 }

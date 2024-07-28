@@ -17,23 +17,23 @@ public class Book {
 
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bookId;
+        private int bookId;
 
-    private String bookName;
+        private String bookName;
 
-    private String description;
+        private String description;
 
-    private String genre;   
+        private String genre;   
 
-    private String author;
+        private String author;
 
-    private String type;
+        private String type;
 
-    private String edition;
+        private String edition;
 
-    private LocalDateTime createdAt;
+        private LocalDateTime createdAt;
 
-    private int createdBy;
+        private int createdBy;
 
     private LocalDateTime modifiedAt;
 
