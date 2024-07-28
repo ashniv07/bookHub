@@ -135,6 +135,9 @@ public class BookService {
         }
     }
 
+    public Book getLatestBook() {
+        return rep.findTopByOrderByCreatedAtDesc();
+    }
 
 
 }

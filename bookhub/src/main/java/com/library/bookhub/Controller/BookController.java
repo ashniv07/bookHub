@@ -252,6 +252,30 @@ else
     }
 
 
+    @GetMapping("/book/latest")
+    public ResponseEntity<?> getLatestBook(@RequestHeader(value = "Authorization", required = false) String token ) {
+        try {
+            if (token == null || !token.startsWith("Bearer ")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is missing or invalid");
+            }
+            token = token.substring(7);
+            if (jwtTokenUtil.isTokenExpired(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
+            }
+            if(jwtTokenUtil.getRoleFromToken(token) == 1){
+                Book latestBook = bookService.getLatestBook();
+            return ResponseEntity.ok(latestBook);
+        } 
+        else
+        {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to update book");
+        }
+    }
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Failed to get  book: " + e.getMessage());
+        }
+    }
+   
     
     }
     
