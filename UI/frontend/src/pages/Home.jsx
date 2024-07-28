@@ -1,16 +1,18 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
 import Slides from '../components/Slides'
-import Banner from '../components/Banner'
+
 import Bantop from '../components/Bantop'
+import About from '../components/About'
+import SuggestBook from '../components/SuggestBook'
 
 const Home = () => {
   return (
     <div>
       <NavBar />
-      
       <Bantop/>
-      <Banner/>
+      <About/>
+  
 
       <div style={{ marginTop: '10px', textAlign: 'center', padding: '20px' }}>
   <h1 style={{
@@ -22,10 +24,12 @@ const Home = () => {
   lineHeight: '1.2',
   padding: '0 16px',
   }}>
-    RECOMMENDED BOOKS
+    Trending books
   </h1>
   </div>
       <Slides/>
+      <SuggestBook/>
+
 
     </div>
   );

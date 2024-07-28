@@ -60,7 +60,7 @@ export default function ImageMasonry() {
 
   return (
     <Box
-      sx={{ width: 600, minHeight: 829, overflowY: 'hidden', position: 'relative' , marginTop: '-10px'}}
+      sx={{ width: 600, minHeight: 800, overflowY: 'hidden', position: 'relative' , marginTop: '-10px'}}
       ref={containerRef}
     >
       <Masonry

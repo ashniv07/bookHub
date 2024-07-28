@@ -3,17 +3,29 @@ import React from 'react';
 import ImageMasonry from './ImageMasonry';
 
 const Bantop = () => {
+  // const containerStyle = {
+  //   minHeight: '50vh', 
+  //   display: 'flex',
+  //   alignItems: 'center',
+  //   justifyContent: 'space-between',
+  //   padding: '0 2rem',
+  //   position: 'relative',
+  //   paddingTop: '1rem', 
+  //   background: '#f1eef2',
+  //   marginBottom: '50px', 
+  // };
   const containerStyle = {
-    minHeight: '50vh', 
+    minHeight: '30vh', // Reduced from 50vh to 30vh
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0 2rem',
+    padding: '0 1rem', // Reduced from 2rem to 1rem
     position: 'relative',
-    paddingTop: '1rem', 
+    paddingTop: '0.5rem', // Reduced from 1rem to 0.5rem
     background: '#f1eef2',
-    marginBottom: '50px', 
+    marginBottom: '25px', // Reduced from 50px to 25px
   };
+  
 
   const textContainerStyle = {
     flex: '1',
