@@ -335,7 +335,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../setupAxios';
 import { useParams, useNavigate } from 'react-router-dom';
-import Navbar from '../components/NavBar';
 import BorrowButton from '../components/BorrowButton';
 import { Container, Box, Typography, Button, CircularProgress, CardMedia } from '@mui/material';
 import Appbar from '../components/Appbar';
@@ -550,7 +549,7 @@ const BookDetails = () => {
                             )}
                         </Box>
                         <div style={{ marginTop: '32px', marginLeft: '20px' }}>
-                            <ToBeRead />
+                            <ToBeRead bookName={book.bookName} />
                         </div>
                     </div>
                 </Box>
