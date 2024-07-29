@@ -7,6 +7,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import '../styles/genre.css';
 import axios from '../setupAxios';
+import SuggestBook from '../components/SuggestBook';
+import { Link } from 'react-router-dom';
 const Allbooks = () => {
   const { genre } = useParams();
   const [books, setBooks] = useState([]);
@@ -44,9 +46,15 @@ const Allbooks = () => {
     <div style={{ minHeight: '200vh', marginBottom: '20px', background: '#f8f3ed' }}>
   <Appbar />
   <div className="header-content text-center">
-    <h1 style={{ marginTop: '250px' }}>The world's destination for e-books</h1>
-    <h5 style={{ marginTop: '50px' }}>Get inspired by the work of millions of top-rated designers & agencies around the world.</h5>
-    <button className="btn btn-primary" style={{ marginTop: '50px', background: '#1f1e2c', padding: '10px', borderRadius: '30px' }}>Get Started</button>
+  <h1 style={{ marginTop: '250px' }}>The world's destination for e-books</h1>
+<h5 style={{ marginTop: '50px' }}>
+    Discover a curated selection of top-rated e-books and get inspired by exceptional designs from around the globe.
+</h5>
+<Link to="/genre" style={{ textDecoration: 'none' }}>
+    <button className="btn btn-primary" style={{ marginTop: '50px', background: '#1f1e2c', padding: '10px', borderRadius: '20px' }}>
+        Explore more
+    </button>
+</Link>
   </div>
   <div style={{ marginTop: '100px' }}>
     <h1 style={{ marginLeft: '620px' }}>Famous Authors</h1>
@@ -90,6 +98,7 @@ const Allbooks = () => {
       ))}
     </div>
   </div>
+  <SuggestBook/>
 </div>
 
   );
