@@ -75,3 +75,10 @@ model toDo{
   book_name String
   completed Boolean
 }
+
+model suggestion {
+  suggestion_id         Int      @id @default(autoincrement())
+  bookName   String
+  authorName String
+  createdAt  DateTime @default(now())
+}
