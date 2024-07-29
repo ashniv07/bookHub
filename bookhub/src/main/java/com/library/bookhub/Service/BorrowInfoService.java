@@ -50,7 +50,7 @@ public void approveBorrowRequest(int borrowId) {
     BorrowInfo borrowInfo = borrowInfoRepo.findById(borrowId).orElseThrow(() -> new RuntimeException("Borrow request not found"));
     
     borrowInfo.setAccessGranted(true);
-    borrowInfo.setAccessCutDate(LocalDateTime.now().plusMinutes(1)); 
+    borrowInfo.setAccessCutDate(LocalDateTime.now().plusDays(7)); 
     borrowInfo.setFlag(true); 
     borrowInfoRepo.save(borrowInfo);
 }

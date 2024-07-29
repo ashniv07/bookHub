@@ -397,7 +397,7 @@ const BookDetails = () => {
                 const response = await axios.get(`/borrow/check-access/${userId}/${id}`);
                 setHasAccess(response.data.hasAccess);
             } catch (error) {
-                console.error("Error checking access:", error);
+                console.error("Error checking access:", console.log(`/borrow/check-access/${userId}/${id}`));
             }
         };
         if (id && userId) {
