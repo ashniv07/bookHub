@@ -66,7 +66,7 @@ function LoginRegister() {
               if (role === 0) {
                   navigate("/addbook");
               } else {
-                  navigate("/genre");
+                  navigate("/all");
               }
           } catch {
               setError("Unexpected response data");
