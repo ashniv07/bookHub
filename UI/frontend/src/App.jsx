@@ -16,6 +16,8 @@ import ReadBook from './pages/Readbook';
 import Allbooks from './pages/Allbooks';
 import History  from './pages/History';
 import Suggestion from './pages/Suggestion';
+import ToBeRead from './components/ToBeRead';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
 
@@ -41,9 +43,11 @@ function App() {
                 <Route path="/all" element={<Allbooks/>} /> 
                 <Route path="/history" element={<History/>} /> 
                 <Route path="/suggestion" element={<Suggestion/>} /> 
+                <Route path="/to-be-read" element={<ToBeRead />} />
 
 
             </Routes>
+            <ToastContainer/>
         </Router>
   )
 }
