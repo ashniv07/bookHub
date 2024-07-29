@@ -345,7 +345,7 @@ import AddReview from '../components/AddReview';
 // Inline CSS for Star Rating
 const starRatingStyle = {
     display: 'flex',
-    fontSize: '1.5rem',
+    fontSize: '3rem',
     color: 'gold',
 };
 
@@ -485,7 +485,7 @@ const BookDetails = () => {
            <Box
             sx={{
               flex: '1',
-              backgroundColor: 'white',
+              background: 'white',
               p: 22,
               pt: 30, 
               display: 'flex',
@@ -494,17 +494,17 @@ const BookDetails = () => {
               overflow: 'auto',
             }}
           >
-            <Typography variant="h3" fontWeight="bold" gutterBottom sx={{ color: '#1f1e2c',fontSize:'50px' }}>
+            <Typography variant="h3" fontWeight="bold" gutterBottom sx={{ color: '#1f1e2c',fontSize:'60px' }}>
               {book.bookName}
             </Typography>
-            <Typography variant="h6" fontStyle="italic" color="text.secondary" sx={{ fontSize:'20px',marginLeft:'10px' }}>
+            <Typography variant="h6" fontStyle="italic" color="text.secondary" sx={{ fontSize:'30px',marginLeft:'10px' }}>
               by {book.author}
             </Typography>
             <Box sx={{ ...starRatingStyle, mt: 1,marginLeft:'10px' }}>
               {renderStars(Math.round(averageRating))}
             </Box>
 
-            <Typography variant="body1" sx={{ mt: 1 ,marginLeft:'10px',marginBottom:'20px'}}>
+            <Typography variant="body1" sx={{ mt: 1 ,marginLeft:'10px',marginBottom:'30px'}}>
               <span style={{ textDecoration: 'underline' }}>#{book.genre}</span>
             </Typography>
             <Typography variant="body1" sx={{ mt: 1}} style={{fontSize:'20px',marginLeft:'10px'}}>
