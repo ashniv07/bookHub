@@ -49,7 +49,7 @@ export default function Appbar() {
                   textDecorationThickness: '2px'
                 }
               }}
-              onClick={() => navigate('/profile')}
+              onClick={() => navigate('/all')}
             >
               Home
             </Button>
