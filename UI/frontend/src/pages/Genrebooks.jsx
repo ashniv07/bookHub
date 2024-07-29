@@ -91,8 +91,8 @@ const GenreBooks = () => {
                     <h3 className="text-left" style={{color:'white', fontWeight: 'bold', marginTop: '10px', marginBottom: "30px",marginLeft:'70px' }}>
                         Explore <strong>{genre}</strong> Books
                     </h3>
-                    <p className="text-left mt-2" style={{ color:'white',marginBottom: '30px', fontFamily: 'cursive', fontSize: '25px',marginLeft:'40px' }}>
-                        <i>- Fantasy books whisk you away to realms where magic and adventure reign -</i>
+                    <p className="text-left mt-2" style={{ color:'white',marginBottom: '30px', fontSize: '25px',marginLeft:'40px' }}>
+                        <i>- Explore a wide range of books in this genre -</i>
                     </p>
                     <input
                         type="text"
