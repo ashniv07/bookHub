@@ -13,9 +13,10 @@ const ToBeRead = () => {
           color: gradientStart,
           backgroundColor: 'white',
           borderWidth: '2px',
-          padding: '5px 10px', // Smaller padding for a smaller button
-          fontSize: '14px', // Smaller font size
-          transition: 'all 0.3s ease', // Smooth transition for hover effect
+          padding: '14px 25px', 
+          fontSize: '15px',
+          fontWeight:'bold', 
+          transition: 'all 0.3s ease', 
         }}
         onMouseEnter={(e) => {
           e.target.style.backgroundColor = gradientStart;

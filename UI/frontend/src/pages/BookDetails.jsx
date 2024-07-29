@@ -500,14 +500,18 @@ const BookDetails = () => {
             <Typography variant="h6" fontStyle="italic" color="text.secondary" sx={{ fontSize:'30px',marginLeft:'10px' }}>
               by {book.author}
             </Typography>
-            <Box sx={{ ...starRatingStyle, mt: 1,marginLeft:'10px' }}>
-              {renderStars(Math.round(averageRating))}
+            <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, marginLeft: '10px' }}>
+              <Box sx={{ ...starRatingStyle }}>
+                {renderStars(Math.round(averageRating))}
+              </Box>
+              <Box sx={{ ml: 2 }}>
+                <AddReview bookId={book.bookId} />
+              </Box>
             </Box>
-
             <Typography variant="body1" sx={{ mt: 1 ,marginLeft:'10px',marginBottom:'30px'}}>
               <span style={{ textDecoration: 'underline' }}>#{book.genre}</span>
             </Typography>
-            <Typography variant="body1" sx={{ mt: 1}} style={{fontSize:'20px',marginLeft:'10px'}}>
+            <Typography variant="h6" fontStyle="italic" color="text.secondary" sx={{ mt: 1}} style={{fontSize:'20px',marginLeft:'10px'}}>
         
               {showFullDescription ? book.description : `${book.description.slice(0, 250)}...`}
               {book.description.length > 250 && (
@@ -518,23 +522,17 @@ const BookDetails = () => {
             </Typography>
           
            <div style={{display:'flex'}}>
-            <Box sx={{ mt: 3,marginLeft:'10px' }}>
+            <Box sx={{ mt: 4,marginLeft:'10px' }}>
               {hasAccess ? (
-                <Button variant="contained" color="primary" onClick={handleClick} >
+                <Button variant="contained" color="primary" onClick={handleClick} style={{ background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)'}} >
                   Read
                 </Button>
               ) : (
                 <BorrowButton bookId={book.bookId} />
               )}
             </Box>
-            <div style={{marginTop:'25px', marginLeft:'20px'}}>   <ToBeRead/></div>
-              <div style={{
-                marginTop:'65px',
-                marginLeft:'-190px',
-                
-              }}>
-                <AddReview bookId={book.bookId} />
-              </div>
+            <div style={{marginTop:'32px', marginLeft:'20px'}}>   <ToBeRead/></div>
+              
             </div>
           </Box>
         </Box>
@@ -544,3 +542,4 @@ const BookDetails = () => {
 };
 
 export default BookDetails;
+
