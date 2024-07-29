@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Footer() {
   return (
-    <footer className="text-center text-white" style={{ backgroundColor: '#f1f1f1' }}>
+    <footer className="text-center text-white" style={{ backgroundColor: '#f8f3ed' }}>
       <Container className="pt-4">
         <section className="mb-4">
           <Button
