@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import com.library.bookhub.Domain.PendingReqDto;
 import com.library.bookhub.Domain.UserBooksDto;
 import com.library.bookhub.Model.Book;
+import com.library.bookhub.Model.BookHistory;
 import com.library.bookhub.Model.BorrowInfo;
 import com.library.bookhub.Model.User;
+import com.library.bookhub.Repository.BookHistoryRepo;
 import com.library.bookhub.Repository.BookRepo;
 import com.library.bookhub.Repository.BorrowInfoRepo;
 import com.library.bookhub.Repository.UserRepo;
@@ -28,6 +30,7 @@ public class BorrowInfoService {
     private BookRepo bookRepo;
     @Autowired
     private UserRepo userRepo;
+    @Autowired BookHistoryRepo bookHistoryRepo;
 
 
     public void requestBookBorrow(int bookId, int userId) {
@@ -50,7 +53,7 @@ public void approveBorrowRequest(int borrowId) {
     BorrowInfo borrowInfo = borrowInfoRepo.findById(borrowId).orElseThrow(() -> new RuntimeException("Borrow request not found"));
     
     borrowInfo.setAccessGranted(true);
-    borrowInfo.setAccessCutDate(LocalDateTime.now().plusDays(7)); 
+    borrowInfo.setAccessCutDate(LocalDateTime.now().plusMinutes(1)); 
     borrowInfo.setFlag(true); 
     borrowInfoRepo.save(borrowInfo);
 }
@@ -92,11 +95,19 @@ public String getBookUrlByBorrowId(int borrowId) {
         LocalDateTime now = LocalDateTime.now();
 
         for (BorrowInfo borrowInfo : borrowInfos) {
-            if (borrowInfo.isAccessGranted() && borrowInfo.getAccessCutDate().isBefore(now) ) {
-                borrowInfo.setAccessGranted(false);
-                borrowInfo.setFlag(false);
-                borrowInfoRepo.save(borrowInfo);
-            }
+           if (borrowInfo.isAccessGranted() && borrowInfo.getAccessCutDate().isBefore(now)) {
+            // Move to history
+            BookHistory bookHistory = new BookHistory();
+            bookHistory.setBookId(borrowInfo.getBookId());
+            bookHistory.setUserId(borrowInfo.getUserId());
+            bookHistory.setBorrowDate(borrowInfo.getBorrowDate());
+            bookHistory.setReturnDate(now);
+
+            // Save to book history
+            bookHistoryRepo.save(bookHistory);
+
+            // Delete from borrow info
+            borrowInfoRepo.delete(borrowInfo);
         }
     }
-}
+}}

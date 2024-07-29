@@ -82,3 +82,12 @@ model suggestion {
   authorName String
   createdAt  DateTime @default(now())
 }
+
+model history_book{
+  id Int @id @default(autoincrement())
+    book_id Int
+    user_id Int
+    borrow_date DateTime?
+    return_date DateTime?
+    
+}
