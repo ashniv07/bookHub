@@ -39,7 +39,7 @@ model book {
   modified_at   DateTime? @updatedAt
   is_deleted    Boolean  @default(false)
   url           String   @unique
-  image         String   @db.VarChar(255)
+  image         String   @db.Text
 }
 
 

@@ -12,7 +12,6 @@ import Dashboard from './pages/Dashboard';
 import Genrebooks from './pages/Genrebooks';
 import BookDetails from './pages/BookDetails';
 import Deletedbooks from './pages/deletedbooks';
-import Homepage from './pages/Homepage';
 import ReadBook from './pages/Readbook';
 import Allbooks from './pages/Allbooks';
 
@@ -36,7 +35,6 @@ function App() {
                 <Route path="/genre/:genre" element={<Genrebooks />} />    
                 <Route path="/book/:id" element={<BookDetails/>} />
                 <Route path="/deletedBooks" element={<Deletedbooks/>} />
-                <Route path="/home" element={<Homepage/>} />
                 <Route path="/read/:id" element={<ReadBook/>} /> 
                 <Route path="/all" element={<Allbooks/>} /> 
 

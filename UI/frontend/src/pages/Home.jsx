@@ -6,11 +6,12 @@ import Bantop from '../components/Bantop'
 import About from '../components/About'
 import SuggestBook from '../components/SuggestBook'
 import Footer from '../components/Footer'
+import Appbar from '../components/Appbar'
 
 const Home = () => {
   return (
     <div>
-      <NavBar />
+      <Appbar />
       <Bantop/>
       <About/>
   

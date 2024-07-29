@@ -22,7 +22,7 @@ const Bantop = () => {
     padding: '0 1rem', // Reduced from 2rem to 1rem
     position: 'relative',
     paddingTop: '0.5rem', // Reduced from 1rem to 0.5rem
-    background: '#f1eef2',
+    background: '#f8f3ed',
     marginBottom: '25px', // Reduced from 50px to 25px
   };
   

@@ -48,7 +48,7 @@ const UserDashboard = () => {
     };
 
     const featuredBookContainerStyle = {
-        backgroundColor: 'transparent',
+        backgroundColor: '#1f1e2c',
         padding: '20px',
         borderRadius: '8px',
         width: '90%',
@@ -84,7 +84,7 @@ const UserDashboard = () => {
     const headingstyle = {
         fontSize: '50px',
         fontWeight: 'bold',
-        color: 'Black', 
+        color: 'white', 
         textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', // Add text shadow for depth
         marginLeft: '30px',
         marginTop: '10px',
@@ -97,7 +97,7 @@ const UserDashboard = () => {
         fontWeight: 'bold',
         marginLeft: '30px',
         marginTop: '20px',
-        color: '#d32f2f', // Use a contrasting color
+        color: '#f8f3ed', // Use a contrasting color
         textShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)', // Add text shadow for depth
         display: 'flex',
         alignItems: 'center'
