@@ -164,7 +164,19 @@ public class BorrowController {
                 return ResponseEntity.status(500).body(response);
             }
         }
-    }
+
+        @GetMapping("/check-in-borrow-info/{bookId}")
+        public ResponseEntity<Map<String, Boolean>> checkIfInBorrowInfo(@PathVariable int bookId) {
+            boolean isInBorrowInfo = borrowInfoService.isBookInBorrowInfo(bookId);
+            boolean hasAccessGranted = borrowInfoService.hasAccessGranted(bookId);
+            
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("isInBorrowInfo", isInBorrowInfo);
+            response.put("hasAccessGranted", hasAccessGranted);
+            
+            return ResponseEntity.ok(response);
+        }
+        
 
     
-
+    }
