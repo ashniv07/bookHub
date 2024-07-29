@@ -86,8 +86,10 @@ public String getBookUrlByBorrowId(int borrowId) {
         return borrowInfo.isAccessGranted() && borrowInfo.isFlag();
     }
 
-
-
+    public boolean isBookInBorrowInfo(int bookId) {
+        return borrowInfoRepo.existsByBookId(bookId);
+    }
+    
 
     @Scheduled(cron = "0 */2 * * * *")
     public void checkAndUpdateAccess() {

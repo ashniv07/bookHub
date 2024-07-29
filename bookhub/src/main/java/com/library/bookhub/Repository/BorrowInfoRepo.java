@@ -32,6 +32,6 @@ public interface BorrowInfoRepo extends JpaRepository<BorrowInfo, Integer> {
     List<UserBooksDto> findBooksByUserId(int userId);
 
     Optional<BorrowInfo> findByUserIdAndBookId(int userId, int bookId);
-
+    boolean existsByBookId(int bookId);
    
 }
