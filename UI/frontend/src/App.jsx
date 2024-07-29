@@ -14,6 +14,7 @@ import BookDetails from './pages/BookDetails';
 import Deletedbooks from './pages/deletedbooks';
 import Homepage from './pages/Homepage';
 import ReadBook from './pages/Readbook';
+import Allbooks from './pages/Allbooks';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
                 <Route path="/deletedBooks" element={<Deletedbooks/>} />
                 <Route path="/home" element={<Homepage/>} />
                 <Route path="/read/:id" element={<ReadBook/>} /> 
+                <Route path="/all" element={<Allbooks/>} /> 
 
             </Routes>
         </Router>
