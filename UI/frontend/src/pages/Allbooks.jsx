@@ -17,7 +17,7 @@ const Allbooks = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get(`/findbooks`);
+        const response = await axios.get(`/books-not-del`);
         setBooks(response.data);
       } catch (error) {
         console.error('Error fetching books:', error);
