@@ -62,7 +62,7 @@ const BookImage = styled('img')({
   },
 });
 
-export default function App() {
+export default function Slides() {
   return (
     <Swiper
       slidesPerView={6}

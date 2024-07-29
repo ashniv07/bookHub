@@ -1,17 +1,16 @@
 import React from 'react'
-import NavBar from '../components/NavBar'
 import Slides from '../components/Slides'
 
 import Bantop from '../components/Bantop'
 import About from '../components/About'
 import SuggestBook from '../components/SuggestBook'
 import Footer from '../components/Footer'
-import Appbar from '../components/Appbar'
+import NavBar from '../components/NavBar'
 
 const Home = () => {
   return (
     <div>
-      <Appbar />
+      <NavBar />
       <Bantop/>
       <About/>
   

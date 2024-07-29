@@ -21,8 +21,9 @@ const Bantop = () => {
     justifyContent: 'space-between',
     padding: '0 1rem', // Reduced from 2rem to 1rem
     position: 'relative',
-    paddingTop: '0.5rem', // Reduced from 1rem to 0.5rem
-    background: '#f8f3ed',
+    paddingTop: '0.5rem',   
+     background: '#ffff', // Reduced from 1rem to 0.5rem
+
     marginBottom: '25px', // Reduced from 50px to 25px
   };
   
