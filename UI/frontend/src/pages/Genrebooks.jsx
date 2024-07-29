@@ -15,7 +15,7 @@ const containerStyle = {
 
 const boxContainerStyle = {
     boxShadow: '0 4px 8px #1f1e2c',
-    backgroundColor: '#fff',
+    backgroundColor: '#1f1e2c',
     borderRadius: '9px',
     height: '250px',
     display: 'flex',
@@ -88,10 +88,10 @@ const GenreBooks = () => {
             <Appbar />
             <div style={boxContainerStyle}>
                 <div style={{ flex: 1 }}>
-                    <h3 className="text-left" style={{color:'#1f1e2c', fontWeight: 'bold', marginTop: '10px', marginBottom: "30px",marginLeft:'70px' }}>
+                    <h3 className="text-left" style={{color:'white', fontWeight: 'bold', marginTop: '10px', marginBottom: "30px",marginLeft:'70px' }}>
                         Explore <strong>{genre}</strong> Books
                     </h3>
-                    <p className="text-left mt-2" style={{ marginBottom: '30px', fontFamily: 'cursive', fontSize: '25px',marginLeft:'40px' }}>
+                    <p className="text-left mt-2" style={{ color:'white',marginBottom: '30px', fontFamily: 'cursive', fontSize: '25px',marginLeft:'40px' }}>
                         <i>- Fantasy books whisk you away to realms where magic and adventure reign -</i>
                     </p>
                     <input
@@ -121,19 +121,19 @@ const GenreBooks = () => {
                             />
                             <Box sx={{ display: 'flex', flexDirection: 'column', flex: '1 1 auto', padding: '10px', width: '60%',background:'white'}}>
                                 <CardContent sx={{ flex: '1 0 auto' }}>
-                                    <Typography component="div" variant="h6" noWrap>
+                                    <Typography component="div" variant="h6" noWrap style={{fontSize:'30px',fontWeight:'bold'}}>
                                         {book.bookName}
                                     </Typography>
-                                    <Typography variant="subtitle2" color="text.secondary" component="div">
+                                    <Typography variant="subtitle2" color="text.secondary" component="div" style={{marginBottom:'10px'}}>
                                         {book.author}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary" component="p" style={{ display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 3, overflow: 'hidden' }}>
+                                    <Typography variant="body2" color="text.secondary" component="p" style={{ display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 3, overflow: 'hidden',color:'black' }}>
                                         {book.description}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary" component="p" mt={2}>
+                                    {/* <Typography variant="body2" color="text.secondary" component="p" mt={2}>
                                         Reviews: {book.reviews}
-                                    </Typography>
-                                    <Button variant="contained" style={{ marginTop: '10px', backgroundColor: '#392467' }}>
+                                    </Typography> */}
+                                    <Button variant="contained" style={{ marginTop: '20px', backgroundColor: '#392467' }}>
                                         Explore
                                     </Button>
                                 </CardContent>

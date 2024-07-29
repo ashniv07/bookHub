@@ -51,7 +51,7 @@ export default function Appbar() {
               }}
               onClick={() => navigate('/profile')}
             >
-              Profile
+              Home
             </Button>
             <Button
               sx={{

@@ -15,7 +15,7 @@ const AddReview = ({ bookId }) => {
 
   const handleSubmit = async () => {
     if (rating === 0 || review.trim() === '') {
-      setError('Please provide a rating and a review.');
+      setError('Please provide a rating and a review .');
       return;
     }
 
@@ -55,14 +55,14 @@ const AddReview = ({ bookId }) => {
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: 400,
-            bgcolor: 'background.paper',
+            bgcolor: '#f8f3ed',
             border: '2px solid #000',
             boxShadow: 24,
             p: 4,
           }}
         >
           <Typography variant="h6" component="h2">
-            Add Your Review
+            Give us your review :)
           </Typography>
           <Rating
             name="rating"
@@ -85,7 +85,7 @@ const AddReview = ({ bookId }) => {
               {error}
             </Typography>
           )}
-          <Button variant="contained" color="primary" onClick={handleSubmit} sx={{ mt: 2 }}>
+          <Button variant="contained" color="primary" style={{background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)'}} onClick={handleSubmit} sx={{ mt: 2 }}>
             Submit
           </Button>
         </Box>

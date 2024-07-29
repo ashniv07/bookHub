@@ -41,7 +41,7 @@ const UserDashboard = () => {
         padding: '20px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '120px',
+        gap: '180px',
         alignItems: 'center',
         maxWidth: '1200px',
         margin: '0 auto'
@@ -60,13 +60,13 @@ const UserDashboard = () => {
         flexDirection: 'row',
         alignItems: 'flex-start', // Align text to the top
         height: '300px',
-        width: '700px',
+        width: '800px',
         position: 'relative',
     };
 
     const featuredBookImgStyle = {
-        width: '200px',
-        height: '300px',
+        width: '250px',
+        height: '350px',
         borderRadius: '8px',
         objectFit: 'cover',
         marginTop: '20px',
