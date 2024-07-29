@@ -238,15 +238,23 @@ const Managebook = () => {
         setUpdatedBook(prevBook => ({ ...prevBook, [name]: value }));
     };
 
-    const handleDelete = (id) => {
-        axios.delete(`/soft-delete/${id}`)
-            .then(() => {
-                setAllBooks(prevBooks => prevBooks.filter(book => book.bookId !== id));
-            })
-            .catch(error => {
-                console.error('Error deleting book:', error.message);
-            });
+    const handleDelete = async (id) => {
+        try {
+            // Check if the book is present in the BorrowInfo table and if access is granted
+            const response = await axios.get(`/borrow/check-in-borrow-info/${id}`);
+            if (response.data.isInBorrowInfo || response.data.hasAccessGranted) {
+                alert('Cannot delete the book as it is currently being borrowed and access is granted.');
+                return;
+            }
+    
+            // Proceed with deletion if not present in BorrowInfo or access is not granted
+            await axios.delete(`/soft-delete/${id}`);
+            setAllBooks(prevBooks => prevBooks.filter(book => book.bookId !== id));
+        } catch (error) {
+            console.error('Error deleting book:', error.message);
+        }
     };
+    
 
     const handleClose = () => {
         setOpen(false);

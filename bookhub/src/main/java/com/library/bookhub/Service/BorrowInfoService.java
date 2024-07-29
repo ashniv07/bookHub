@@ -91,6 +91,17 @@ public String getBookUrlByBorrowId(int borrowId) {
     }
     
 
+
+    public boolean hasAccessGranted(int bookId) {
+        Optional<BorrowInfo> optionalBorrowInfo = borrowInfoRepo.findByBookId(bookId);
+        if (optionalBorrowInfo.isPresent()) {
+            BorrowInfo borrowInfo = optionalBorrowInfo.get();
+            return borrowInfo.isAccessGranted() && borrowInfo.isFlag();
+        }
+        return false;
+    }
+    
+
     @Scheduled(cron = "0 */2 * * * *")
     public void checkAndUpdateAccess() {
         List<BorrowInfo> borrowInfos = borrowInfoRepo.findAll();

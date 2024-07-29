@@ -185,7 +185,7 @@ const SuggestBook = () => {
       authorName,
     };
 
-    fetch('/api/suggest-book', {
+    fetch('http://localhost:8080/suggestions/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
