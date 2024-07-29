@@ -1,58 +1,111 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../setupAxios'; // Adjust the path if necessary
+import Appbar from '../components/Appbar';
+
+const borrowedBooksContainerStyle = {
+  backgroundColor: '#f8f3ed',
+  borderRadius: '8px',
+  width: '100%',
+  maxWidth: '1200px',
+  overflowY: 'auto',
+  marginLeft: '200px',
+  marginTop:'150px'
+};
+
+const bookListStyle = {
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '60px',
+  listStyleType: 'none',
+  marginTop: '30px',
+  padding: '0'
+};
+
+const bookCardStyle = {
+  backgroundColor: '#fff',
+  borderRadius: '8px',
+  boxShadow: '0 4px 8px #1f1e2c',
+  textAlign: 'center',
+  width: '200px',  // Increased width
+  height: '310px', // Increased height
+  overflow: 'hidden',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  marginLeft: '20px'
+};
+
+const bookImgStyle = {
+  width: '100%',
+  height: '70%', 
+  objectFit: 'cover'
+};
+
+const bookCardTitleStyle = {
+  fontSize: '16px', // Adjusted font size
+  fontWeight: 'bold',
+  margin: '10px 0'
+};
+
+const bookCardAuthorStyle = {
+  fontSize: '14px', // Adjusted font size
+  color: '#555'
+};
 
 const UserBooksPage = () => {
-    const [books, setBooks] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchBooks = async () => {
-            try {
-                // Get the token from localStorage (this is handled in setupAxios)
-                // You don't need to extract userId from token manually here
-                
-                // Fetch the books based on user ID
-                const token = localStorage.getItem('token');
-                const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : null;
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : null;
 
-                if (userId) {
-                    const response = await axios.get(`/history/user-books/${userId}`);
-                    console.log(`/history/user-books/${userId}`);
-                    setBooks(response.data);
-                } else {
-                    console.error('User ID not found');
-                }
-            } catch (error) {
-                console.error('Error fetching books:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
+        if (userId) {
+          const response = await axios.get(`/history/user-books/${userId}`);
+          setBooks(response.data);
+        } else {
+          console.error('User ID not found');
+        }
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-        fetchBooks();
-    }, []);
+    fetchBooks();
+  }, []);
 
-    if (loading) {
-        return <p>Loading...</p>;
-    }
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-    return (
-        <div>
-            <h1>Books History</h1>
-            <ul>
-                {books.length > 0 ? (
-                    books.map(book => (
-                        <li key={book.bookId}>
-                            <img src={book.image} alt={book.title} style={{ width: '50px', height: '75px', marginRight: '10px' }} />
-                            <p>{book.title} by {book.author}</p>
-                        </li>
-                    ))
-                ) : (
-                    <p>No books found.</p>
-                )}
-            </ul>
-        </div>
-    );
+  return (
+    <div style={borrowedBooksContainerStyle}>
+        <Appbar/>
+      <h2 style={{color:'#1f1e2c',textAlign: 'center',
+    fontSize: '2.5rem',
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom:'90px',
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',}}>My History</h2>
+      <ul style={bookListStyle}>
+        {books.length > 0 ? (
+          books.map((book) => (
+            <li key={book.bookId} style={bookCardStyle}>
+              <img src={book.image} alt={book.bookName} style={bookImgStyle} />
+              <div style={bookCardTitleStyle}>{book.bookName}</div>
+              <div style={bookCardAuthorStyle}>by {book.author}</div>
+            </li>
+          ))
+        ) : (
+          <p>No books found.</p>
+        )}
+      </ul>
+    </div>
+  );
 };
 
 export default UserBooksPage;
