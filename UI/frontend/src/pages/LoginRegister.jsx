@@ -32,7 +32,7 @@ function LoginRegister() {
   function register(event) {
     event.preventDefault();
     axios.post("http://localhost:8080/register", { userName, userEmail, password })
-      .then(res => navigate("/genre"))
+      .then(res => navigate("/manage"))
       .catch(err => {
         if (err.response && err.response.status === 400) {
           alert("Registration failed. Please try again"); 

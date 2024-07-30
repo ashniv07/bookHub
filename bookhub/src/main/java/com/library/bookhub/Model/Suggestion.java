@@ -16,16 +16,14 @@ public class Suggestion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "suggestion_id") 
+  
     private int suggestionId;
 
-    @Column(name = "bookName") 
     private String bookName;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "authorName")
     private String author;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt = LocalDateTime.now();
+    
 
 }

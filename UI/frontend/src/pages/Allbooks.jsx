@@ -52,7 +52,7 @@ const Allbooks = () => {
 </h5>
 <Link to="/genre" style={{ textDecoration: 'none' }}>
     <button className="btn btn-primary" style={{ marginTop: '50px', background: '#1f1e2c', padding: '10px', borderRadius: '20px' }}>
-        Explore more
+        Explore Genre
     </button>
 </Link>
   </div>

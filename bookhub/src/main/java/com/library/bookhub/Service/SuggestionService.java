@@ -1,6 +1,7 @@
 
 package com.library.bookhub.Service;
 
+import com.library.bookhub.Domain.SuggestionDto;
 import com.library.bookhub.Model.Suggestion;
 import com.library.bookhub.Repository.SuggestionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,19 @@ public class SuggestionService {
     @Autowired
     private SuggestionRepo suggestionRepository;
 
-    public Suggestion createSuggestion(Suggestion suggestion) {
-        suggestion.setCreatedAt(LocalDateTime.now()); 
-        return suggestionRepository.save(suggestion);
+    public void createSuggestion(SuggestionDto suggestion) {
+        Suggestion su = new Suggestion();
+        if (suggestion.getBookName() == null || suggestion.getBookName().isEmpty()) {
+            throw new IllegalArgumentException("Book name cannot be null or empty");
+        }
+        su.setBookName(suggestion.getBookName());
+        
+        su.setCreatedAt(LocalDateTime.now());
+        su.setAuthor(suggestion.getAuthor());
+       
+        suggestionRepository.save(su);
     }
-
+    
     public List<Suggestion> getAllSuggestions() {
         return suggestionRepository.findAll();
     }

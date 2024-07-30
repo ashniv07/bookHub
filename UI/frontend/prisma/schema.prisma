@@ -78,8 +78,8 @@ model toDo{
 
 model suggestion {
   suggestion_id         Int      @id @default(autoincrement())
-  bookName   String
-  authorName String
+  book_name   String  
+  author String
   createdAt  DateTime @default(now())
 }
 

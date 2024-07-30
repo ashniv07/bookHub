@@ -38,7 +38,7 @@ const ToBeRead = ({ bookName }) => {
   return (
     <div>
       <button onClick={handleAddToBeRead} disabled={loading}>
-        {loading ? 'Adding...' : 'Add to To Be Read'}
+        {loading ? 'Adding...' : 'Add to checklist'}
       </button>
     </div>
   );
