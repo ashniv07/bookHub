@@ -5,7 +5,7 @@ import bannerimg from '../assets/banner-image.png';
 
 
 const colors = {
-  primary: '#392467',
+  primary: '#09203f',
   secondary: '#5D3587',
   tertiary: '#A367B1',
   light: '#F1F1F1'

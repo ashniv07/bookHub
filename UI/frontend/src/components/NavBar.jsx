@@ -38,7 +38,7 @@
 //   backgroundColor: 'transparent',
 //   '&:hover': {
 //     backgroundColor: '#fff',
-//     color: '#392467',
+//     color: '#09203f',
 //   },
 // }));
 
@@ -76,6 +76,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import logo from '../assets/logo.png';
 
 // Ensure this font is imported in your main HTML or CSS
 // <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap">
@@ -90,15 +91,15 @@ export default function NavBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ width: '100%', backgroundColor: '#ffffff', padding: '10px' }}>
+      <AppBar position="fixed" sx={{ width: '100%', backgroundColor: '#09203f', padding: '10px' }}>
         <Toolbar variant="dense">
           {/* Left Side "BookHub" */}
-          <Typography
+          {/* <Typography
             variant="h6"
             component="div"
             sx={{
               flexGrow: 1,
-              color: '#1f1e2c',
+              color: '#fff',
               fontFamily: "'Playfair Display', serif", 
               fontWeight: 'bold',
               textAlign: 'left',
@@ -106,7 +107,28 @@ export default function NavBar() {
             }}
           >
             BookHub
-          </Typography>
+          </Typography> */}
+
+    {/* <Box display="flex" alignItems="center"> */}
+      <img 
+        src={logo}
+        alt="BookHub Logo" 
+        style={{ width: '50px', height: '50px', marginRight: '10px' }} 
+      />
+      <Typography
+        variant="h6"
+        component="div"
+        sx={{
+          flexGrow: 1,
+          color: '#fff',
+          fontWeight: 'bold',
+          textAlign: 'left',
+          fontSize: '1.5rem'
+        }}
+      >
+        BookHub
+      </Typography>
+    {/* </Box> */}
 
           {/* Right Side Buttons */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 5 }}>
@@ -169,11 +191,11 @@ export default function NavBar() {
             </Button> */}
             <Button
               sx={{
-                color: '#1f1e2c',
+                color: '#fff',
                 fontWeight: 'bold',
                 '&:hover': {
                   textDecoration: 'underline',
-                  textDecorationColor: '#ffeb3b',
+                  textDecorationColor: '#fff',
                   textDecorationThickness: '2px'
                 }
               }}

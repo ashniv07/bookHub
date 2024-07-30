@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import logo from '../assets/logo.png'
 
 // Ensure this font is imported in your main HTML or CSS
 // <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap">
@@ -19,10 +20,10 @@ export default function Appbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ width: '100%', backgroundColor: '#ffffff', padding: '10px' }}>
+      <AppBar position="fixed" sx={{ width: '100%', backgroundColor: '#09203f', padding: '10px' }}>
         <Toolbar variant="dense">
           {/* Left Side "BookHub" */}
-          <Typography
+          {/* <Typography
             variant="h6"
             component="div"
             sx={{
@@ -35,13 +36,31 @@ export default function Appbar() {
             }}
           >
             BookHub
-          </Typography>
+          </Typography> */}
+           <img 
+        src={logo}
+        alt="BookHub Logo" 
+        style={{ width: '50px', height: '50px', marginRight: '10px' }} 
+      />
+      <Typography
+        variant="h6"
+        component="div"
+        sx={{
+          flexGrow: 1,
+          color: '#fff',
+          fontWeight: 'bold',
+          textAlign: 'left',
+          fontSize: '1.5rem'
+        }}
+      >
+        BookHub
+      </Typography>
 
           {/* Right Side Buttons */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 5 }}>
             <Button
               sx={{
-                color: '#1f1e2c',
+                color: '#fff',
                 fontWeight: 'bold',
                 '&:hover': {
                   textDecoration: 'underline',
@@ -55,7 +74,7 @@ export default function Appbar() {
             </Button>
             <Button
               sx={{
-                color: '#1f1e2c',
+                color: '#fff',
                 fontWeight: 'bold',
                 '&:hover': {
                   textDecoration: 'underline',
@@ -69,7 +88,7 @@ export default function Appbar() {
             </Button>
             <Button
               sx={{
-                color: '#1f1e2c',
+                color: '#fff',
                 fontWeight: 'bold',
                 '&:hover': {
                   textDecoration: 'underline',
@@ -84,7 +103,7 @@ export default function Appbar() {
             
             <Button
               sx={{
-                color: '#1f1e2c',
+                color: '#fff',
                 fontWeight: 'bold',
                 '&:hover': {
                   textDecoration: 'underline',
@@ -98,7 +117,7 @@ export default function Appbar() {
             </Button>
             <Button
               sx={{
-                color: '#1f1e2c',
+                color: '#fff',
                 fontWeight: 'bold',
                 '&:hover': {
                   textDecoration: 'underline',

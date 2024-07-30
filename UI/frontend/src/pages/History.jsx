@@ -27,8 +27,8 @@ const bookCardStyle = {
   borderRadius: '8px',
   boxShadow: '0 4px 8px #1f1e2c',
   textAlign: 'center',
-  width: '200px', // Adjusted width
-  height: '310px', // Adjusted height
+  width: '200px',  // Increased width
+  height: '310px', // Increased height
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
@@ -54,7 +54,7 @@ const bookCardAuthorStyle = {
   color: '#555'
 };
 
-const UserBooksPage = () => {
+const History = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate(); // Initialize navigate
@@ -129,4 +129,4 @@ const UserBooksPage = () => {
   );
 };
 
-export default UserBooksPage;
+export default History;

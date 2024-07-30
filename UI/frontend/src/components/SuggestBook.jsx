@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // Import axios
 import suggest from '../assets/suggestion.png';
+import '../setupAxios';
 
 const suggestBookContainerStyle = {
   display: 'flex',
@@ -7,7 +9,7 @@ const suggestBookContainerStyle = {
   justifyContent: 'center',
   minHeight: '60vh',
   padding: '2rem',
-  background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)',
+  background: 'linear-gradient(to top, #09203f 0%, #537895 100%)',
   marginTop: '2rem',
   color: '#fff',
 };
@@ -47,7 +49,7 @@ const buttonStyle = {
   fontSize: '1rem',
   borderRadius: '5px',
   border: 'none',
-  background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)',
+  background: 'linear-gradient(to top, #09203f 0%, #537895 100%)',
   color: '#fff',
   cursor: 'pointer',
 };
@@ -71,28 +73,16 @@ const SuggestBook = () => {
       author: authorName, 
     };
 
-    fetch('http://localhost:8080/suggestions/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(suggestion),
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to submit suggestion');
-      }
-      return response.json();
-    })
-    .then(data => {
-      alert('Thank you for your suggestion!');
-      setBookName('');
-      setAuthorName('');
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Failed to process suggestion.');
-    });
+    axios.post('http://localhost:8080/suggestions/add', suggestion)
+      .then(response => {
+        alert('Thank you for your suggestion!');
+        setBookName('');
+        setAuthorName('');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to process suggestion.');
+      });
   };
 
   return (

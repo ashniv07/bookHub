@@ -30,12 +30,10 @@ public class SuggestionController {
             }
         }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Suggestion> getSuggestionById(@PathVariable int id) {
-        Optional<Suggestion> suggestion = suggestionService.getSuggestionById(id);
-        return suggestion.map(ResponseEntity::ok)
-                         .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                                         .body(null));
+    @GetMapping("/get")
+    public ResponseEntity<List<Suggestion>> getAllSuggestions() {
+        List<Suggestion> suggestion = suggestionService.getAllSuggestions();
+        return ResponseEntity.ok(suggestion);
     }
 
 }
