@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from '../setupAxios'; // Adjust the path if necessary
 import Appbar from '../components/Appbar';
 
@@ -26,13 +27,14 @@ const bookCardStyle = {
   borderRadius: '8px',
   boxShadow: '0 4px 8px #1f1e2c',
   textAlign: 'center',
-  width: '200px',  // Increased width
-  height: '310px', // Increased height
+  width: '200px', // Adjusted width
+  height: '310px', // Adjusted height
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginLeft: '20px'
+  marginLeft: '20px',
+  cursor: 'pointer' // Add cursor pointer
 };
 
 const bookImgStyle = {
@@ -55,6 +57,7 @@ const bookCardAuthorStyle = {
 const UserBooksPage = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -63,8 +66,18 @@ const UserBooksPage = () => {
         const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : null;
 
         if (userId) {
+          // Fetch borrowed book IDs
           const response = await axios.get(`/history/user-books/${userId}`);
-          setBooks(response.data);
+          const bookIds = response.data.map(book => book.bookId);
+
+          // Fetch detailed book information for each book ID
+          const detailedBooksPromises = bookIds.map(bookId => 
+            axios.get(`/book/${bookId}`)
+          );
+          const detailedBooksResponses = await Promise.all(detailedBooksPromises);
+          const detailedBooks = detailedBooksResponses.map(res => res.data);
+
+          setBooks(detailedBooks);
         } else {
           console.error('User ID not found');
         }
@@ -77,6 +90,10 @@ const UserBooksPage = () => {
 
     fetchBooks();
   }, []);
+
+  const handleBookClick = (bookId) => {
+    navigate(`/book/${bookId}`); // Navigate to the book detail page
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -94,7 +111,11 @@ const UserBooksPage = () => {
       <ul style={bookListStyle}>
         {books.length > 0 ? (
           books.map((book) => (
-            <li key={book.bookId} style={bookCardStyle}>
+            <li 
+              key={book.bookId} 
+              style={bookCardStyle}
+              onClick={() => handleBookClick(book.bookId)} // Add onClick handler
+            >
               <img src={book.image} alt={book.bookName} style={bookImgStyle} />
               <div style={bookCardTitleStyle}>{book.bookName}</div>
               <div style={bookCardAuthorStyle}>by {book.author}</div>
