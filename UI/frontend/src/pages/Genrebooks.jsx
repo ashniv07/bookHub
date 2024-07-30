@@ -133,7 +133,7 @@ const GenreBooks = () => {
                                     {/* <Typography variant="body2" color="text.secondary" component="p" mt={2}>
                                         Reviews: {book.reviews}
                                     </Typography> */}
-                                    <Button variant="contained" style={{ marginTop: '20px', backgroundColor: '#392467' }}>
+                                    <Button variant="contained" style={{ marginTop: '20px', backgroundColor: '#09203f' }}>
                                         Explore
                                     </Button>
                                 </CardContent>

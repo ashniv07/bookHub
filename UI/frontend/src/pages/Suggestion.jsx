@@ -35,7 +35,7 @@ const Suggestion = () => {
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
-    fetch('/suggestions')
+    axios.get('/suggestions')
       .then(response => response.json())
       .then(data => setSuggestions(data))
       .catch(error => console.error('Error fetching suggestions:', error));

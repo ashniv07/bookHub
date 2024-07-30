@@ -9,7 +9,7 @@ import { MdDelete } from "react-icons/md";
  
 const Sidebar = () => {
   return (
-    <div className="text-white vh-100 d-flex flex-column p-3" style={{ width: '200px',backgroundColor:'#392467',height:'100vh',position: 'fixed',overflowY: 'auto'}}>
+    <div className="text-white vh-100 d-flex flex-column p-3" style={{ width: '200px',backgroundColor:'#09203f',height:'100vh',position: 'fixed',overflowY: 'auto'}}>
       <h2 className="text-center mt-3 mb-5">BookHub</h2>
       <ul className="nav flex-column">
         <li className="nav-item mb-3">

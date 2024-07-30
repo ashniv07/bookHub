@@ -14,6 +14,7 @@ const headingStyle = {
   fontSize: '2.5rem',
   fontWeight: 'bold',
   marginBottom: '1rem',
+  
 
 };
 

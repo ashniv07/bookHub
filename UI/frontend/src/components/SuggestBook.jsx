@@ -7,7 +7,8 @@ const suggestBookContainerStyle = {
   justifyContent: 'center',
   minHeight: '60vh',
   padding: '2rem',
-  background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)',
+  // background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)',
+  background:'linear-gradient(to top, #09203f 0%, #537895 100%)',
   marginTop: '2rem',
   color: '#fff',
 };
@@ -47,7 +48,7 @@ const buttonStyle = {
   fontSize: '1rem',
   borderRadius: '5px',
   border: 'none',
-  background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)',
+  background: 'linear-gradient(to top, #09203f 0%, #537895 100%)',
   color: '#fff',
   cursor: 'pointer',
 };

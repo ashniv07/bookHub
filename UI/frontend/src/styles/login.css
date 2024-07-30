@@ -4,7 +4,7 @@
   justify-content: center;
   height: 100vh;
   position: relative;
-  background-color: #f4f4f4;
+  background-color: #f8f3ed;
 }
 
 .header {
@@ -14,7 +14,7 @@
 }
 
 .brand-name {
-  color: #392467;
+  color: #09203f;
   cursor: pointer;
   font-size: 24px;
   font-weight: bold;
@@ -32,7 +32,7 @@
 }
 
 .btn-register {
-  background-color: #392467;
+  background-color: #09203f;
   color: #fff;
   padding: 10px 10px;
   border: 2px solid #fff; /* Add white border */
@@ -44,7 +44,7 @@
 }
 
 .btn-login {
-  background-color: #392467;
+  background-color: #09203f;
   color: #fff;
   padding: 10px 10px;
   border: 2px solid #fff; /* Add white border */
@@ -56,11 +56,11 @@
 }
 
 .btn-register:hover, .btn-login:hover {
-  background-color: #392467;
+  background-color: #09203f;
 }
 
 .header-text h1, .forgot a {
-  color: #392467;
+  color: #09203f;
 }
 
 .right-box {
@@ -85,7 +85,7 @@
 }
 
 .switch {
-  background-color: #392467;
+  background-color: #09203f;
   height: 100%;
   color: #fff;
   position: relative;

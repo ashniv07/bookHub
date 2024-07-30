@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../setupAxios'; // Adjust the path if necessary
+import axios from '../setupAxios'; 
 import Appbar from '../components/Appbar';
 
 const borrowedBooksContainerStyle = {
@@ -26,8 +26,8 @@ const bookCardStyle = {
   borderRadius: '8px',
   boxShadow: '0 4px 8px #1f1e2c',
   textAlign: 'center',
-  width: '200px',  // Increased width
-  height: '310px', // Increased height
+  width: '200px',
+  height: '310px', 
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
@@ -52,7 +52,7 @@ const bookCardAuthorStyle = {
   color: '#555'
 };
 
-const UserBooksPage = () => {
+const History = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -108,4 +108,4 @@ const UserBooksPage = () => {
   );
 };
 
-export default UserBooksPage;
+export default History;

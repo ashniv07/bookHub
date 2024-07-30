@@ -94,7 +94,7 @@ const DashSideBar = () => {
   };
 
   return (
-    <div className="text-white vh-100 d-flex flex-column p-3" style={{ width: '300px', backgroundColor: '#1f1e2c', height: '100vh', position: 'fixed', overflowY: 'auto' }}>
+    <div className="text-white vh-100 d-flex flex-column p-3" style={{ width: '300px', backgroundColor: '#09203f', height: '100vh', position: 'fixed', overflowY: 'auto' }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px', marginTop: '100px' }}>
         <img src={profileImage} alt="Profile" style={{ width: '80px', height: '80px', borderRadius: '50%', marginBottom: '10px' }} />
         <h2 style={{ margin: '0' }}>{userName}</h2>
