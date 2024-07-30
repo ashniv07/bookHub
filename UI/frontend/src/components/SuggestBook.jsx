@@ -68,7 +68,7 @@ const SuggestBook = () => {
 
     const suggestion = {
       bookName,
-      author: authorName, 
+      authorName, 
     };
 
     fetch('http://localhost:8080/suggestions/add', {

@@ -8,7 +8,6 @@ import com.library.bookhub.Model.Suggestion;
 
 @Repository
 public interface SuggestionRepo extends JpaRepository<Suggestion,Integer>{
-    // User findByUserEmail(String userEmail);
     
 }
 
