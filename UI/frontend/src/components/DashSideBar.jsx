@@ -102,7 +102,7 @@ const DashSideBar = () => {
 
       {/* To-Do List Section */}
       <div style={{ backgroundColor: '#f8f3ed', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', padding: '20px', marginTop: '20px', height: 'calc(100vh - 220px)', overflowY: 'auto' }}>
-        <h4 style={{ marginBottom: '20px', color: 'black', marginLeft: '8px', fontWeight: 'bold' }}>To-Be-Read List</h4>
+        <h4 style={{ marginBottom: '20px', color: 'black', marginLeft: '8px', fontWeight: 'bold' }}>Book CheckList</h4>
         <ul style={{ listStyleType: 'none', padding: '0' }}>
           {toDoList.map((todo) => (
             <li key={todo.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', backgroundColor: '#f9f9f9', padding: '10px', borderRadius: '5px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>

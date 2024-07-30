@@ -344,7 +344,7 @@ import AddReview from '../components/AddReview';
 // Inline CSS for Star Rating
 const starRatingStyle = {
     display: 'flex',
-    fontSize: '3rem',
+    fontSize: '2rem',
     color: 'gold',
 };
 

@@ -77,9 +77,9 @@ export default function Appbar() {
                   textDecorationThickness: '2px'
                 }
               }}
-              onClick={() => navigate('/notifications')}
+              onClick={() => navigate('/history')}
             >
-              Notifications
+              History
             </Button>
             
             <Button
