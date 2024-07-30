@@ -41,10 +41,10 @@ const Sidebar = () => {
           </a>
         </li> 
         <li className="nav-item mt-auto mb-3">
-          <a href="#" className="nav-link text-white" style={{ transition: 'background-color 0.3s', backgroundColor: 'transparent'  }}
+          <a href="/suggestions" className="nav-link text-white" style={{ transition: 'background-color 0.3s', backgroundColor: 'transparent'  }}
             onMouseEnter={(e) => e.currentTarget.classList.add('bg-secondary')}
             onMouseLeave={(e) => e.currentTarget.classList.remove('bg-secondary')}>
-            <IoPeople className="me-2" /> Add Admin
+            <IoPeople className="me-2" /> Suggestions
           </a>
         </li> 
         <li className="nav-item mt-auto">
