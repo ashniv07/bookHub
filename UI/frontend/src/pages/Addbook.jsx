@@ -11,11 +11,11 @@ const Addbook = () => {
     const bookCategories = [
         "Fantasy",
         "Romance",
-        "Mystery and Thriller",
+        "Thriller",
         "Science Fiction",
-        "Historical",
+        "Study Materials",
         "Horror",
-        "Non-fiction",
+        "Comic",
         "Self-Help",
     ];
 

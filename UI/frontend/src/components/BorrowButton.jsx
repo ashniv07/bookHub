@@ -34,7 +34,7 @@ const BorrowButton = ({ bookId }) => {
                 bookId,
                 userId,
             });
-            alert("Your borrow request has been sent! Happy Reading :)");
+            alert("Your borrow request has been sent! Your Access to read will be cut off in 7 days");
             console.log('Borrow request successful:', response.data);
         } catch (error) {
             console.error('Error sending borrow request:', error);

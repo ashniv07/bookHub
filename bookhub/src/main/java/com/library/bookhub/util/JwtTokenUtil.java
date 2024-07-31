@@ -12,15 +12,15 @@ import com.library.bookhub.Domain.AuthDto;
 @Component
 public class JwtTokenUtil {
  
-    // Use a long random string or use the secretKeyFor method
     private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-    private static final long EXPIRATION_TIME = 7200000; // 2 hours in milliseconds
+    private static final long EXPIRATION_TIME = 7200000; 
  
-    // Return the generated SecretKey
     private SecretKey getSecretKey() {
         return SECRET_KEY;
     }
  
+
+    //Generating token
     public String generateToken(AuthDto authDto) {
         return Jwts.builder()
                 .claim("userId", authDto.getUserId())
@@ -38,6 +38,9 @@ public class JwtTokenUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
+
+    //Getting role
  
     public int getUserIdFromToken(String token) {
         return getClaimsFromToken(token).get("userId", Integer.class);
@@ -46,7 +49,9 @@ public class JwtTokenUtil {
     public int getRoleFromToken(String token) {
         return getClaimsFromToken(token).get("roleId", Integer.class);
     }
- 
+
+
+ //Validating token
     public boolean validateToken(String token) {
         try {
             Claims claims = getClaimsFromToken(token);
@@ -56,6 +61,7 @@ public class JwtTokenUtil {
         }
     }
  
+//Checking expiry
     public boolean isTokenExpired(Claims claims) {
         return claims.getExpiration().before(new Date());
     }

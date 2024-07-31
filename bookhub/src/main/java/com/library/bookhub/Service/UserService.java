@@ -15,14 +15,20 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
+
+    //To check if user exists
     public boolean isUsernameExists(String username) {
         return userRepo.findByUserName(username) != null;
     }
 
+
+    //Geting current user
     public User getCurrentUser(int i) {
         return userRepo.findByUserId(i);
     }
 
+
+    //Registering user
     public void registerUser(Userdto user) {
         if (isUsernameExists(user.getUserName())) {
             throw new IllegalArgumentException("Username already exists");
@@ -38,6 +44,8 @@ public class UserService {
         userRepo.save(u);
     }
 
+
+    //For login
     public User findByUserEmail(String userEmail) {
         return userRepo.findByUserEmail(userEmail);
     }

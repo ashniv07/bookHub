@@ -18,6 +18,9 @@ public class UserController {
     private UserService userService;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+
+    //To register
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Userdto user) {
         try {
@@ -28,6 +31,8 @@ public class UserController {
         }
     }
 
+
+    //gettig user info
         @GetMapping("/userinfo")
     public ResponseEntity<?> getAllVehicles(@RequestHeader(value = "Authorization", required = false) String token) {
         if (token == null || !token.startsWith("Bearer ")) {
