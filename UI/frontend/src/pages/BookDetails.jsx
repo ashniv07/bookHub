@@ -563,7 +563,7 @@ const BookDetails = () => {
                             {buttonText}
                         </Button>
                         <Box sx={{ mt: 4, marginLeft: '10px' }}>
-//                             {hasAccess ? (
+                            {hasAccess ? (
                                 <Button variant="contained" color="primary" onClick={handleClick} style={{ background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)' }}>
                                     Read
                                 </Button>
@@ -585,3 +585,5 @@ const BookDetails = () => {
 };
 
 export default BookDetails;
+
+
