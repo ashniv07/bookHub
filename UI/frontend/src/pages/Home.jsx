@@ -17,7 +17,7 @@ const Home = () => {
 
       <div style={{ marginTop: '10px', textAlign: 'center', padding: '20px' }}>
   <h1 style={{
-    background: 'linear-gradient(to top, #09203f 0%, #537895 100%)',
+    background: 'linear-gradient(to top, #261709 0%, #537895 100%)',
     WebkitBackgroundClip: 'text',
     color: 'transparent',
     fontSize: '40px',

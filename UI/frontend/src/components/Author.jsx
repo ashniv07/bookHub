@@ -54,7 +54,7 @@ const AuthorImage = styled('img')({
   maxHeight: '250px',
   objectFit: 'cover',
  borderRadius:'30px',
-  transition: 'transform 0.3s ease',
+  transition: 'transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)', // Custom cubic-bezier easing
   '&:hover': {
     transform: 'scale(1.1)',
   },
@@ -66,10 +66,11 @@ export default function Author() {
       slidesPerView={6}
       spaceBetween={8}
       autoplay={{
-        delay: 1500,
+        delay: 1000,
         disableOnInteraction: false,
       }}
       modules={[Autoplay]}
+      loop={true}
       className="mySwiper"
     >
       {author.map(author => (

@@ -20,7 +20,7 @@ export default function Appbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ width: '100%', backgroundColor: '#09203f', padding: '10px' }}>
+      <AppBar position="fixed" sx={{ width: '100%', backgroundColor: '#261709', padding: '10px' }}>
         <Toolbar variant="dense">
           {/* Left Side "BookHub" */}
           {/* <Typography

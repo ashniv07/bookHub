@@ -38,7 +38,7 @@
 //   backgroundColor: 'transparent',
 //   '&:hover': {
 //     backgroundColor: '#fff',
-//     color: '#09203f',
+//     color: '#261709',
 //   },
 // }));
 
@@ -91,7 +91,7 @@ export default function NavBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ width: '100%', backgroundColor: '#09203f', padding: '10px' }}>
+      <AppBar position="fixed" sx={{ width: '100%', backgroundColor: '#261709', padding: '10px' }}>
         <Toolbar variant="dense">
           {/* Left Side "BookHub" */}
           {/* <Typography

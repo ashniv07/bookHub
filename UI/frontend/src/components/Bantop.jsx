@@ -40,7 +40,7 @@ const Bantop = () => {
   const headingStyle = {
     fontSize: '2.5rem',
     fontWeight: 'bold',
-    background: 'linear-gradient(to top, #09203f 0%, #537895 100%)',
+    background: 'linear-gradient(to top, #261709 0%, #537895 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     marginBottom: '1rem',

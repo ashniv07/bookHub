@@ -162,12 +162,12 @@ const Allbooks = () => {
     <div style={{ minHeight: '200vh', marginBottom: '20px', background: '#f8f3ed' }}>
       <Appbar />
       <div className="header-content text-center">
-        <h1 style={{ marginTop: '250px' }}>The world's destination for e-books</h1>
-        <h5 style={{ marginTop: '50px' }}>
-          Discover a curated selection of top-rated e-books and get inspired by exceptional designs from around the globe.
+        <h1 style={{ marginTop: '200px',fontSize:'75px',fontFamily:'revert' }}>The world's destination <br/> for e-books</h1>
+        <h5 style={{ marginTop: '50px' ,fontSize:'25px',fontFamily:'sans-serif'}}>
+          Discover a curated selection of top-rated e-books and get inspired by exceptional designs.
         </h5>
         <Link to="/genre" style={{ textDecoration: 'none' }}>
-          <button className="btn btn-primary" style={{ marginTop: '50px', background: '#1f1e2c', padding: '10px', borderRadius: '20px' }}>
+          <button className="btn btn-primary" style={{ marginTop: '50px', background: '#261709', padding: '10px', borderRadius: '10px',fontWeight:'bold' }}>
             Explore Genre
           </button>
         </Link>

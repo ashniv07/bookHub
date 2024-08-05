@@ -44,7 +44,7 @@ const AddReview = ({ bookId }) => {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleOpen} style={{ backgroundColor: '#09203f', marginTop: '10px' }}>
+      <Button variant="contained" color="primary" onClick={handleOpen} style={{ backgroundColor: '#261709', marginTop: '10px' }}>
         Add Review
       </Button>
       <Modal open={open} onClose={handleClose}>

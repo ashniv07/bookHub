@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from '../setupAxios';
 
 const BorrowButton = ({ bookId }) => {
     const [userId, setUserId] = useState(null);
-    const [buttonText, setButtonText] = useState('Borrow');
+    const [buttonText, setButtonText] = useState(localStorage.getItem('buttonText') || 'Borrow');
     const [hasRequested, setHasRequested] = useState(false);
 
     useEffect(() => {
@@ -21,9 +20,11 @@ const BorrowButton = ({ bookId }) => {
                 const response = await axios.get(`/borrow/status/${userId}/${bookId}`);
                 if (response.data.status === 'requested') {
                     setButtonText('Requested');
+                    localStorage.setItem('buttonText', 'Requested');
                     setHasRequested(true);
                 } else if (response.data.status === 'approved') {
                     setButtonText('Read');
+                    localStorage.setItem('buttonText', 'Read');
                 }
             } catch (error) {
                 console.error('Error fetching borrow status:', error);
@@ -42,6 +43,7 @@ const BorrowButton = ({ bookId }) => {
                     const response = await axios.get(`/borrow/status/${userId}/${bookId}`);
                     if (response.data.status === 'approved') {
                         setButtonText('Read');
+                        localStorage.setItem('buttonText', 'Read');
                         clearInterval(interval);
                     }
                 } catch (error) {
@@ -70,6 +72,7 @@ const BorrowButton = ({ bookId }) => {
                 userId,
             });
             setButtonText('Requested');
+            localStorage.setItem('buttonText', 'Requested');
             setHasRequested(true);
             alert("Your borrow request has been sent! Your access to read will be granted upon approval.");
         } catch (error) {

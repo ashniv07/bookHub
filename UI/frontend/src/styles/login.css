@@ -14,7 +14,7 @@
 }
 
 .brand-name {
-  color: #09203f;
+  color: #261709;
   cursor: pointer;
   font-size: 24px;
   font-weight: bold;
@@ -32,7 +32,7 @@
 }
 
 .btn-register {
-  background-color: #09203f;
+  background-color: #261709;
   color: #fff;
   padding: 10px 10px;
   border: 2px solid #fff; /* Add white border */
@@ -44,7 +44,7 @@
 }
 
 .btn-login {
-  background-color: #09203f;
+  background-color: #261709;
   color: #fff;
   padding: 10px 10px;
   border: 2px solid #fff; /* Add white border */
@@ -56,11 +56,11 @@
 }
 
 .btn-register:hover, .btn-login:hover {
-  background-color: #09203f;
+  background-color: #261709;
 }
 
 .header-text h1, .forgot a {
-  color: #09203f;
+  color: #261709;
 }
 
 .right-box {
@@ -85,7 +85,7 @@
 }
 
 .switch {
-  background-color: #09203f;
+  background-color: #261709;
   height: 100%;
   color: #fff;
   position: relative;

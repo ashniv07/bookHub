@@ -50,7 +50,7 @@ const UserDashboard = () => {
   };
 
   const featuredBookContainerStyle = {
-    backgroundColor: '#09203f',
+    backgroundColor: '#261709',
     padding: '20px',
     borderRadius: '8px',
     width: '90%',
