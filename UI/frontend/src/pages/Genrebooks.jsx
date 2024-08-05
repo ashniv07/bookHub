@@ -4,6 +4,7 @@ import { Box, Card, CardContent, CardMedia, Typography, Button } from '@mui/mate
 import Appbar from '../components/Appbar';
 import axios from '../setupAxios';
 import fantasy from '../assets/fantasy_banner.png';
+import { Opacity } from '@mui/icons-material';
 
 // Updated container style
 const containerStyle = {
@@ -15,7 +16,8 @@ const containerStyle = {
 
 const boxContainerStyle = {
     boxShadow: '0 4px 8px #1f1e2c',
-    backgroundColor: '#1f1e2c',
+    background: 'linear-gradient(to top, #704C2A 0%, #261709 50%)',
+    
     borderRadius: '9px',
     height: '250px',
     display: 'flex',
@@ -100,7 +102,7 @@ const GenreBooks = () => {
                         placeholder="Search for books..."
                         value={searchTerm}
                         onChange={handleSearchChange}
-                        style={{color:'#1f1e2c', maxWidth: '300px', padding: '10px', borderRadius: '4px', border: '1px solid #1f1e2c',marginLeft:'70px' }}
+                        style={{color:'#1f1e2c', maxWidth: '300px', padding: '10px', borderRadius: '10px', border: '2px solid #1f1e2c',marginLeft:'70px' }}
                     />
                 </div>
                 <img
@@ -133,7 +135,7 @@ const GenreBooks = () => {
                                     {/* <Typography variant="body2" color="text.secondary" component="p" mt={2}>
                                         Reviews: {book.reviews}
                                     </Typography> */}
-                                    <Button variant="contained" style={{ marginTop: '20px', backgroundColor: '#261709' }}>
+                                    <Button variant="contained" style={{ marginTop: '20px', backgroundColor: '#4c3228' }}>
                                         Explore
                                     </Button>
                                 </CardContent>

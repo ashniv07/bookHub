@@ -28,7 +28,9 @@ const BookDetails = () => {
                 <div style={textShadowStyle}>
                     Pick Your Genre
                 </div>
-        
+                <h5 style={{ marginTop: '40px' ,fontSize:'25px',fontFamily:'revert-layer',marginLeft:'330px'}}>
+                Feel free to explore these genres and discover your next favorite book! 
+        </h5>
                 <Cards />
             </div>
         </div>

@@ -94,7 +94,7 @@ const DashSideBar = () => {
   };
 
   return (
-    <div className="text-white vh-100 d-flex flex-column p-3" style={{ width: '300px', backgroundColor: '#261709', height: '100vh', position: 'fixed', overflowY: 'auto' }}>
+    <div className="text-white vh-100 d-flex flex-column p-3" style={{ width: '280px',border:"20px black", backgroundColor: '#261709', height: '100vh', position: 'fixed', overflowY: 'auto' }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px', marginTop: '100px' }}>
         <img src={profileImage} alt="Profile" style={{ width: '80px', height: '80px', borderRadius: '50%', marginBottom: '10px' }} />
         <h2 style={{ margin: '0' }}>{userName}</h2>
@@ -119,7 +119,7 @@ const DashSideBar = () => {
                 type="button"
                 value="Delete"
                 onClick={() => handleDeleteToDo(todo.id)}
-                style={{ marginLeft: '10px', backgroundColor: '#e57373', border: 'none', color: '#fff', borderRadius: '5px', padding: '5px 10px', cursor: 'pointer' }}
+                style={{ marginLeft: '10px', background:"#4c3228", border: 'none', color: '#fff', borderRadius: '5px', padding: '5px 10px', cursor: 'pointer' }}
               />
             </li>
           ))}
@@ -134,7 +134,7 @@ const DashSideBar = () => {
           />
           <button
             onClick={handleAddToDo}
-            style={{ padding: '5px 10px', backgroundColor: '#ffeb3b', border: 'none', borderRadius: '5px', color: '#000', fontWeight: 'bold' }}
+            style={{ padding: '5px 10px', background: "#4c3228", border: 'none', borderRadius: '5px', color: '#fff', fontWeight: 'bold' }}
           >
             Add
           </button>
