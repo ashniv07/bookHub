@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from '../setupAxios'; // Adjust the path if necessary
 import Appbar from '../components/Appbar';
-import header from '../assets/Group 4.png'
+import header from '../assets/Group 5.png'
 
 const borrowedBooksContainerStyle = {
   backgroundColor: '#f8f3ed',
@@ -102,7 +102,7 @@ const History = () => {
 
   return (
     <div>
-      <img src={header} style={{width:'110%', height:'400px', marginBottom:'10px'}} />
+      <img src={header} style={{marginTop:'100px' ,width:'70%',marginLeft:'250px', height:'500px'}} />
     <div style={borrowedBooksContainerStyle}>
         <Appbar/>
       {/* <h2 style={{color:'#1f1e2c',textAlign: 'center',
@@ -117,8 +117,7 @@ const History = () => {
             <li 
               key={book.bookId} 
               style={bookCardStyle}
-              onClick={() => handleBookClick(book.bookId)} // Add onClick handler
-            >
+              onClick={() => handleBookClick(book.bookId)} >
               <img src={book.image} alt={book.bookName} style={bookImgStyle} />
               <div style={bookCardTitleStyle}>{book.bookName}</div>
               <div style={bookCardAuthorStyle}>by {book.author}</div>
