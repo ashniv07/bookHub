@@ -50,8 +50,8 @@ const SlideContent = styled(Box)({
 const AuthorImage = styled('img')({
   width: '100%',
   height: 'auto',
-  maxWidth: '200px',
-  maxHeight: '250px',
+  maxWidth: '250px',
+  maxHeight: '300px',
   objectFit: 'cover',
  borderRadius:'30px',
   transition: 'transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)', // Custom cubic-bezier easing
@@ -63,8 +63,7 @@ const AuthorImage = styled('img')({
 export default function Author() {
   return (
     <Swiper
-      slidesPerView={6}
-      spaceBetween={8}
+      slidesPerView={5}
       autoplay={{
         delay: 1000,
         disableOnInteraction: false,

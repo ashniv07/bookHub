@@ -26,7 +26,7 @@ const Newsletter = () => {
 
   return (
     <div>
-      <button onClick={handleClickOpen} style={{ position: 'fixed', bottom: '20px', right: '20px', background: '#1f1e2c', color: 'white', padding: '10px', borderRadius: '50%', zIndex: 1000 }}>
+      <button onClick={handleClickOpen} style={{ position: 'fixed', top: '100px', right: '40px', background: '#4c3228', color: 'white', padding: '10px', borderRadius: '50%', zIndex: 1000,fontWeight:"bold" }}>
         Newsletter
       </button>
       <Dialog open={open} onClose={handleClose}>

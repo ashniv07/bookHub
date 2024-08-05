@@ -96,7 +96,7 @@ const Cards = () => {
     //         </div>
     //     </div>
     return (
-        <div className="container" style={{ marginTop: '100px' }}>
+        <div className="container" style={{ marginTop: '50px' }}>
             <div className="row">
                 {genres.map((genre) => (
                     <div className="col-md-3" key={genre}>

@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../setupAxios';
+import {  useNavigate } from 'react-router-dom';
+
 import Appbar from '../components/Appbar';
 import DashSideBar from '../components/DashSideBar';
-import { RiEye2Line } from "react-icons/ri";
+import { RiEye2Line, RiFontFamily } from "react-icons/ri";
 import { toast } from 'react-toastify'; // Import toastify for popups
 import 'react-toastify/dist/ReactToastify.css'; // Import toastify styles
 
 const UserDashboard = () => {
   const [borrowedBooks, setBorrowedBooks] = useState([]);
   const [featuredBook, setFeaturedBook] = useState(null);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,32 +33,41 @@ const UserDashboard = () => {
       }
     };
 
+   
+
     fetchData();
   }, []);
 
+  const handleClick = (id) =>
+    {
+      navigate(`/book/${id}`);
+    }
+
+
   const containerStyle = {
     display: 'flex',
-    minHeight: '100vh',
+    minHeight: '70vh',
     backgroundColor: '#f8f3ed'
   };
 
   const mainContentStyle = {
-    marginLeft: '300px',
+    marginLeft: '150px',
     padding: '20px',
     display: 'flex',
     flexDirection: 'column',
-    gap: '180px',
+    gap: '100px',
     alignItems: 'center',
     maxWidth: '1200px',
     margin: '0 auto'
+    
   };
 
   const featuredBookContainerStyle = {
     backgroundColor: '#261709',
     padding: '20px',
     borderRadius: '8px',
-    width: '90%',
-    marginLeft: '230px',
+    width: '100%',
+    marginLeft: '260px',
     maxWidth: '1200px',
     boxShadow: '0 4px 8px #1f1e2c',
     textAlign: 'left',
@@ -62,13 +75,17 @@ const UserDashboard = () => {
     flexDirection: 'row',
     alignItems: 'flex-start',
     height: '300px',
-    width: '800px',
+    width: '850px',
     position: 'relative',
+    backgroundImage: 'url("https://i.pinimg.com/736x/c2/d7/2f/c2d72fc72d1af4476d3165ebeea300cc--free-hd-wallpapers-wallpaper-desktop.jpg")', // Replace with your image URL
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
   };
+  
 
   const featuredBookImgStyle = {
-    width: '250px',
-    height: '350px',
+    width: '220px',
+    height: '330px',
     borderRadius: '8px',
     objectFit: 'cover',
     marginTop: '20px',
@@ -84,20 +101,23 @@ const UserDashboard = () => {
   };
 
   const headingstyle = {
-    fontSize: '50px',
-    fontWeight: 'bold',
+    fontSize: '45px',
+    fontWeight:'bold',
     color: 'white',
     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-    marginLeft: '30px',
-    marginTop: '10px',
+    marginLeft: '55px',
+    marginTop: '20px',
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    "fontFamily": `"Roboto"`,
+
+    
   };
 
   const bookTitleStyle = {
     fontSize: '25px',
     fontWeight: 'bold',
-    marginLeft: '30px',
+    marginLeft: '60px',
     marginTop: '20px',
     color: '#f8f3ed',
     textShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)',
@@ -161,11 +181,14 @@ const UserDashboard = () => {
       <div style={mainContentStyle}>
         <Appbar />
         <div style={featuredBookContainerStyle}>
+        {/* <div style={overlayStyle}></div> */}
           <div style={bookDetailsContainerStyle}>
             {featuredBook ? (
               <>
-                <h1 style={headingstyle}>Our Newest ARRIVAL!!</h1>
-                <h1 style={bookTitleStyle}>{featuredBook.bookName}</h1>
+                <h1 style={headingstyle}>Explore &nbsp;Our&nbsp; Latest<br/>Book &nbsp;Arrived!</h1>
+                <h1 style={bookTitleStyle}> - <b>"{featuredBook.bookName}" </b> &nbsp;by {featuredBook.author}</h1>
+                <button  onClick={() => handleClick(featuredBook.bookId)} style={{width:"20%",marginTop:'20px',marginLeft:'65px',borderRadius:'10px',padding:"3px",  background: 'linear-gradient(to top, #261709 0%, white 100%)',color:"white",fontWeight:'bold'
+}}>Explore</button>
               </>
             ) : (
               <p>Loading featured book...</p>
@@ -177,7 +200,7 @@ const UserDashboard = () => {
         </div>
 
         <div style={borrowedBooksContainerStyle}>
-          <h2 style={{ color: '#1f1e2c' }}>My Library</h2>
+          <h2 style={{ color: '#1f1e2c',fontWeight:'bold' }}>My Library</h2>
           <ul style={bookListStyle}>
             {borrowedBooks.length > 0 ? (
               borrowedBooks.map((book, index) => (

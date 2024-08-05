@@ -167,31 +167,32 @@ const Allbooks = () => {
           Discover a curated selection of top-rated e-books and get inspired by exceptional designs.
         </h5>
         <Link to="/genre" style={{ textDecoration: 'none' }}>
-          <button className="btn btn-primary" style={{ marginTop: '50px', background: '#261709', padding: '10px', borderRadius: '10px',fontWeight:'bold' }}>
+          <button className="btn btn-primary" style={{ marginTop: '50px', background: '#4c3228', padding: '10px', borderRadius: '18px',fontWeight:'bold' }}>
             Explore Genre
           </button>
         </Link>
       </div>
-      <div style={{ marginTop: '100px' }}>
-        <h1 style={{ marginLeft: '620px' }}>Famous Authors</h1>
+      <div style={{ marginTop: '70px' }}>
+        {/* <h1 style={{ marginLeft: '600px',fontFamily:'revert' }}>Famous Authors</h1> */}
         <br />
         <Author />
       </div>
       <div><Newsletter /></div>
-      <div className="container mt-5">
+      <div className="container" style={{marginTop:'120px'}}>
         <div className="search-section text-center">
-          <h3><b>Explore Books</b></h3>
-          <p>Find your next favorite book from our collection of books.</p>
+          <h3 style={{fontSize:'40px',marginBottom:'40px'}}><b>Explore  your next Favorite book</b></h3>
+          {/* <p>Find your next favorite book from our collection of books.</p> */}
+
           <input
             type="text"
             className="form-control mt-2 search-bar mx-auto"
             placeholder="Search for books..."
             value={searchTerm}
             onChange={handleSearchChange}
-            style={{ maxWidth: '300px' }}
+            style={{ maxWidth: '300px',borderRadius:'10px' }}
           />
         </div>
-        <div className="row mt-4">
+        <div className="row mt-5">
           {filteredBooks.map((book) => (
             <div className="col-md-2 mb-4" key={book.bookId}>
               <div

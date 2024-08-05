@@ -9,8 +9,8 @@ const suggestBookContainerStyle = {
   justifyContent: 'center',
   minHeight: '60vh',
   padding: '2rem',
-  background: 'linear-gradient(to top, #261709 0%, #537895 100%)',
-  marginTop: '2rem',
+  background: 'linear-gradient(to top, #4c3228 0%, #f8f3ed 100%)',
+  marginTop: '4rem',
   color: '#fff',
 };
 
@@ -23,8 +23,8 @@ const contentContainerStyle = {
 };
 
 const suggestionBoxStyle = {
-  background: '#fff',
-  padding: '2rem',
+  background: '#f8f3ed',
+  padding: '3rem',
   borderRadius: '10px',
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   width: '100%',
@@ -39,7 +39,7 @@ const formStyle = {
 const inputStyle = {
   marginBottom: '1rem',
   padding: '0.75rem',
-  fontSize: '1rem',
+  fontSize: '20px',
   borderRadius: '5px',
   border: '1px solid #ccc',
 };
@@ -49,7 +49,7 @@ const buttonStyle = {
   fontSize: '1rem',
   borderRadius: '5px',
   border: 'none',
-  background: 'linear-gradient(to top, #261709 0%, #537895 100%)',
+  background: 'linear-gradient(to top, #4c3228 0%, black 100%)',
   color: '#fff',
   cursor: 'pointer',
 };
@@ -89,7 +89,7 @@ const SuggestBook = () => {
     <div style={suggestBookContainerStyle}>
       <div style={contentContainerStyle}>
         <div style={suggestionBoxStyle}>
-          <h1 style={{ color: 'rgb(50, 25, 79)' }}>Suggestion Box</h1>
+          <h1 style={{ color: '#4c3228',fontSize:'35px',marginBottom:'20px' }}>Suggestion Box</h1>
           <form onSubmit={handleSubmit} style={formStyle}>
             <input
               type="text"
