@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from '../setupAxios'; // Adjust the path if necessary
 import Appbar from '../components/Appbar';
 import header from '../assets/Group 5.png'
+import HistoryB  from '../assets/h2.jfif';
 
 const borrowedBooksContainerStyle = {
   backgroundColor: '#f8f3ed',
@@ -23,6 +24,42 @@ const bookListStyle = {
   padding: '0'
 };
 
+const featuredBookContainerStyle = {
+  padding: '20px',
+  borderRadius: '8px',
+  width: '80%',
+  marginTop:"120px",
+  marginLeft:"230px",
+    maxWidth: '1500px',
+  boxShadow: '0 4px 8px #1f1e2c',
+  textAlign: 'left',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'flex-start',
+  height: '300px',
+  width: '1000px',
+  position: 'relative',
+  backgroundImage: 'url("https://i.pinimg.com/736x/c2/d7/2f/c2d72fc72d1af4476d3165ebeea300cc--free-hd-wallpapers-wallpaper-desktop.jpg")', // Replace with your image URL
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+};
+const textShadowStyle = {
+  textAlign: 'center',
+  fontSize: '3rem',
+  fontWeight: 'bold',
+  color: '#fff',
+  textShadow: '2px 2px 4px ',
+  marginTop: '10px',
+  marginLeft:'90px'
+};
+const textShadowStyle1 = {
+  textAlign: 'center',
+  fontSize: '2rem',
+  fontWeight: 'bold',
+  color: '#fff',
+  marginTop: '160px',
+  marginLeft:'150px'
+};
 const bookCardStyle = {
   backgroundColor: '#fff',
   borderRadius: '8px',
@@ -34,7 +71,7 @@ const bookCardStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginLeft: '20px',
+  marginLeft: '10px',
   cursor: 'pointer' // Add cursor pointer
 };
 
@@ -42,6 +79,15 @@ const bookImgStyle = {
   width: '100%',
   height: '70%', 
   objectFit: 'cover'
+};
+
+const featuredBookImgStyle = {
+  width: '220px',
+  height: '330px',
+  borderRadius: '8px',
+  objectFit: 'cover',
+  marginTop: '50px',
+  marginLeft: 'auto'
 };
 
 const bookCardTitleStyle = {
@@ -102,7 +148,14 @@ const History = () => {
 
   return (
     <div>
-      <img src={header} style={{marginTop:'100px' ,width:'70%',marginLeft:'250px', height:'500px'}} />
+      <div style={featuredBookContainerStyle}>
+      {/* <h1 style={textShadowStyle} >My History</h1> */}
+      <h1 style={textShadowStyle1} >Re-read Your most favourite books again here</h1>
+      <div>
+        <img src={HistoryB} alt='noimg' style={{featuredBookImgStyle}}/>
+      </div>
+      </div>
+      
     <div style={borrowedBooksContainerStyle}>
         <Appbar/>
       {/* <h2 style={{color:'#1f1e2c',textAlign: 'center',
