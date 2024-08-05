@@ -91,3 +91,11 @@ model history_book{
     return_date DateTime?
     
 }
+
+model notification{
+  id Int @id @default(autoincrement())
+  message String?   @db.Text
+  user_id Int
+  is_read Boolean?
+  created_at  DateTime?
+}
