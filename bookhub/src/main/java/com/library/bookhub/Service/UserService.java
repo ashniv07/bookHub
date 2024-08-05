@@ -49,4 +49,22 @@ public class UserService {
     public User findByUserEmail(String userEmail) {
         return userRepo.findByUserEmail(userEmail);
     }
+
+    public User updateUser(int userId, String newUserName, String newUserEmail, String newPassword) {
+        User user = userRepo.findByUserId(userId);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+        if (newUserName != null && !newUserName.isEmpty()) {
+            user.setUserName(newUserName);
+        }
+        if (newUserEmail != null && !newUserEmail.isEmpty()) {
+            user.setUserEmail(newUserEmail);
+        }
+        if (newPassword != null && !newPassword.isEmpty()) {
+            user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+        }
+        return userRepo.save(user);
+    }
 }
+
