@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from '../setupAxios'; // Adjust the path if necessary
 import Appbar from '../components/Appbar';
+import header from '../assets/Group 4.png'
 
 const borrowedBooksContainerStyle = {
   backgroundColor: '#f8f3ed',
@@ -100,14 +101,16 @@ const History = () => {
   }
 
   return (
+    <div>
+      <img src={header} style={{width:'110%', height:'400px', marginBottom:'10px'}} />
     <div style={borrowedBooksContainerStyle}>
         <Appbar/>
-      <h2 style={{color:'#1f1e2c',textAlign: 'center',
+      {/* <h2 style={{color:'#1f1e2c',textAlign: 'center',
     fontSize: '2.5rem',
     fontWeight: 'bold',
     color: '#333',
     marginBottom:'90px',
-    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',}}>My History</h2>
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',}}>My History</h2> */}
       <ul style={bookListStyle}>
         {books.length > 0 ? (
           books.map((book) => (
@@ -125,6 +128,7 @@ const History = () => {
           <p>No books found.</p>
         )}
       </ul>
+    </div>
     </div>
   );
 };
