@@ -1,11 +1,12 @@
 
-
 // import React, { useState, useEffect } from 'react';
 // import Sidebar from '../components/Sidebar';
 // import axios from '../setupAxios';
 // import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, InputAdornment } from '@mui/material';
 // import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 // import { Search } from '@mui/icons-material';
+// import { toast, ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 // const Managebook = () => {
 //     const [allBooks, setAllBooks] = useState([]);
@@ -50,14 +51,28 @@
 //         try {
 //             const response = await axios.get(`/borrow/check-in-borrow-info/${id}`);
 //             if (response.data.isInBorrowInfo || response.data.hasAccessGranted) {
-//                 alert('Cannot delete the book as it is currently being borrowed and access is granted.');
+//                 toast.error('Cannot delete the book as it is currently being borrowed and access is granted.');
 //                 return;
 //             }
 
 //             await axios.delete(`/soft-delete/${id}`);
 //             setAllBooks(prevBooks => prevBooks.filter(book => book.bookId !== id));
+//             toast.success('Book deleted successfully.');
 //         } catch (error) {
 //             console.error('Error deleting book:', error.message);
+//         }
+//     };
+
+//     const handleNotify = async (bookId) => {
+//         try {
+//             const response = await axios.post(`/notification/notify-newsletter/${bookId}`);
+//             if (response.data.success) {
+//                 alert('Notification sent to the newsletter!');
+//             } else {
+//                 alert('Failed to notify the newsletter.');
+//             }
+//         } catch (error) {
+//             console.error('Error notifying newsletter:', error.message);
 //         }
 //     };
 
@@ -77,9 +92,9 @@
 //         <div className="manage" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'linear-gradient(to right, #f8f9fa, #e9ecef)' }}>
 //             <Sidebar />
 //             <div style={{ flexGrow: 1, width: "calc(100% - 200px)", marginLeft: '200px', padding: '20px' }}>
-//                 <div style={{ textAlign: 'center', marginBottom: '20px', marginTop: '50px' }}>
-//                     <h1 style={{ fontSize: '2rem', display: 'inline-block', marginBottom: '20px' }}>Manage Your Books</h1>
-//                     <div style={{ marginBottom: '20px' }}>
+//                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', marginTop: '50px' }}>
+//                     <h1 style={{ fontSize: '2rem', display: 'inline-block' }}>Manage Your Books</h1>
+//                     <div style={{ display: 'flex', gap: '10px' }}>
 //                         <TextField
 //                             variant="outlined"
 //                             placeholder="Search..."
@@ -91,11 +106,10 @@
 //                                     </InputAdornment>
 //                                 ),
 //                             }}
-//                             style={{ marginRight: '10px', width: '300px' }}
+//                             style={{ width: '300px' }}
 //                         />
 //                         <TextField
 //                             select
-//                             label="Filter by Genre"
 //                             value={filterGenre}
 //                             onChange={(e) => setFilterGenre(e.target.value)}
 //                             SelectProps={{
@@ -129,6 +143,7 @@
 //                                     <th style={{ padding: '10px' }}>Pdf</th>
 //                                     <th style={{ padding: '10px' }}>Edit</th>
 //                                     <th style={{ padding: '10px' }}>Delete</th>
+                
 //                                 </tr>
 //                             </thead>
 //                             <tbody>
@@ -179,6 +194,15 @@
 //                                                 Delete
 //                                             </Button>
 //                                         </td>
+//                                         {/* <td style={{ padding: '10px' }}>
+//                                             <Button
+//                                                 variant="contained"
+//                                                 color="info"
+//                                                 onClick={() => handleNotify(book.bookId)}
+//                                             >
+//                                                 Notify
+//                                             </Button>
+//                                         </td> */}
 //                                     </tr>
 //                                 ))}
 //                             </tbody>
@@ -203,7 +227,7 @@
 //                     <TextField
 //                         margin="dense"
 //                         name="author"
-//                         label="Author"
+//                         label="Author Name"
 //                         type="text"
 //                         fullWidth
 //                         value={updatedBook.author || ''}
@@ -249,6 +273,15 @@
 //                     />
 //                     <TextField
 //                         margin="dense"
+//                         name="image"
+//                         label="Image URL"
+//                         type="text"
+//                         fullWidth
+//                         value={updatedBook.image || ''}
+//                         onChange={handleChange}
+//                     />
+//                     <TextField
+//                         margin="dense"
 //                         name="url"
 //                         label="PDF URL"
 //                         type="text"
@@ -258,20 +291,17 @@
 //                     />
 //                 </DialogContent>
 //                 <DialogActions>
-//                     <Button onClick={handleClose} color="primary">
-//                         Cancel
-//                     </Button>
-//                     <Button onClick={handleSave} color="primary">
-//                         Save
-//                     </Button>
+//                     <Button onClick={handleClose}>Cancel</Button>
+//                     <Button onClick={handleSave}>Save</Button>
 //                 </DialogActions>
 //             </Dialog>
+
+//             <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
 //         </div>
 //     );
 // };
 
 // export default Managebook;
-
 
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
@@ -289,6 +319,7 @@ const Managebook = () => {
     const [open, setOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [filterGenre, setFilterGenre] = useState('');
+    const [isDeleting, setIsDeleting] = useState(false); // Flag to prevent duplicate notifications
 
     useEffect(() => {
         axios.get("/books-not-del")
@@ -322,31 +353,24 @@ const Managebook = () => {
     };
 
     const handleDelete = async (id) => {
+        if (isDeleting) return; // Prevent duplicate actions
+
+        setIsDeleting(true);
+
         try {
             const response = await axios.get(`/borrow/check-in-borrow-info/${id}`);
             if (response.data.isInBorrowInfo || response.data.hasAccessGranted) {
                 toast.error('Cannot delete the book as it is currently being borrowed and access is granted.');
-                return;
+            } else {
+                await axios.delete(`/soft-delete/${id}`);
+                setAllBooks(prevBooks => prevBooks.filter(book => book.bookId !== id));
+                toast.success('Book deleted successfully.');
             }
-
-            await axios.delete(`/soft-delete/${id}`);
-            setAllBooks(prevBooks => prevBooks.filter(book => book.bookId !== id));
-            toast.success('Book deleted successfully.');
         } catch (error) {
             console.error('Error deleting book:', error.message);
-        }
-    };
-
-    const handleNotify = async (bookId) => {
-        try {
-            const response = await axios.post(`/notification/notify-newsletter/${bookId}`);
-            if (response.data.success) {
-                alert('Notification sent to the newsletter!');
-            } else {
-                alert('Failed to notify the newsletter.');
-            }
-        } catch (error) {
-            console.error('Error notifying newsletter:', error.message);
+            toast.error('Error deleting book.');
+        } finally {
+            setIsDeleting(false);
         }
     };
 
@@ -495,7 +519,7 @@ const Managebook = () => {
                         label="Book Name"
                         type="text"
                         fullWidth
-                        value={updatedBook.bookName || ''}
+                        value={updatedBook.bookName}
                         onChange={handleChange}
                     />
                     <TextField
@@ -504,7 +528,7 @@ const Managebook = () => {
                         label="Author Name"
                         type="text"
                         fullWidth
-                        value={updatedBook.author || ''}
+                        value={updatedBook.author}
                         onChange={handleChange}
                     />
                     <TextField
@@ -513,7 +537,7 @@ const Managebook = () => {
                         label="Genre"
                         type="text"
                         fullWidth
-                        value={updatedBook.genre || ''}
+                        value={updatedBook.genre}
                         onChange={handleChange}
                     />
                     <TextField
@@ -522,7 +546,7 @@ const Managebook = () => {
                         label="Type"
                         type="text"
                         fullWidth
-                        value={updatedBook.type || ''}
+                        value={updatedBook.type}
                         onChange={handleChange}
                     />
                     <TextField
@@ -531,7 +555,7 @@ const Managebook = () => {
                         label="Edition"
                         type="text"
                         fullWidth
-                        value={updatedBook.edition || ''}
+                        value={updatedBook.edition}
                         onChange={handleChange}
                     />
                     <TextField
@@ -541,8 +565,7 @@ const Managebook = () => {
                         type="text"
                         fullWidth
                         multiline
-                        rows={4}
-                        value={updatedBook.description || ''}
+                        value={updatedBook.description}
                         onChange={handleChange}
                     />
                     <TextField
@@ -551,7 +574,7 @@ const Managebook = () => {
                         label="Image URL"
                         type="text"
                         fullWidth
-                        value={updatedBook.image || ''}
+                        value={updatedBook.image}
                         onChange={handleChange}
                     />
                     <TextField
@@ -560,17 +583,20 @@ const Managebook = () => {
                         label="PDF URL"
                         type="text"
                         fullWidth
-                        value={updatedBook.url || ''}
+                        value={updatedBook.url}
                         onChange={handleChange}
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSave}>Save</Button>
+                    <Button onClick={handleClose} color="secondary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleSave} color="primary">
+                        Save
+                    </Button>
                 </DialogActions>
             </Dialog>
-
-            <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+            <ToastContainer />
         </div>
     );
 };

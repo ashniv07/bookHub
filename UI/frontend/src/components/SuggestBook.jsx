@@ -1,6 +1,12 @@
+
+
 // import React, { useState } from 'react';
-// import axios from 'axios'; // Import axios
+// import axios from 'axios';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+// import Lottie from 'react-lottie';
 // import suggest from '../assets/suggestion.png';
+// import owlAnimationData from '../assets/owl.json'; // Replace with the actual path to your owl animation JSON file
 // import '../setupAxios';
 
 // const suggestBookContainerStyle = {
@@ -61,6 +67,15 @@
 //   marginLeft: '5rem',
 // };
 
+// const defaultOptions = {
+//   loop: true,
+//   autoplay: true,
+//   animationData: owlAnimationData,
+//   rendererSettings: {
+//     preserveAspectRatio: 'xMidYMid slice'
+//   }
+// };
+
 // const SuggestBook = () => {
 //   const [bookName, setBookName] = useState('');
 //   const [authorName, setAuthorName] = useState('');
@@ -75,21 +90,32 @@
 
 //     axios.post('http://localhost:8080/suggestions/add', suggestion)
 //       .then(response => {
-//         alert('Thank you for your suggestion!');
+//         toast.success(
+//           <div style={{ display: 'flex', alignItems: 'center' }}>
+//             <Lottie 
+//               options={defaultOptions}
+//               height={50}
+//               width={50}
+//               style={{ marginRight: '10px' }}
+//             />
+//             <span>Thank you for your suggestion!</span>
+//           </div>
+//         );
 //         setBookName('');
 //         setAuthorName('');
 //       })
 //       .catch(error => {
 //         console.error('Error:', error);
-//         alert('Failed to process suggestion.');
+//         toast.error('Failed to process suggestion.');
 //       });
 //   };
 
 //   return (
 //     <div style={suggestBookContainerStyle}>
+//       <ToastContainer />
 //       <div style={contentContainerStyle}>
 //         <div style={suggestionBoxStyle}>
-//           <h1 style={{ color: '#4c3228',fontSize:'35px',marginBottom:'20px' }}>Suggestion Box</h1>
+//           <h1 style={{ color: '#4c3228', fontSize: '35px', marginBottom: '20px' }}>Suggestion Box</h1>
 //           <form onSubmit={handleSubmit} style={formStyle}>
 //             <input
 //               type="text"
@@ -199,12 +225,25 @@ const SuggestBook = () => {
   const [bookName, setBookName] = useState('');
   const [authorName, setAuthorName] = useState('');
 
+  const predefinedAuthors = [
+    'J.K. Rowling',
+    'George R.R. Martin',
+    'J.R.R. Tolkien',
+    'Agatha Christie',
+    'Stephen King',
+    'Isaac Asimov',
+    'Jane Austen',
+    'Mark Twain',
+    'Charles Dickens',
+    'Other',
+  ];
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const suggestion = {
       bookName,
-      author: authorName, 
+      author: authorName,
     };
 
     axios.post('http://localhost:8080/suggestions/add', suggestion)
@@ -244,14 +283,17 @@ const SuggestBook = () => {
               style={inputStyle}
               required
             />
-            <input
-              type="text"
-              placeholder="Author Name"
+            <select
               value={authorName}
               onChange={(e) => setAuthorName(e.target.value)}
               style={inputStyle}
               required
-            />
+            >
+              <option value="" disabled>Select Author</option>
+              {predefinedAuthors.map((author) => (
+                <option key={author} value={author}>{author}</option>
+              ))}
+            </select>
             <button type="submit" style={buttonStyle}>Submit</button>
           </form>
         </div>
