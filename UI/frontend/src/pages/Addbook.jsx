@@ -241,7 +241,7 @@ const Addbook = () => {
                         <Form.Group>
                             <Form.Label className="mb-4 block" style={{ fontSize: '20px', fontWeight: 'bold' }}>Type</Form.Label>
                             <br />
-                            {['premium', 'normal'].map((type) => (
+                            {['normal','premium'].map((type) => (
                                 <div key={`default-${type}`} className="mb-3 ">
                                     <Form.Check
                                         type="radio"
