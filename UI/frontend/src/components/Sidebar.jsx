@@ -5,7 +5,7 @@ import {FaSignOutAlt} from "react-icons/fa"
 import { IoPeople } from "react-icons/io5";
 import { GiBookshelf } from "react-icons/gi";
 import { MdDelete } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png'import { useNavigate } from 'react-router-dom';
 
 
 const Sidebar = () => {
@@ -18,7 +18,14 @@ const Sidebar = () => {
 
   return (
     <div className="text-white vh-100 d-flex flex-column p-3" style={{ width: '200px',backgroundColor:'#261709',height:'100vh',position: 'fixed',overflowY: 'auto'}}>
-      <h2 className="text-center mt-3 mb-5">BookHub</h2>
+     <div className='logo' style={{display:'flex'}}>
+      <img 
+        src={logo}
+        alt="BookHub Logo" 
+        style={{ width: '50px', height: '50px', marginRight: '10px' }} 
+      />
+       <h2 className="text-center mt-3 mb-5" style={{fontSize:'20px'}}>BookHub</h2>
+       </div>
       <ul className="nav flex-column">
         <li className="nav-item mb-3">
           <a href="/addbook" className="nav-link text-white"  style={{ transition: 'background-color 0.3s', backgroundColor: 'transparent' }}

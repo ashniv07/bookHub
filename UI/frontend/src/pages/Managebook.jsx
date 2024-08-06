@@ -468,7 +468,7 @@ const Managebook = () => {
                                                 Delete
                                             </Button>
                                         </td>
-                                        <td style={{ padding: '10px' }}>
+                                        {/* <td style={{ padding: '10px' }}>
                                             <Button
                                                 variant="contained"
                                                 color="info"
@@ -476,7 +476,7 @@ const Managebook = () => {
                                             >
                                                 Notify
                                             </Button>
-                                        </td>
+                                        </td> */}
                                     </tr>
                                 ))}
                             </tbody>
