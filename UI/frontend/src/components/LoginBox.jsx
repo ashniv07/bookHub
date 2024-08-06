@@ -263,7 +263,7 @@ const suggestBookContainerStyle = {
   justifyContent: 'center',
   minHeight: '60vh',
   padding: '2rem',
-  background: 'linear-gradient(to top, #261709 0%, #537895 100%)',
+  background: 'linear-gradient(to top, #4c3228 0%, #f8f3ed 100%)',
   marginTop: '2rem',
   color: '#fff',
 };
@@ -303,7 +303,7 @@ const buttonStyle = {
   fontSize: '1rem',
   borderRadius: '5px',
   border: 'none',
-  background: 'linear-gradient(to top, #261709 0%, #537895 100%)',
+  background: '#4c3228',
   color: '#fff',
   cursor: 'pointer',
 };

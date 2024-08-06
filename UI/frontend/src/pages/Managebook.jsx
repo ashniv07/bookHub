@@ -417,7 +417,7 @@ const Managebook = () => {
                                     <th style={{ padding: '10px' }}>Pdf</th>
                                     <th style={{ padding: '10px' }}>Edit</th>
                                     <th style={{ padding: '10px' }}>Delete</th>
-                                    <th style={{ padding: '10px' }}>Notify</th>
+                
                                 </tr>
                             </thead>
                             <tbody>

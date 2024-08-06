@@ -5,7 +5,8 @@ import {FaSignOutAlt} from "react-icons/fa"
 import { IoPeople } from "react-icons/io5";
 import { GiBookshelf } from "react-icons/gi";
 import { MdDelete } from "react-icons/md";
-import logo from '../assets/logo.png'import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png';
+import { useNavigate } from 'react-router-dom';
 
 
 const Sidebar = () => {
