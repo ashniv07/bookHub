@@ -1,19 +1,15 @@
 package com.library.bookhub.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
 import com.library.bookhub.Domain.PendingReqDto;
 import com.library.bookhub.Domain.UserBooksDto;
 import com.library.bookhub.Model.Book;
 import com.library.bookhub.Model.BookHistory;
 import com.library.bookhub.Model.BorrowInfo;
-import com.library.bookhub.Model.User;
 import com.library.bookhub.Repository.BookHistoryRepo;
 import com.library.bookhub.Repository.BookRepo;
 import com.library.bookhub.Repository.BorrowInfoRepo;
@@ -51,7 +47,6 @@ public class BorrowInfoService {
     // Service class method
 public void approveBorrowRequest(int borrowId) {
     BorrowInfo borrowInfo = borrowInfoRepo.findById(borrowId).orElseThrow(() -> new RuntimeException("Borrow request not found"));
-    
     borrowInfo.setAccessGranted(true);
     borrowInfo.setAccessCutDate(LocalDateTime.now().plusMinutes(1)); 
     borrowInfo.setFlag(true); 

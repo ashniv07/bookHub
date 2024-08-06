@@ -1,7 +1,5 @@
 package com.library.bookhub.Controller;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.library.bookhub.Domain.BorrowRequestDto;
 import com.library.bookhub.Domain.ReviewDto;
 import com.library.bookhub.Model.Review;
 import com.library.bookhub.Service.ReviewService;
@@ -29,6 +25,8 @@ public class ReviewController {
     private ReviewService reviewService;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+
     @PostMapping("/add")
     public ResponseEntity<String> addReviewForBook(@RequestHeader(value = "Authorization", required = false) String token ,@RequestBody ReviewDto reviewDto) {
         try {
@@ -78,6 +76,8 @@ public class ReviewController {
         }
     }
  
+
+//Get average rating
         @GetMapping("/average/{bookId}")
         public ResponseEntity<?> getAverageRating(@RequestHeader(value = "Authorization", required = false) String token ,@PathVariable int bookId) {
             try {
@@ -90,7 +90,7 @@ public class ReviewController {
                 }
                 if(jwtTokenUtil.getRoleFromToken(token) == 1){
                     double averageRating = reviewService.getAverageRating(bookId);
-                return ResponseEntity.ok(averageRating);
+                    return ResponseEntity.ok(averageRating);
             } 
             else
             {

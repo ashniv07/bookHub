@@ -1,21 +1,14 @@
 package com.library.bookhub.Controller;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import com.library.bookhub.Service.BorrowInfoService;
 import com.library.bookhub.util.JwtTokenUtil;
-
-import io.jsonwebtoken.lang.Collections;
-
 import com.library.bookhub.Domain.BorrowRequestDto;
 import com.library.bookhub.Domain.PendingReqDto;
 import com.library.bookhub.Domain.UserBooksDto;
@@ -47,27 +40,16 @@ public class BorrowController {
         } 
         else
         {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to update book");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to send book");
         }
     }
         catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Failed to soft delete book: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Failed to send book: " + e.getMessage());
         }
     }
     
 
-    // // Endpoint for admins to get all pending borrow requests
-    // @GetMapping("/admin/pending-requests")
-    // public ResponseEntity<List<BorrowInfo>> getPendingBorrowRequests() {
-    //     try {
-    //         List<BorrowInfo> pendingRequests = borrowInfoService.getPendingBorrowRequests();
-    //         return ResponseEntity.ok(pendingRequests);
-    //     } catch (Exception e) {
-    //         return ResponseEntity.status(500).body(null);
-    //     }
-    // }
-
-    // Endpoint for admins to approve a borrow request
+    //To approve the pending req
     @PatchMapping("/approve/{borrowId}")
     public ResponseEntity<?> approveBorrowRequest(@RequestHeader(value = "Authorization", required = false) String token,@PathVariable int borrowId ) {
         try {
@@ -80,10 +62,10 @@ public class BorrowController {
             }
             if(jwtTokenUtil.getRoleFromToken(token) == 0){
                 borrowInfoService.approveBorrowRequest(borrowId);
-        String bookUrl = borrowInfoService.getBookUrlByBorrowId(borrowId);
-        Map<String, String> response = new HashMap<>();
-        response.put("url", bookUrl);
-        return ResponseEntity.ok(response);
+                String bookUrl = borrowInfoService.getBookUrlByBorrowId(borrowId);
+                Map<String, String> response = new HashMap<>();
+                response.put("url", bookUrl);
+                return ResponseEntity.ok(response);
         } 
         else
         {
@@ -92,12 +74,12 @@ public class BorrowController {
 
     }
         catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Failed to soft delete book: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Failed to get book: " + e.getMessage());
         }
     }
 
 
-
+    //get the pending requests on admin side
      @GetMapping("/pending-requests")
      public ResponseEntity<?> getPendingBorrowRequests(@RequestHeader(value = "Authorization", required = false) String token ) {
         try {
@@ -119,7 +101,7 @@ public class BorrowController {
 
     }
         catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Failed to soft delete book: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Failed to get book: " + e.getMessage());
         }
     }
     
@@ -165,6 +147,7 @@ public class BorrowController {
             }
         }
 
+        
         @GetMapping("/check-in-borrow-info/{bookId}")
         public ResponseEntity<Map<String, Boolean>> checkIfInBorrowInfo(@PathVariable int bookId) {
             boolean isInBorrowInfo = borrowInfoService.isBookInBorrowInfo(bookId);

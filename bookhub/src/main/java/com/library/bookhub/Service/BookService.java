@@ -1,19 +1,13 @@
 package com.library.bookhub.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.library.bookhub.Domain.BookDto;
 import com.library.bookhub.Domain.ResultDto;
 import com.library.bookhub.Model.Book;
 import com.library.bookhub.Repository.BookRepo;
-
 import jakarta.transaction.Transactional;
 
 @Service
@@ -22,6 +16,7 @@ public class BookService {
     @Autowired
     private BookRepo rep; 
 
+    
     //Listing all books
     public List<Book> FindAllBooks()
     {

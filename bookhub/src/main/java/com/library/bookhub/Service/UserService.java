@@ -69,6 +69,22 @@ public class UserService {
         return userRepo.save(user);
     }
 
+    //Setting new password
+    public void setPassword(int userId,String oldpass, String newPass)
+    {
+        User user = userRepo.findByUserId(userId);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        // if(passwordEncoder.matches(user.getPassword(), oldpass))
+        // {
+            user.setPassword(new BCryptPasswordEncoder().encode(newPass));
+            userRepo.save(user);
+        // }
+        // else{
+        //     throw new IllegalArgumentException("Password wrong");
+        // }
+
+    }
+
 
 }
 

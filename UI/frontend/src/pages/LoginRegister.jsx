@@ -39,18 +39,7 @@ function LoginRegister() {
         } 
       });
   }
-  // const token = response.data;
-  // localStorage.setItem("token", token);
 
-  // // Navigate based on role
-  // const role = JSON.parse(atob(token.split(".")[1])).role;
-  // if (role === "Admin") {
-  //   navigate("/Admindb");
-  // } else if (role === "customer") {
-  //   navigate("/Customerdb");
-  // } else if (role === "agency") {
-  //   navigate("/agencydb");
-  // }
 
   const login = (event) => {
     event.preventDefault();
@@ -127,7 +116,7 @@ function LoginRegister() {
 
         <div className='col-md-6 right-box'>
           <form onSubmit={login}>
-            <div className='header-text mb-4'>
+            <div className='header-text mb-5 ' style={{marginLeft:'100px'}}>
               <h1>Login</h1>
             </div>
             <div className='input-group mb-3'>
@@ -146,7 +135,7 @@ function LoginRegister() {
                 onChange={e => setValues({ ...values, password: e.target.value })}
               />
             </div>
-            <div className='input-group mb-5 d-flex justify-content-between'>
+            {/* <div className='input-group mb-5 d-flex justify-content-between'>
               <div className='form-check'>
                 <input type='checkbox' className='form-check-input' />
                 <label htmlFor='formcheck' className='form-check-label text-secondary'>
@@ -156,7 +145,7 @@ function LoginRegister() {
               <div className='forgot'>
                 <small><a href='#'>Forgot password?</a></small>
               </div>
-            </div>
+            </div> */}
             <div className='input-group mb-3 justify-content-center'>
               <button className='btn-login'>Login</button>
             </div>

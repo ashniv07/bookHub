@@ -91,6 +91,7 @@ public class BookController {
     }}
 
 
+    //get all deleted books
 @GetMapping("/books-deleted")
 public ResponseEntity<?> getBooksDel(@RequestHeader(value = "Authorization", required = false) String token) {
     try {
@@ -120,32 +121,33 @@ public ResponseEntity<?> getBooksDel(@RequestHeader(value = "Authorization", req
 //Mapping for update
 @PatchMapping("/updatebook/{id}")
 
-public ResponseEntity<String> updateBookField(@RequestHeader(value = "Authorization", required = false) String token ,@PathVariable int id, @RequestBody Map<String, Object> updates) {
-    try {
-        if (token == null || !token.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is missing or invalid");
+    public ResponseEntity<String> updateBookField(@RequestHeader(value = "Authorization", required = false) String token ,@PathVariable int id, @RequestBody Map<String, Object> updates) {
+        try {
+            if (token == null || !token.startsWith("Bearer ")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is missing or invalid");
+            }
+            token = token.substring(7);
+            if (jwtTokenUtil.isTokenExpired(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
+            }
+            if(jwtTokenUtil.getRoleFromToken(token) == 0){
+                bookService.updateBookField(id, updates);
+                return ResponseEntity.ok("Book updated successfully");
+    } 
+    else
+        {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to update book");
         }
-        token = token.substring(7);
-        if (jwtTokenUtil.isTokenExpired(token)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
+            
+    }    
+            catch (IllegalArgumentException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
         }
-        if(jwtTokenUtil.getRoleFromToken(token) == 0){
-            bookService.updateBookField(id, updates);
-            return ResponseEntity.ok("Book updated successfully");
-} 
-else
-    {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to update book");
-    }
-        
-}    
-        catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
+
+
 
     //Mapping for delete
-
     @DeleteMapping("/soft-delete/{id}")
     public ResponseEntity<String> softDeleteBook(@RequestHeader(value = "Authorization", required = false) String token ,@PathVariable int id) {
         try {

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from '../setupAxios';
 import Box from '@mui/material/Box';
@@ -15,59 +14,69 @@ const Profile = () => {
   const [newUserEmail, setNewUserEmail] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const response = await axios.get('/userinfo');
-        setUserName(response.data.userName);
-        setUserEmail(response.data.userEmail);
-      } catch (error) {
-        console.error('Error fetching user info:', error);
-        alert('Failed to fetch user info.');
-      }
-    };
+    const token = localStorage.getItem('token');
+    const id = token ? JSON.parse(atob(token.split(".")[1])).userId : null;
+    setUserId(id);
 
-    fetchUserInfo();
+    if (id) {
+      const fetchUserInfo = async () => {
+        try {
+          const response = await axios.get('/userinfo', { params: { userId: id } });
+          setUserName(response.data.userName);
+          setUserEmail(response.data.userEmail);
+        } catch (error) {
+          console.error('Error fetching user info:', error);
+          alert('Failed to fetch user info.');
+        }
+      };
+
+      fetchUserInfo();
+    }
   }, []);
 
   const handleEditProfile = async () => {
-    try {
-      await axios.patch('/updateUser', {
-        userName: newUserName || userName,
-        userEmail: newUserEmail || userEmail,
-      });
-      setUserName(newUserName || userName);
-      setUserEmail(newUserEmail || userEmail);
-      setEditMode(false);
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      alert('Failed to update profile.');
+    if (userId) {
+      try {
+        await axios.patch('/updateUser', {
+          userId,
+          userName: newUserName || userName,
+          userEmail: newUserEmail || userEmail,
+        });
+        setUserName(newUserName || userName);
+        setUserEmail(newUserEmail || userEmail);
+        setEditMode(false);
+      } catch (error) {
+        console.error('Error updating profile:', error);
+        alert('Failed to update profile.');
+      }
     }
   };
 
   const handleChangePassword = async () => {
-    if (newPassword !== confirmPassword) {
-      alert('Passwords do not match.');
-      return;
-    }
-    try {
-      await axios.patch('/updateUserPassword', { oldPassword, newPassword });
-      setPasswordModalOpen(false);
-      setOldPassword('');
-      setNewPassword('');
-      setConfirmPassword('');
-    } catch (error) {
-      console.error('Error changing password:', error);
-      alert('Failed to change password.');
+    if (userId) {
+      try {
+        await axios.post('/change-password', {
+          userId,
+          oldPassword,
+          newPassword,
+        });
+        setPasswordModalOpen(false);
+        setOldPassword('');
+        setNewPassword('');
+      } catch (error) {
+        console.error('Error changing password:', error);
+        alert('Failed to change password.');
+      }
     }
   };
 
   return (
     <div>
-      <Appbar/>
+      <Appbar />
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '110vh', flexDirection: 'column' }}>
         <Box
           width={700}
@@ -109,9 +118,9 @@ const Profile = () => {
             </Grid>
             <Grid item xs={12} sm={20}>
               <div>
-                <Typography variant="h5" style={{color:'white',fontSize:'40px',fontWeight:'bold'}}>Profile Details</Typography>
+                <Typography variant="h5" style={{ color: 'white', fontSize: '40px', fontWeight: 'bold' }}>Profile Details</Typography>
                 <Box component="form" noValidate autoComplete="off" >
-                <h2 style={{color:"white",fontSize:'20px',marginRight:'500px'}}>Name</h2>
+                  <h2 style={{ color: "white", fontSize: '20px', marginRight: '500px' }}>Name</h2>
 
                   <TextField
                     fullWidth
@@ -120,11 +129,10 @@ const Profile = () => {
                     onChange={(e) => setNewUserName(e.target.value)}
                     InputProps={{
                       readOnly: !editMode,
-                      
                     }}
-                    style={{background:'#f8f3ed',borderRadius:'10px',marginTop:'20px'}}
+                    style={{ background: '#f8f3ed', borderRadius: '10px', marginTop: '20px' }}
                   />
-                  <h2 style={{color:"white",fontSize:'20px',marginRight:'500px',marginTop:'20px'}}>Email</h2>
+                  <h2 style={{ color: "white", fontSize: '20px', marginRight: '500px', marginTop: '20px' }}>Email</h2>
 
                   <TextField
                     fullWidth
@@ -134,13 +142,13 @@ const Profile = () => {
                     InputProps={{
                       readOnly: !editMode,
                     }}
-                    style={{background:'#f8f3ed',borderRadius:'10px',fontWeight:'bold',marginBottom:'20px'}}
+                    style={{ background: '#f8f3ed', borderRadius: '10px', fontWeight: 'bold', marginBottom: '20px' }}
                   />
                   {editMode && (
                     <Button
                       variant="contained"
                       onClick={handleEditProfile}
-                      style={{ marginTop: '10px', backgroundColor: '#f8f3ed', color: 'black',fontWeight:'bold' }}
+                      style={{ marginTop: '10px', backgroundColor: '#f8f3ed', color: 'black', fontWeight: 'bold' }}
                       startIcon={<EditIcon />}
                     >
                       Save Changes
@@ -151,7 +159,7 @@ const Profile = () => {
                   <Button
                     variant="contained"
                     onClick={() => setEditMode(true)}
-                    style={{ marginTop: '20px',  backgroundColor: '#f8f3ed', color: 'black',fontWeight:'bold' }}
+                    style={{ marginTop: '20px', backgroundColor: '#f8f3ed', color: 'black', fontWeight: 'bold' }}
                     startIcon={<EditIcon />}
                   >
                     Edit Profile
@@ -160,7 +168,7 @@ const Profile = () => {
                 <Button
                   variant="contained"
                   onClick={() => setPasswordModalOpen(true)}
-                  style={{ marginTop: '20px', marginLeft: '10px', backgroundColor: '#f8f3ed', color: 'black',fontWeight:'bold' }}
+                  style={{ marginTop: '20px', marginLeft: '10px', backgroundColor: '#f8f3ed', color: 'black', fontWeight: 'bold' }}
                 >
                   Change Password
                 </Button>
@@ -198,14 +206,6 @@ const Profile = () => {
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Confirm Password"
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <Button
             variant="contained"

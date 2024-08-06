@@ -1,7 +1,4 @@
 package com.library.bookhub.Controller;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.library.bookhub.Model.ToDo;
 import com.library.bookhub.Service.ToDoService;
 import com.library.bookhub.util.JwtTokenUtil;
@@ -24,12 +19,15 @@ import com.library.bookhub.util.JwtTokenUtil;
 @Controller
 @RequestMapping("/todo")
 @CrossOrigin(origins = "http://localhost:5173")
+
 public class ToDoController {
     @Autowired
     private ToDoService toDoService;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+
+    //Get the todo
     @GetMapping("/user/{userId}")
     public ResponseEntity<?> getTodos(@RequestHeader(value = "Authorization", required = false) String token, @PathVariable int userId) {
         try {
@@ -50,6 +48,8 @@ public class ToDoController {
         }
     }
 
+
+    //Ading the todo
     @PostMapping("/addtodo")
     public ResponseEntity<?> addTodo(@RequestHeader(value = "Authorization", required = false) String token, @RequestBody ToDo todo) {
         try {
@@ -71,6 +71,8 @@ public class ToDoController {
         }
     }
 
+
+    //Check of particular todo
     @PatchMapping("/done/{todoId}")
     public ResponseEntity<?> markAsDone(@RequestHeader(value = "Authorization", required = false) String token, @PathVariable int todoId) {
         try {
@@ -92,6 +94,7 @@ public class ToDoController {
         }
     }
 
+    //To delete a todo
     @DeleteMapping("/{todoId}")
     public ResponseEntity<?> deleteTodo(@RequestHeader(value = "Authorization", required = false) String token, @PathVariable int todoId) {
         try {

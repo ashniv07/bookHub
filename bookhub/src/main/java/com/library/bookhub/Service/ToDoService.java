@@ -33,6 +33,8 @@ public class ToDoService {
             throw new RuntimeException("ToDo item not found with id: " + todoId);
         }
     }
+
+    
     public void deleteTodo(int id) {
         toDoRepository.deleteById(id);
     }

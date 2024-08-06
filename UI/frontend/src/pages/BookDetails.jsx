@@ -15,6 +15,13 @@ const starRatingStyle = {
     fontSize: '1.5rem',
     color: 'gold',
 };
+const buttonStyle = {
+    background: '#261709',
+    color: 'white',
+    border: 'none',
+    padding: '14px 29px', // Adjust padding for size
+    fontSize: '16px',
+};
 
 const BookDetails = () => {
     const { id } = useParams();
@@ -181,7 +188,7 @@ const BookDetails = () => {
                         flex: '1',
                         background: 'white',
                         p: 22,
-                        pt: 15,
+                        pt: 21,
                         
                         display: 'flex',
                         flexDirection: 'column',
@@ -189,7 +196,7 @@ const BookDetails = () => {
                         overflow: 'auto',
                     }}
                 >
-                    <div className='bookdets' style={{marginBottom:'200px'}}>
+                    <div className='bookdets' style={{marginBottom:'100px'}}>
                     <Typography variant="h3" fontWeight="bold" gutterBottom sx={{ color: '#1f1e2c', fontSize: '60px', marginTop: '450px' }}>
                         {book.bookName}
                     </Typography>
@@ -218,7 +225,7 @@ const BookDetails = () => {
                     <div style={{ display: 'flex' }}>
                         <Box sx={{ mt: 4, marginLeft: '10px' }}>
                             {hasAccess ? (
-                                <Button variant="contained" color="primary" onClick={handleClick} style={{ background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)' }}>
+                                <Button variant="contained" color="primary" onClick={handleClick} style={buttonStyle}>
                                     Read
                                 </Button>
                             ) : (

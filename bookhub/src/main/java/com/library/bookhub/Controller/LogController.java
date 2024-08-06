@@ -1,11 +1,7 @@
 package com.library.bookhub.Controller;
-
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import com.library.bookhub.Domain.AuthDto;
 import com.library.bookhub.Domain.loginDto;
 import com.library.bookhub.Model.User;
@@ -23,9 +19,11 @@ public class LogController {
     private UserService userservice;
     @Autowired
     private JwtTokenUtil jwtTokenUtil; 
+
+
+    //To login
     @PostMapping("/login")
     public ResponseEntity<?> handleLogin(@RequestBody loginDto user) {     
-          
         int role = logService.CheckUser(user);
         if(role == -1 )
             return ResponseEntity.status(404).body("Email not found");
@@ -35,9 +33,7 @@ public class LogController {
             {
                 User u = userservice.findByUserEmail( user.getUserEmail());
                 int userid = u.getUserId();
-               
-                AuthDto a = new AuthDto();
-                
+                AuthDto a = new AuthDto();   
                 a.setUserId(userid);
                 a.setRoleId(role);
                 String token = jwtTokenUtil.generateToken(a);

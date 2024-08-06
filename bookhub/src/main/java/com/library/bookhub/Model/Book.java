@@ -46,9 +46,5 @@ public class Book {
 
     private String image;
 
-    public Book orElseThrow(Object object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
-    }
     
 }

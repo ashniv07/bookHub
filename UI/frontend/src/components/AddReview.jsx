@@ -85,7 +85,7 @@ const AddReview = ({ bookId }) => {
               {error}
             </Typography>
           )}
-          <Button variant="contained" color="primary" style={{background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)'}} onClick={handleSubmit} sx={{ mt: 2 }}>
+          <Button variant="contained" color="primary" style={{background: '#261709'}} onClick={handleSubmit} sx={{ mt: 2 }}>
             Submit
           </Button>
         </Box>

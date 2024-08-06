@@ -1,14 +1,9 @@
 package com.library.bookhub.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.library.bookhub.Model.Book;
 import com.library.bookhub.Model.Review;
-import com.library.bookhub.Repository.BookRepo;
 import com.library.bookhub.Repository.ReviewRepo;
 
 @Service
@@ -26,9 +21,12 @@ public class ReviewService {
             reviewRepository.save(review);
         }
 
+        
         public List<Review> getReviewsByBookId(int bookId) {
             return reviewRepository.findByBookId(bookId);
         }
+
+
         public double getAverageRating(int bookId) {
             List<Review> reviews = reviewRepository.findByBookId(bookId);
             if (reviews.isEmpty()) return 0;

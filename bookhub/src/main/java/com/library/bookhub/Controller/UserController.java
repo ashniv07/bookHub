@@ -1,5 +1,4 @@
 package com.library.bookhub.Controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +10,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.library.bookhub.Domain.PassDto;
 import com.library.bookhub.Domain.Userdto;
 import com.library.bookhub.Service.UserService;
 import com.library.bookhub.util.JwtTokenUtil;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-public class UserController {
 
+public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
@@ -37,7 +37,7 @@ public class UserController {
     }
 
 
-    //gettig user info
+    //getting user info
         @GetMapping("/userinfo")
     public ResponseEntity<?> getAllVehicles(@RequestHeader(value = "Authorization", required = false) String token) {
         if (token == null || !token.startsWith("Bearer ")) {
@@ -54,6 +54,7 @@ public class UserController {
         else
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Doesn't have access to the resource");        
     }
+
 
      // Updating user info
      @PatchMapping("/updateUser")
@@ -73,6 +74,17 @@ public class UserController {
              return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
          }
      }
+
+     @PostMapping("/change-password")
+public ResponseEntity<String> changePassword(@RequestBody PassDto passdto) {
+    try {
+        userService.setPassword(passdto.getUserId(), passdto.getOldPassword(), passdto.getNewPassword());
+        return ResponseEntity.ok("Password changed successfully");
+    } catch (IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+}
+
 
      
  }
