@@ -106,7 +106,7 @@ const UserDashboard = () => {
     color: 'white',
     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
     marginLeft: '55px',
-    marginTop: '20px',
+    marginTop: '10px',
     display: 'flex',
     alignItems: 'center',
     "fontFamily": `"Roboto"`,
@@ -117,8 +117,8 @@ const UserDashboard = () => {
   const bookTitleStyle = {
     fontSize: '25px',
     fontWeight: 'bold',
-    marginLeft: '60px',
-    marginTop: '20px',
+    marginLeft: '40px',
+    marginTop: '10px',
     color: '#f8f3ed',
     textShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)',
     display: 'flex',
@@ -186,7 +186,7 @@ const UserDashboard = () => {
             {featuredBook ? (
               <>
                 <h1 style={headingstyle}>Explore &nbsp;Our&nbsp; Latest<br/>Book &nbsp;Arrived!</h1>
-                <h1 style={bookTitleStyle}> - <b>"{featuredBook.bookName}" </b> &nbsp;by {featuredBook.author}</h1>
+                <h1 style={bookTitleStyle}> - "{featuredBook.bookName}" by {featuredBook.author}</h1>
                 <button  onClick={() => handleClick(featuredBook.bookId)} style={{width:"20%",marginTop:'20px',marginLeft:'65px',borderRadius:'10px',padding:"3px",  background: 'linear-gradient(to top, #261709 0%, white 100%)',color:"white",fontWeight:'bold'
 }}>Explore</button>
               </>

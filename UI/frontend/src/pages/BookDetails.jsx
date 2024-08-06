@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from '../setupAxios';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -7,24 +6,15 @@ import { Container, Box, Typography, Button, CircularProgress, CardMedia } from 
 import Appbar from '../components/Appbar';
 import ToBeRead from '../components/ToBeRead';
 import AddReview from '../components/AddReview';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Star, StarBorder } from '@mui/icons-material';
 
 // Inline CSS for Star Rating
 const starRatingStyle = {
     display: 'flex',
-    fontSize: '2rem',
+    fontSize: '1.5rem',
     color: 'gold',
-};
-
-const starStyle = {
-    marginRight: '0.2rem',
-};
-
-const filledStarStyle = {
-    color: 'gold',
-};
-
-const emptyStarStyle = {
-    color: 'lightgray',
 };
 
 const BookDetails = () => {
@@ -36,11 +26,11 @@ const BookDetails = () => {
     const [userId, setUserId] = useState(null);
     const [averageRating, setAverageRating] = useState(0);
     const [showFullDescription, setShowFullDescription] = useState(false);
+    const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
         const fetchBook = async () => {
             try {
-                console.log(`Fetching book with ID: ${id}`);
                 const response = await axios.get(`/book/${id}`);
                 setBook(response.data);
             } catch (error) {
@@ -106,25 +96,44 @@ const BookDetails = () => {
         }
     }, [id]);
 
+    useEffect(() => {
+        const fetchReviews = async () => {
+            try {
+                const response = await axios.get(`/review/${id}`);
+                setReviews(response.data);
+            } catch (error) {
+                console.error("Error fetching reviews:", error);
+            }
+        };
+
+        if (id) {
+            fetchReviews();
+        }
+    }, [id]);
+
     const handleClick = () => {
         if (book && book.url) {
             navigate(`/read/${book.bookId}`);
         } else {
-            console.error("Book URL not available");
+            toast.error("Book URL not available");
         }
+    };
+
+    const handleBorrowSuccess = () => {
+        toast.success("Successfully borrowed the book!");
+    };
+
+    const handleBorrowFailure = () => {
+        toast.error("Failed to borrow the book. Please try again.");
     };
 
     const renderStars = (rating) => {
         return Array(5).fill(false).map((_, index) => (
-            <span
-                key={index}
-                style={{
-                    ...starStyle,
-                    ...(index < rating ? filledStarStyle : emptyStarStyle),
-                }}
-            >
-                {index < rating ? '★' : '☆'}
-            </span>
+            index < rating ? (
+                <Star key={index} sx={{ color: 'gold', fontSize: '2rem', marginRight: '0.2rem' }} />
+            ) : (
+                <StarBorder key={index} sx={{ color: 'lightgray', fontSize: '2rem', marginRight: '0.2rem' }} />
+            )
         ));
     };
 
@@ -147,7 +156,7 @@ const BookDetails = () => {
                 <Box
                     sx={{
                         flex: '0 0 30%',
-                        background: 'linear-gradient(91.7deg, #fdfcfb 0%, #e2d1c3 100%)',
+                        background: 'linear-gradient(to top, #704C2A 0%, #261709 50%)',                        
                         position: 'relative'
                     }}
                 >
@@ -180,14 +189,14 @@ const BookDetails = () => {
                         overflow: 'auto',
                     }}
                 >
-                    <Typography variant="h3" fontWeight="bold" gutterBottom sx={{ color: '#1f1e2c', fontSize: '60px' }}>
+                    <Typography variant="h3" fontWeight="bold" gutterBottom sx={{ color: '#1f1e2c', fontSize: '60px', marginTop: '450px' }}>
                         {book.bookName}
                     </Typography>
                     <Typography variant="h6" fontStyle="italic" color="text.secondary" sx={{ fontSize: '30px', marginLeft: '10px' }}>
                         by {book.author}
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, marginLeft: '10px' }}>
-                        <Box sx={{ ...starRatingStyle }}>
+                        <Box sx={starRatingStyle}>
                             {renderStars(Math.round(averageRating))}
                         </Box>
                         <Box sx={{ ml: 2 }}>
@@ -212,13 +221,48 @@ const BookDetails = () => {
                                     Read
                                 </Button>
                             ) : (
-                                <BorrowButton bookId={book.bookId} />
+                                <BorrowButton 
+                                    bookId={book.bookId}
+                                    onFailure={handleBorrowFailure}
+                                />
                             )}
                         </Box>
                         <div style={{ marginTop: '32px', marginLeft: '20px' }}>
                             <ToBeRead bookName={book.bookName} />
                         </div>
                     </div>
+                    <Box sx={{ mt: 4, mb: 3 }}>
+                        <hr />
+                        <Typography variant="h5" fontWeight="bold" sx={{ mt: 5, mb: 2 }}>
+                            Reviews
+                        </Typography>
+                        {reviews.length > 0 ? (
+                            reviews.map((review, index) => (
+                                <Box
+                                    key={index}
+                                    sx={{
+                                        background: '#f5f5f5',
+                                        p: 2,
+                                        mb: 2,
+                                        borderRadius: '8px',
+                                        boxShadow: '0px 2px 5px rgba(0,0,0,0.1)',
+                                    }}
+                                >
+                                    <Typography variant="h6" fontWeight="bold">
+                                        {review.userName}
+                                    </Typography>
+                                    <Typography variant="body1">
+                                        {review.comment}
+                                    </Typography>
+                                </Box>
+                            ))
+                        ) : (
+                            <Typography variant="body1" color="text.secondary">
+                                No reviews yet.
+                            </Typography>
+                        )}
+                    </Box>
+                    <ToastContainer />
                 </Box>
             </Box>
         </div>
@@ -229,35 +273,15 @@ export default BookDetails;
 
 
 // import React, { useEffect, useState } from 'react';
-// import axios from '../setupAxios';
+// import axios from '../setupAxios'; // Adjust the import if necessary
 // import { useParams, useNavigate } from 'react-router-dom';
-// import BorrowButton from '../components/BorrowButton';
 // import { Container, Box, Typography, Button, CircularProgress, CardMedia } from '@mui/material';
-// import Appbar from '../components/Appbar';
-// import ToBeRead from '../components/ToBeRead';
-// import AddReview from '../components/AddReview';
+// import Appbar from '../components/Appbar'; // Import your Appbar component
+// import ToBeRead from '../components/ToBeRead'; // Import your ToBeRead component
+// import AddReview from '../components/AddReview'; // Import your AddReview component
 // import { toast, ToastContainer } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-// import Lottie from 'react-lottie';
-// import * as owlAnimation from '../assets/owl.json'; // Replace with the path to your Lottie file
-
-// const starRatingStyle = {
-//     display: 'flex',
-//     fontSize: '2rem',
-//     color: 'gold',
-// };
-
-// const starStyle = {
-//     marginRight: '0.2rem',
-// };
-
-// const filledStarStyle = {
-//     color: 'gold',
-// };
-
-// const emptyStarStyle = {
-//     color: 'lightgray',
-// };
+// import Lottie from 'lottie-react';
+// import owlAnimation from '../assets/owl.json'; // Ensure this path is correct
 
 // const BookDetails = () => {
 //     const { id } = useParams();
@@ -268,14 +292,11 @@ export default BookDetails;
 //     const [userId, setUserId] = useState(null);
 //     const [averageRating, setAverageRating] = useState(0);
 //     const [showFullDescription, setShowFullDescription] = useState(false);
-//     const [buttonText, setButtonText] = useState('Borrow');
-//     const [hasRequested, setHasRequested] = useState(false);
-//     const [accessCutDate, setAccessCutDate] = useState('');
+//     const [requestStatus, setRequestStatus] = useState('notRequested'); // Track the request status
 
 //     useEffect(() => {
 //         const fetchBook = async () => {
 //             try {
-//                 console.log(`Fetching book with ID: ${id}`);
 //                 const response = await axios.get(`/book/${id}`);
 //                 setBook(response.data);
 //             } catch (error) {
@@ -284,8 +305,6 @@ export default BookDetails;
 //                 setLoading(false);
 //             }
 //         };
-        
-            
 
 //         const getUserIdFromToken = () => {
 //             const token = localStorage.getItem('token');
@@ -312,19 +331,24 @@ export default BookDetails;
 //     }, [id]);
 
 //     useEffect(() => {
-//         const checkAccess = async () => {
+//         const checkAccessAndStatus = async () => {
 //             try {
-//                 if (userId) {
-//                     const response = await axios.get(`/borrow/check-access/${userId}/${id}`);
-//                     setHasAccess(response.data.hasAccess);
+//                 if (userId && id) {
+//                     // Check if user has access to the book
+//                     const accessResponse = await axios.get(`/borrow/check-access/${userId}/${id}`);
+//                     setHasAccess(accessResponse.data.hasAccess);
+
+//                     // Check the borrow request status
+//                     const statusResponse = await axios.get(`/borrow/status/${id}/${userId}`);
+//                     setRequestStatus(statusResponse.data.status);
 //                 }
 //             } catch (error) {
-//                 console.error("Error checking access:", error);
+//                 console.error("Error checking access and request status:", error);
 //             }
 //         };
 
 //         if (id && userId) {
-//             checkAccess();
+//             checkAccessAndStatus();
 //         }
 //     }, [id, userId]);
 
@@ -344,105 +368,45 @@ export default BookDetails;
 //     }, [id]);
 
 //     const handleClick = () => {
-//                     if (book && book.url) {
-//                         navigate(`/read/${book.bookId}`);
-//                     } else {
-//                         console.error("Book URL not available");
-//                     }
-//                 };
-
-//     useEffect(() => {
-//         const fetchBorrowStatus = async () => {
-//             try {
-//                 const response = await axios.get(`/borrow/status/${userId}/${id}`);
-//                 if (response.data.status === 'requested') {
-//                     setButtonText('Requested');
-//                     setHasRequested(true);
-//                 } else if (response.data.status === 'approved') {
-//                     setButtonText('Read');
-//                     setAccessCutDate(response.data.accessCutDate);
-//                 }
-//             } catch (error) {
-//                 console.error('Error fetching borrow status:', error);
-//             }
-//         };
-
-//         if (userId && id) {
-//             fetchBorrowStatus();
+//         if (book && book.url) {
+//             navigate(`/read/${book.bookId}`);
+//         } else {
+//             console.error("Book URL not available");
 //         }
-//     }, [userId, id]);
-
-//     useEffect(() => {
-//         const interval = setInterval(async () => {
-//             if (hasRequested) {
-//                 try {
-//                     const response = await axios.get(`/borrow/status/${userId}/${id}`);
-//                     if (response.data.status === 'approved') {
-//                         setButtonText('Read');
-//                         setAccessCutDate(response.data.accessCutDate);
-//                         toast.update('borrow-request', {
-//                             render: `Enjoy reading, your access will be removed on ${response.data.accessCutDate}`,
-//                             type: toast.TYPE.SUCCESS,
-//                             autoClose: 5000,
-//                         });
-//                         clearInterval(interval);
-//                     }
-//                 } catch (error) {
-//                     console.error('Error checking borrow status:', error);
-//                 }
-//             }
-//         }, 5000);
-
-//         return () => clearInterval(interval);
-//     }, [hasRequested, userId, id]);
+//     };
 
 //     const handleBorrowClick = async () => {
-//         if (!userId) {
-//             console.error('User ID is missing');
-//             return;
-//         }
-
-//         if (!id) {
-//             console.error('Book ID is missing');
+//         if (!userId || !book.bookId) {
+//             console.error('User ID or Book ID is missing');
 //             return;
 //         }
 
 //         try {
-//             const response = await axios.post('/borrow/request', {
-//                 bookId: id,
+//             await axios.post('/borrow/request', {
+//                 bookId: book.bookId,
 //                 userId,
 //             });
-//             setButtonText('Requested');
-//             setHasRequested(true);
+
 //             toast.info(
-//                 <div>
+//                 <div style={{ display: 'flex', alignItems: 'center' }}>
 //                     <Lottie
-//                         options={{
-//                             loop: true,
-//                             autoplay: true,
-//                             animationData: owlAnimation.default,
-//                             rendererSettings: {
-//                                 preserveAspectRatio: 'xMidYMid slice',
-//                             },
-//                         }}
-//                         height={50}
-//                         width={50}
+//                         loop={true}
+//                         autoplay={true}
+//                         animationData={owlAnimation}
+//                         style={{ height: 50, width: 50 }}
 //                     />
-//                     Your borrow request has been sent! Your access to read will be granted upon approval.
+//                     <span style={{ marginLeft: 10 }}>
+//                         Your borrow request has been sent! Your access to read will be granted upon approval.
+//                     </span>
 //                 </div>,
-//                 {
-//                     position: "top-right",
-//                     autoClose: false,
-//                     hideProgressBar: true,
-//                     closeOnClick: true,
-//                     pauseOnHover: true,
-//                     draggable: true,
-//                     progress: undefined,
-//                     toastId: 'borrow-request'
-//                 }
+//                 { autoClose: 5000 }
 //             );
+
+//             // Update the request status to 'requested'
+//             setRequestStatus('requested');
 //         } catch (error) {
 //             console.error('Error sending borrow request:', error);
+//             toast.error('Failed to borrow the book. Please try again.');
 //         }
 //     };
 
@@ -451,8 +415,9 @@ export default BookDetails;
 //             <span
 //                 key={index}
 //                 style={{
-//                     ...starStyle,
-//                     ...(index < rating ? filledStarStyle : emptyStarStyle),
+//                     marginRight: '0.2rem',
+//                     fontSize: '2rem',
+//                     color: index < rating ? 'gold' : 'lightgray',
 //                 }}
 //             >
 //                 {index < rating ? '★' : '☆'}
@@ -472,18 +437,10 @@ export default BookDetails;
 
 //     if (!book) return <p>Book not found</p>;
 
-//     const buttonStyle = {
-//         background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)',
-//         color: 'white',
-//         border: 'none',
-//         padding: '14px 29px',
-//         fontSize: '16px',
-//         cursor: 'pointer',
-//     };
-
 //     return (
 //         <div>
 //             <Appbar />
+//             <ToastContainer />
 //             <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
 //                 <Box
 //                     sx={{
@@ -527,57 +484,57 @@ export default BookDetails;
 //                     <Typography variant="h6" fontStyle="italic" color="text.secondary" sx={{ fontSize: '30px', marginLeft: '10px' }}>
 //                         by {book.author}
 //                     </Typography>
-//                     <Box sx={starRatingStyle}>
-//                         {renderStars(Math.round(averageRating))}
+//                     <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, marginLeft: '10px' }}>
+//                         <Box sx={{ display: 'flex', fontSize: '2rem', color: 'gold' }}>
+//                             {renderStars(Math.round(averageRating))}
+//                         </Box>
+//                         <Box sx={{ ml: 2 }}>
+//                             <AddReview bookId={book.bookId} />
+//                         </Box>
 //                     </Box>
-//                     <Box>
-//                         <Typography
-//                             variant="body1"
-//                             color="text.primary"
-//                             sx={{
-//                                 fontSize: '20px',
-//                                 lineHeight: '1.6',
-//                                 textAlign: 'justify',
-//                                 marginTop: '20px'
-//                             }}
-//                         >
-//                             {showFullDescription || book.description.length <= 500
-//                                 ? book.description
-//                                 : `${book.description.substring(0, 500)}...`}
-//                         </Typography>
-//                         {book.description.length > 500 && (
-//                             <Button onClick={handleReadMore} variant="text" color="primary" sx={{ marginTop: '10px' }}>
-//                                 {showFullDescription ? 'Read Less' : 'Read More'}
-//                             </Button>
-//                         )}
-//                     </Box>
-//                     <Box display="flex" justifyContent="flex-start" marginTop="20px">
-//                         <Button
-//                             variant="contained"
-//                             onClick={handleBorrowClick}
-//                             style={buttonStyle}
-//                             disabled={buttonText === 'Requested'}
-//                         >
-//                             {buttonText}
-//                         </Button>
-//                         <Box sx={{ mt: 4, marginLeft: '10px' }}>
+//                     <Typography variant="body1" sx={{ mt: 1, marginLeft: '10px', marginBottom: '30px' }}>
+//                         <span style={{ textDecoration: 'underline' }}>#{book.genre}</span>
+//                     </Typography>
+//                     <Typography
+//                         variant="body1"
+//                         sx={{
+//                             mt: 2,
+//                             maxHeight: showFullDescription ? 'none' : '150px',
+//                             overflow: 'hidden',
+//                             textOverflow: 'ellipsis',
+//                         }}
+//                     >
+//                         {book.description}
+//                     </Typography>
+//                     <Button onClick={handleReadMore} sx={{ mt: 2 }}>
+//                         {showFullDescription ? 'Read Less' : 'Read More'}
+//                     </Button>
+//                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}>
+//                         <Box>
 //                             {hasAccess ? (
-//                                 <Button variant="contained" color="primary" onClick={handleClick} style={{ background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)' }}>
+//                                 <Button
+//                                     variant="contained"
+//                                     color="secondary"
+//                                     onClick={handleClick}
+//                                     style={{ background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)' }}
+//                                 >
 //                                     Read
 //                                 </Button>
 //                             ) : (
-//                                 <BorrowButton bookId={book.bookId} />
+//                                 <Button
+//                                     variant="contained"
+//                                     color="primary"
+//                                     onClick={handleBorrowClick}
+//                                     style={{ background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)' }}
+//                                 >
+//                                     {requestStatus === 'requested' ? 'Requested' : 'Borrow'}
+//                                 </Button>
 //                             )}
 //                         </Box>
-                        
-//                         <ToBeRead bookName={book.bookName} />
-//                     </Box>
-//                     <Box marginTop="30px">
-//                         <AddReview bookId={id} />
-//                     </Box>
+//                     </div>
 //                 </Box>
 //             </Box>
-//             <ToastContainer />
+//             <ToBeRead />
 //         </div>
 //     );
 // };

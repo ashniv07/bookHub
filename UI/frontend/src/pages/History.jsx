@@ -54,11 +54,11 @@ const textShadowStyle = {
 };
 const textShadowStyle1 = {
   textAlign: 'center',
-  fontSize: '2rem',
+  fontSize: '3rem',
   fontWeight: 'bold',
   color: '#fff',
-  marginTop: '160px',
-  marginLeft:'150px'
+  marginTop: '30px',
+  marginLeft:'50px'
 };
 const bookCardStyle = {
   backgroundColor: '#fff',
@@ -86,7 +86,7 @@ const featuredBookImgStyle = {
   height: '330px',
   borderRadius: '8px',
   objectFit: 'cover',
-  marginTop: '50px',
+  marginTop: '100px',
   marginLeft: 'auto'
 };
 

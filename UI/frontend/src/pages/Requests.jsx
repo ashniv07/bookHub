@@ -77,16 +77,16 @@
 // export default Requests;
 
 
-import { Container } from '@mui/material';
+import { Container, Button, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import axios from '../setupAxios';
 import Sidebar from '../components/Sidebar';
-import { Button } from '@mui/material';
 import { MdPendingActions } from "react-icons/md";
 
 const Requests = () => {
   const [pendingRequests, setPendingRequests] = useState([]);
   const [updateStatus, setUpdateStatus] = useState(null); // To track the update status
+  const [notificationStatus, setNotificationStatus] = useState(null); // To track notification status
 
   useEffect(() => {
     axios.get('/borrow/pending-requests')
@@ -94,12 +94,26 @@ const Requests = () => {
       .catch((error) => console.error('Error fetching pending requests:', error));
   }, [updateStatus]); // Dependency array updated to re-fetch on status change
 
-  const handleAccept = async (borrowId, userId, bookId) => {
+  const handleAccept = async (borrowId, userId, bookId, bookName) => {
     try {
+      // Accept the borrow request
       const response = await axios.patch(`/borrow/approve/${borrowId}`, { userId, bookId });
+      console.log(userId);
       setUpdateStatus(response.data.url); 
+  
+      // Send a notification
+      await axios.post('/notification/create', {
+        userId,
+        message: `Your request for the book "${bookName}" has been accepted! Go check it out!!`
+      });
+  
+      // Update the notification status
+      setNotificationStatus(`Notification sent for book "${bookName}"`);
     } catch (error) {
-      console.error('Error approving borrow request:', error);
+      // Log the full error response for debugging
+      console.error('Error approving borrow request:', error.response || error);
+      // Display a user-friendly message
+      setNotificationStatus('Failed to approve the borrow request. Please try again later.');
     }
   };
 
@@ -134,7 +148,7 @@ const Requests = () => {
                       <Button
                         variant="contained"
                         color={request.accessGranted ? "primary" : "success"}
-                        onClick={() => handleAccept(request.borrowId, request.userId, request.bookId)}
+                        onClick={() => handleAccept(request.borrowId, request.userId, request.bookId, request.bookname)}
                       >
                         {request.accessGranted ? "Read" : "Accept"}
                       </Button>
@@ -145,9 +159,14 @@ const Requests = () => {
             </table>
           </div>
         )}
+        {notificationStatus && (
+          <div style={{ marginTop: '20px', textAlign: 'center' }}>
+            <Typography variant="h6" style={{ color: 'green' }}>{notificationStatus}</Typography>
+          </div>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default Requests;

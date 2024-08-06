@@ -13,6 +13,8 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/notification")
+@CrossOrigin(origins = "http://localhost:5173")
+
 public class NotificationController {
 
     @Autowired
@@ -35,7 +37,7 @@ public class NotificationController {
             if (jwtTokenUtil.isTokenExpired(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
             }
-            if (jwtTokenUtil.getRoleFromToken(token) == 1) {
+            if (jwtTokenUtil.getRoleFromToken(token) == 1 || jwtTokenUtil.getRoleFromToken(token) == 0) {
                 notifService.createNotification(notification.getUserId(), notification.getMessage());
                 return ResponseEntity.ok("Notification created successfully.");
             } else {
@@ -95,4 +97,55 @@ public class NotificationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error marking notification as read: " + e.getMessage());
         }
     }
+    @DeleteMapping("/delete/{notificationId}")
+    public ResponseEntity<String> deleteNotification(
+        @RequestHeader(value = "Authorization", required = false) String token,
+        @PathVariable int notificationId
+    ) {
+        try {
+            if (token == null || !token.startsWith("Bearer ")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is missing or invalid");
+            }
+            token = token.substring(7);
+            if (jwtTokenUtil.isTokenExpired(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
+            }
+            if (jwtTokenUtil.getRoleFromToken(token) == 1) {
+                notifService.deleteNotification(notificationId);
+                return ResponseEntity.ok("Notification deleted successfully.");
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to delete notification");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting notification: " + e.getMessage());
+        }
+    }
+    @PostMapping("/notify-newsletter/{bookId}")
+    public ResponseEntity<String> notifyNewsletter(
+        @RequestHeader(value = "Authorization", required = false) String token,
+        @PathVariable int bookId
+    ) {
+        try {
+            if (token == null || !token.startsWith("Bearer ")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is missing or invalid");
+            }
+            token = token.substring(7);
+            if (jwtTokenUtil.isTokenExpired(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
+            }
+            if (jwtTokenUtil.getRoleFromToken(token) == 1 ||jwtTokenUtil.getRoleFromToken(token) == 0) {
+                boolean isNotified = notifService.notifyBookRemoval(bookId);
+        if (isNotified) {
+            return ResponseEntity.ok("Notification sent to the newsletter about the book removal.");
+        } else {
+            return ResponseEntity.status(500).body("Failed to notify the newsletter.");
+        }
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Don't have permission to delete notification");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting notification: " + e.getMessage());
+        }
+    }
 }
+

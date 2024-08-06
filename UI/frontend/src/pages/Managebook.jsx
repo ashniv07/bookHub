@@ -295,6 +295,19 @@ const Managebook = () => {
         }
     };
 
+    const handleNotify = async (bookId) => {
+        try {
+            const response = await axios.post(`/notification/notify-newsletter/${bookId}`);
+            if (response.data.success) {
+                alert('Notification sent to the newsletter!');
+            } else {
+                alert('Failed to notify the newsletter.');
+            }
+        } catch (error) {
+            console.error('Error notifying newsletter:', error.message);
+        }
+    };
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -363,6 +376,7 @@ const Managebook = () => {
                                     <th style={{ padding: '10px' }}>Pdf</th>
                                     <th style={{ padding: '10px' }}>Edit</th>
                                     <th style={{ padding: '10px' }}>Delete</th>
+                                    <th style={{ padding: '10px' }}>Notify</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -413,6 +427,15 @@ const Managebook = () => {
                                                 Delete
                                             </Button>
                                         </td>
+                                        <td style={{ padding: '10px' }}>
+                                            <Button
+                                                variant="contained"
+                                                color="info"
+                                                onClick={() => handleNotify(book.bookId)}
+                                            >
+                                                Notify
+                                            </Button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -437,7 +460,7 @@ const Managebook = () => {
                     <TextField
                         margin="dense"
                         name="author"
-                        label="Author"
+                        label="Author Name"
                         type="text"
                         fullWidth
                         value={updatedBook.author || ''}
@@ -476,9 +499,16 @@ const Managebook = () => {
                         label="Description"
                         type="text"
                         fullWidth
-                        multiline
-                        rows={4}
                         value={updatedBook.description || ''}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        margin="dense"
+                        name="image"
+                        label="Image URL"
+                        type="text"
+                        fullWidth
+                        value={updatedBook.image || ''}
                         onChange={handleChange}
                     />
                     <TextField
@@ -492,12 +522,8 @@ const Managebook = () => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleSave} color="primary">
-                        Save
-                    </Button>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleSave}>Save</Button>
                 </DialogActions>
             </Dialog>
         </div>

@@ -118,6 +118,7 @@ import axios from '../setupAxios';
 import SuggestBook from '../components/SuggestBook';
 import Newsletter from '../components/Newsletter';
 import '../styles/genre.css';
+import Notifications from '../components/Notification';
 
 const Allbooks = () => {
   const { genre } = useParams();
@@ -161,6 +162,7 @@ const Allbooks = () => {
   return (
     <div style={{ minHeight: '200vh', marginBottom: '20px', background: '#f8f3ed' }}>
       <Appbar />
+      <Notifications/>
       <div className="header-content text-center">
         <h1 style={{ marginTop: '200px',fontSize:'75px',fontFamily:'revert' }}>The world's destination <br/> for e-books</h1>
         <h5 style={{ marginTop: '50px' ,fontSize:'25px',fontFamily:'sans-serif'}}>

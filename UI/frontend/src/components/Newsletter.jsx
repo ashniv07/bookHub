@@ -1,11 +1,27 @@
-import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Dialog, DialogContent, DialogTitle, IconButton, Typography, Button, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Lottie from 'react-lottie';
 import animationData from '../assets/owl.json'; // Ensure the path is correct
+import axios from '../setupAxios'; // Adjust the import path as needed
 
 const Newsletter = () => {
   const [open, setOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    // Fetch the latest notifications when the component mounts
+    const fetchNotifications = async () => {
+      try {
+        const response = await axios.get('/book/latest'); // Adjust this endpoint if you return multiple notifications
+        setNotifications([response.data]); // Wrap the single response in an array for now
+      } catch (error) {
+        console.error('Error fetching latest notifications:', error);
+      }
+    };
+
+    fetchNotifications();
+  }, []); // Empty dependency array ensures this runs once when component mounts
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,34 +42,53 @@ const Newsletter = () => {
 
   return (
     <div>
-      <button onClick={handleClickOpen} style={{ position: 'fixed', top: '100px', right: '40px', background: '#4c3228', color: 'white', padding: '10px', borderRadius: '50%', zIndex: 1000,fontWeight:"bold" }}>
+      <button onClick={handleClickOpen} style={{ position: 'fixed', top: '100px', right: '40px', background: '#4c3228', color: 'white', padding: '10px', borderRadius: '50%', zIndex: 1000, fontWeight: 'bold' }}>
         Newsletter
       </button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>
+        <DialogTitle style={{ background: '#261709' }}>
           <IconButton
             edge="end"
             color="inherit"
             onClick={handleClose}
             aria-label="close"
+            style={{ color: 'white' }}
           >
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Lottie options={defaultOptions} height={200} width={200} />
+        <DialogContent style={{ background: '#261709' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#f8f3ed' }}>
+            <Lottie options={defaultOptions} height={150} width={200} />
             <div style={{
-              background: 'url(../assets/bookImage.png) no-repeat center center/cover', // Ensure the path is correct
+              background: '#f8f3ed',
               padding: '20px',
               borderRadius: '15px',
-              marginTop: '20px',
               width: '100%',
               maxWidth: '500px',
               textAlign: 'center',
             }}>
-              <h2>Latest News</h2>
-              <p>Here is the latest news of the website...</p>
+              <Typography variant="h6" gutterBottom>Latest News</Typography>
+              {notifications.length > 0 ? (
+                notifications.map((notification, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      background: '#fff',
+                      padding: '15px',
+                      marginBottom: '10px',
+                      borderRadius: '10px',
+                      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)'
+                    }}
+                  >
+                    <Typography variant="h6">{notification.bookName}</Typography>
+                    <Typography variant="body1">by {notification.author} has been added! Check it out.</Typography>
+                  </Box>
+                ))
+              ) : (
+                <p>Loading latest notifications...</p>
+              )}
+             
             </div>
           </div>
         </DialogContent>
