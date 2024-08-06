@@ -73,7 +73,7 @@ const BorrowButton = ({ bookId, onSuccess, onFailure }) => {
     };
 
     const buttonStyle = {
-        background: 'linear-gradient(91.7deg, rgb(50, 25, 79) -4.3%, rgb(122, 101, 149) 101.8%)',
+        background: '#261709',
         color: 'white',
         border: 'none',
         padding: '14px 29px', // Adjust padding for size

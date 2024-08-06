@@ -5,9 +5,17 @@ import {FaSignOutAlt} from "react-icons/fa"
 import { IoPeople } from "react-icons/io5";
 import { GiBookshelf } from "react-icons/gi";
 import { MdDelete } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
- 
+
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/logandreg');
+  };
+
   return (
     <div className="text-white vh-100 d-flex flex-column p-3" style={{ width: '200px',backgroundColor:'#261709',height:'100vh',position: 'fixed',overflowY: 'auto'}}>
       <h2 className="text-center mt-3 mb-5">BookHub</h2>
@@ -48,7 +56,7 @@ const Sidebar = () => {
           </a>
         </li> 
         <li className="nav-item mt-auto">
-          <a href="#" className="nav-link text-white" style={{ transition: 'background-color 0.3s', backgroundColor: 'transparent' }}
+          <a onClick={handleLogout} className="nav-link text-white" style={{ transition: 'background-color 0.3s', backgroundColor: 'transparent' }}
             onMouseEnter={(e) => e.currentTarget.classList.add('bg-secondary')}
             onMouseLeave={(e) => e.currentTarget.classList.remove('bg-secondary')}>
             <FaSignOutAlt className="me-2" /> Logout

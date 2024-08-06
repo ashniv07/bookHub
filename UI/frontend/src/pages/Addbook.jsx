@@ -274,7 +274,7 @@ const Addbook = () => {
                             <Form.Control id="url" name='url' type="text" placeholder="Book PDF" required className="rounded-md" />
                         </Form.Group>
                         <Button type="submit" className="bg-purple-600 text-white px-5 py-2 hover:bg-purple-500 rounded mt-4"
-                        style={{ fontSize: '14px', fontWeight: 'bold', display: 'block', margin: '0 auto' }} >
+                        style={{ fontSize: '14px', fontWeight: 'bold', display: 'block', margin: '0 auto',background:'#261709' }} >
                         Add
                       </Button>       
                     </Form>

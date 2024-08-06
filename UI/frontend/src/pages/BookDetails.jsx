@@ -182,14 +182,15 @@ const BookDetails = () => {
                         flex: '1',
                         background: 'white',
                         p: 22,
-                        pt: 30,
+                        pt: 15,
+                        
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
                         overflow: 'auto',
                     }}
                 >
-                    <Typography variant="h3" fontWeight="bold" gutterBottom sx={{ color: '#1f1e2c', fontSize: '60px', marginTop: '450px' }}>
+                    <Typography variant="h3" fontWeight="bold" gutterBottom sx={{ color: '#1f1e2c', fontSize: '60px', marginTop: '450px', }}>
                         {book.bookName}
                     </Typography>
                     <Typography variant="h6" fontStyle="italic" color="text.secondary" sx={{ fontSize: '30px', marginLeft: '10px' }}>

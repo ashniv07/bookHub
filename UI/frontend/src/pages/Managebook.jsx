@@ -384,7 +384,6 @@ const Managebook = () => {
                         />
                         <TextField
                             select
-                            label="Filter by Genre"
                             value={filterGenre}
                             onChange={(e) => setFilterGenre(e.target.value)}
                             SelectProps={{
