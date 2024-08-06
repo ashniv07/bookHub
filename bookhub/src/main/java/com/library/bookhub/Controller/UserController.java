@@ -1,14 +1,19 @@
 package com.library.bookhub.Controller;
 
-import com.library.bookhub.Domain.Userdto;
-import com.library.bookhub.Model.User;
-import com.library.bookhub.Service.UserService;
-import com.library.bookhub.util.JwtTokenUtil;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.library.bookhub.Domain.Userdto;
+import com.library.bookhub.Service.UserService;
+import com.library.bookhub.util.JwtTokenUtil;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
@@ -50,5 +55,26 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Doesn't have access to the resource");        
     }
 
+     // Updating user info
+     @PatchMapping("/updateUser")
+     public ResponseEntity<String> updateUser(@RequestHeader(value = "Authorization", required = false) String token, @RequestBody Userdto user) {
+         if (token == null || !token.startsWith("Bearer ")) {
+             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is missing or invalid");
+         }
+         token = token.substring(7);
+         if (jwtTokenUtil.isTokenExpired(token)) {
+             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token has expired. Please log in again.");
+         }
+         try {
+             int userId = jwtTokenUtil.getUserIdFromToken(token);
+             userService.updateUser(userId, user.getUserName(), user.getUserEmail(), user.getPassword());
+             return ResponseEntity.ok("User updated successfully");
+         } catch (IllegalArgumentException e) {
+             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+         }
+     }
 
-}
+     
+ }
+
+

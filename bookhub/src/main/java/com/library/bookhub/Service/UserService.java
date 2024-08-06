@@ -1,13 +1,14 @@
 package com.library.bookhub.Service;
 
-import com.library.bookhub.Domain.Userdto;
-import com.library.bookhub.Model.User;
-import com.library.bookhub.Repository.UserRepo;
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import com.library.bookhub.Domain.Userdto;
+import com.library.bookhub.Model.User;
+import com.library.bookhub.Repository.UserRepo;
 
 @Service
 public class UserService {
@@ -50,7 +51,8 @@ public class UserService {
         return userRepo.findByUserEmail(userEmail);
     }
 
-    public User updateUser(int userId, String newUserName, String newUserEmail, String newPassword) {
+     // Updating user details
+     public User updateUser(int userId, String newUserName, String newUserEmail, String newPassword) {
         User user = userRepo.findByUserId(userId);
         if (user == null) {
             throw new IllegalArgumentException("User not found");
@@ -66,5 +68,7 @@ public class UserService {
         }
         return userRepo.save(user);
     }
+
+
 }
 
