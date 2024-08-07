@@ -12,16 +12,7 @@ import book2 from '../assets/book2.jpg';
 import book3 from '../assets/book3.jpg';
 import book4 from '../assets/book4.jpg';
 import book5 from '../assets/book5.jpg';
-// import book6 from '../assets/book6.jpg';
-// import book7 from '../assets/book7.jpg';
-// import book8 from '../assets/book8.jpg';
-// import book9 from '../assets/book9.jpg';
-// import book10 from '../assets/book10.jpg';
-// import book11 from '../assets/book11.jpg';
-// import book12 from '../assets/book12.jpg';
-// import book13 from '../assets/book13.jpg';
-// import book14 from '../assets/book14.jpg';
-// import book15 from '../assets/book15.jpg';
+
 
 function BookCaro() {
   const containerStyle = {

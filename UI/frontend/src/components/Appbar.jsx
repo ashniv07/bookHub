@@ -7,8 +7,6 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import logo from '../assets/logo.png'
 
-// Ensure this font is imported in your main HTML or CSS
-// <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap">
 
 export default function Appbar() {
   const navigate = useNavigate();
@@ -22,21 +20,6 @@ export default function Appbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ width: '100%', backgroundColor: '#261709', padding: '10px' }}>
         <Toolbar variant="dense">
-          {/* Left Side "BookHub" */}
-          {/* <Typography
-            variant="h6"
-            component="div"
-            sx={{
-              flexGrow: 1,
-              color: '#1f1e2c',
-              fontFamily: "'Playfair Display', serif", 
-              fontWeight: 'bold',
-              textAlign: 'left',
-              fontSize: '2rem' 
-            }}
-          >
-            BookHub
-          </Typography> */}
            <img 
         src={logo}
         alt="BookHub Logo" 
@@ -56,7 +39,6 @@ export default function Appbar() {
         BookHub
       </Typography>
 
-          {/* Right Side Buttons */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 5 }}>
             <Button
               sx={{

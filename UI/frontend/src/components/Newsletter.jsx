@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogTitle, IconButton, Typography, Button, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Lottie from 'react-lottie';
-import animationData from '../assets/owl.json'; // Ensure the path is correct
-import axios from '../setupAxios'; // Adjust the import path as needed
+import animationData from '../assets/owl.json'; 
+import axios from '../setupAxios'; 
 
 const Newsletter = () => {
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    // Fetch the latest notifications when the component mounts
+    
     const fetchNotifications = async () => {
       try {
         const response = await axios.get('/book/latest'); // Adjust this endpoint if you return multiple notifications
@@ -21,7 +21,7 @@ const Newsletter = () => {
     };
 
     fetchNotifications();
-  }, []); // Empty dependency array ensures this runs once when component mounts
+  }, []); 
 
   const handleClickOpen = () => {
     setOpen(true);

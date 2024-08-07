@@ -39,17 +39,17 @@ export default function AboutUsCards() {
       <AboutUsCard
         title="Our Mission"
         description="Our mission is to make literature accessible to everyone, everywhere. Join us on our journey to promote literacy and foster a love for reading in our community."
-        buttonText="Learn More"
+        
       />
       <AboutUsCard
         title="Our Collection"
         description="Explore our vast collection of books, ranging from the latest bestsellers to timeless classics and educational materials. There's something for every reader."
-        buttonText="Browse Books"
+        
       />
       <AboutUsCard
         title="Join Us"
         description="Become a member of our e-library today and gain access to a world of knowledge. Enjoy reading books online and borrowing them at your convenience."
-        buttonText="Sign Up"
+       
       />
     </Box>
   );

@@ -3,9 +3,8 @@ import axios from '../setupAxios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Lottie from 'react-lottie';
-import owlAnimation from '../assets/owl.json'; // Ensure this path is correct
+import owlAnimation from '../assets/owl.json'; 
 
-// Default Lottie options
 const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -48,14 +47,13 @@ const BorrowButton = ({ bookId, onSuccess, onFailure }) => {
                 userId,
             });
 
-            // Show success toast with Lottie animation
             toast.info(
                 <div style={{ textAlign: 'center' }}>
                     <Lottie
                         options={defaultOptions}
-                        height={100} // Adjust size as needed
-                        width={100} // Adjust size as needed
-                        style={{ marginBottom: 10 }} // Margin below the animation
+                        height={100} 
+                        width={100} 
+                        style={{ marginBottom: 10 }} 
                     />
                     <div>
                         Your borrow request has been sent! Your access to read will be granted upon approval.
@@ -65,10 +63,10 @@ const BorrowButton = ({ bookId, onSuccess, onFailure }) => {
             );
 
             console.log('Borrow request successful:', response.data);
-            if (onSuccess) onSuccess(); // Call success callback
+            if (onSuccess) onSuccess(); 
         } catch (error) {
             console.error('Error sending borrow request:', error);
-            if (onFailure) onFailure(); // Call failure callback
+            if (onFailure) onFailure(); 
         }
     };
 
@@ -76,7 +74,7 @@ const BorrowButton = ({ bookId, onSuccess, onFailure }) => {
         background: '#261709',
         color: 'white',
         border: 'none',
-        padding: '14px 29px', // Adjust padding for size
+        padding: '14px 29px', 
         fontSize: '16px',
     };
 

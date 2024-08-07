@@ -1,7 +1,7 @@
 import axios from 'axios';
  
 const instance = axios.create({
-    baseURL: 'http://localhost:8080', // Base URL for your API
+    baseURL: 'http://localhost:8080',
 });
  
 // Request interceptor to add token to headers
@@ -20,11 +20,9 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     (response) => response,
     (error) => {
-        // Handle specific errors here, e.g., token expiration
         if (error.response && error.response.status === 401) {
-            // Handle unauthorized errors (e.g., token expired)
             localStorage.removeItem('token');
-            window.location.href = '/logandreg  '; // Redirect to login page
+            window.location.href = '/logandreg  '; 
         }
         return Promise.reject(error);
     }

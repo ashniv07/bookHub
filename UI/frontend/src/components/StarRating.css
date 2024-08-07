@@ -1,18 +1,17 @@
-/* src/components/StarRating.css */
 .star-rating {
-    font-size: 1.5rem; /* Adjust the size of the stars */
-    color: gold; /* Color of the filled stars */
+    font-size: 1.5rem; 
+    color: gold; 
     display: flex;
 }
 
 .star {
-    margin-right: 0.2rem; /* Space between stars */
+    margin-right: 0.2rem; 
 }
 
 .star.filled {
-    color: gold; /* Color for filled stars */
+    color: gold; 
 }
 
 .star:not(.filled) {
-    color: lightgray; /* Color for empty stars */
+    color: lightgray; 
 }

@@ -1,4 +1,3 @@
-//npm i swiper
 
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -29,12 +28,7 @@ const author = [
   { id: 7, src: author7},
   { id: 8, src: author8 },
   { id: 9, src: author9 },
-//   { id: 10, src: book10 },
-//   { id: 11, src: book11 },
-//   { id: 12, src: book12 },
-//   { id: 13, src: book13 },
-//   { id: 14, src: book14 },
-//   { id: 15, src: book15 },
+
 ];
 
 const SlideContent = styled(Box)({

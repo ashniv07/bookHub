@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Popover, Typography, IconButton } from '@mui/material';
 import { FaBell } from 'react-icons/fa';
-import axios from '../setupAxios'; // Ensure this path is correct
+import axios from '../setupAxios';
 import CloseIcon from '@mui/icons-material/Close';
-import Lottie from 'lottie-react'; // Import Lottie component
-import animationData from '../assets/owl.json'; // Import your Lottie JSON file
+import Lottie from 'lottie-react'; 
+import animationData from '../assets/owl.json'; 
 
 const Notifications = () => {
     const [anchorEl, setAnchorEl] = useState(null);

@@ -20,7 +20,7 @@ const AddReview = ({ bookId }) => {
     }
 
     try {
-      const token = localStorage.getItem('token'); // Replace this with your actual method of getting the token
+      const token = localStorage.getItem('token'); 
       const response = await axios.post(
         '/review/add',
         { bookId, rating, comment: review },

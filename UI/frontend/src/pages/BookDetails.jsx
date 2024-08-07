@@ -19,7 +19,7 @@ const buttonStyle = {
     background: '#261709',
     color: 'white',
     border: 'none',
-    padding: '14px 29px', // Adjust padding for size
+    padding: '14px 29px', 
     fontSize: '16px',
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import axios from '../setupAxios'; // Adjust the path if necessary
+import { useNavigate } from 'react-router-dom'; 
+import axios from '../setupAxios'; 
 import Appbar from '../components/Appbar';
 import header from '../assets/Group 5.png'
 import HistoryB  from '../assets/h2.jfif';
@@ -65,14 +65,14 @@ const bookCardStyle = {
   borderRadius: '8px',
   boxShadow: '0 4px 8px #1f1e2c',
   textAlign: 'center',
-  width: '200px',  // Increased width
-  height: '310px', // Increased height
+  width: '200px',  
+  height: '310px', 
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   marginLeft: '10px',
-  cursor: 'pointer' // Add cursor pointer
+  cursor: 'pointer' 
 };
 
 const bookImgStyle = {
@@ -91,20 +91,20 @@ const featuredBookImgStyle = {
 };
 
 const bookCardTitleStyle = {
-  fontSize: '16px', // Adjusted font size
+  fontSize: '16px', 
   fontWeight: 'bold',
   margin: '10px 0'
 };
 
 const bookCardAuthorStyle = {
-  fontSize: '14px', // Adjusted font size
+  fontSize: '14px', 
   color: '#555'
 };
 
 const History = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -113,11 +113,9 @@ const History = () => {
         const userId = token ? JSON.parse(atob(token.split('.')[1])).userId : null;
 
         if (userId) {
-          // Fetch borrowed book IDs
           const response = await axios.get(`/history/user-books/${userId}`);
           const bookIds = response.data.map(book => book.bookId);
 
-          // Fetch detailed book information for each book ID
           const detailedBooksPromises = bookIds.map(bookId => 
             axios.get(`/book/${bookId}`)
           );
@@ -139,7 +137,7 @@ const History = () => {
   }, []);
 
   const handleBookClick = (bookId) => {
-    navigate(`/book/${bookId}`); // Navigate to the book detail page
+    navigate(`/book/${bookId}`); 
   };
 
   if (loading) {

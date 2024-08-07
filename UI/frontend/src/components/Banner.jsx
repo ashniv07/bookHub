@@ -15,13 +15,13 @@ const BannerContainer = styled(Box)({
   backgroundColor: colors.light,
   display: 'flex',
   alignItems: 'center',
-  width: 'calc(100% - 40px)', // Reduce the width to create space on the sides
+  width: 'calc(100% - 40px)', 
   padding: '40px 0',
   marginBottom: '30px',
   marginTop:'100px',
-  marginLeft: '20px', // Add margin to the left
-  marginRight: '20px', // Add margin to the right
-  borderRadius: '16px',  // Add borderRadius for rounded corners
+  marginLeft: '20px', 
+  marginRight: '20px', 
+  borderRadius: '16px',  
   boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.5)' 
 });
 

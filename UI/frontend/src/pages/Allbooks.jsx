@@ -73,7 +73,6 @@ const Allbooks = () => {
       <div className="container" style={{marginTop:'120px'}}>
         <div className="search-section text-center">
           <h3 style={{fontSize:'40px',marginBottom:'40px'}}><b>Explore  your next Favorite book</b></h3>
-          {/* <p>Find your next favorite book from our collection of books.</p> */}
 
           <input
             type="text"
